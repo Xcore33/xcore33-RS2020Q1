@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1440px;
+  margin: auto;
+  padding: 20px 15px;
+}
+
+.main-container {
+  padding-top: 55px;
+}
+
+.main-card.green {
+  background: linear-gradient(180deg,#0099ae,#00bf82 40%,#ffffff 0,#ffffff);
+}
+
+
+.main-card {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 280px;
+  margin: 20px 25px;
+
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
+  text-align: center;
+  color: #212529;
+  text-decoration: none;
+
+  background: linear-gradient(180deg,#fd6a63,#feb46b 40%,#ffffff 0,#ffffff);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  cursor: pointer;
+
+  transition: 0.3s;
+}
