@@ -20,9 +20,23 @@
 }
 
 .main-menu__item.interactive {
-  background: linear-gradient(180deg,#0099ae,#00bf82 40%,#ffffff 0,#ffffff);
+  background-image: url("assets/img/mainback.png");
 }
 
+a.main-menu__item {
+  text-decoration: none;
+  text-shadow: 1px 1px grey(44, 160, 160);
+  color: #d1994f;
+  bottom: -100px;
+  font-size: 24px;
+  line-height: 36px;
+  text-align: center;
+  font-weight: bold;
+}
+
+a.main-menu__item.main-menu__item.interactive {
+  color: #2196f3;
+}
 
 .main-menu__item {
   display: flex;
@@ -30,15 +44,9 @@
   width: 300px;
   height: 280px;
   margin: 20px;
-
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 36px;
-  text-align: center;
-  color: #212529;
-  text-decoration: none;
-
-  background: linear-gradient(180deg,#fd6a63,#feb46b 40%,#ffffff 0,#ffffff);
+  background-image: url("assets/img/mainbackgame.png");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
   border-radius: 5px;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
   cursor: pointer;
@@ -46,19 +54,24 @@
   transition: 0.3s;
 }
 
-.main-menu__item:hover {
-  box-shadow: 0 6px 25px rgba(0,0,0,0.4);
-}
-
-.main-menu__item img {
-  width: 140px;
-  height: 140px;
-  margin: 30px auto;
-
-  border: 10px solid #ffffff;
+.main-menu__item > img {
+  width: 43.335%;
+  height: 46.434%;
+  border: 5px solid #d1994f;
   border-radius: 50%;
 
   object-fit: cover;
+  margin-bottom: 18%;
+  margin-left: 36%;
+  margin-top: 17%;
+}
+
+.main-menu__item.interactive > img {
+  border: 5px solid #26b19e;
+}
+
+.main-menu__item:hover {
+  box-shadow: 0 6px 25px rgba(0,0,0,0.4);
 }
 
 .burger-menu {
@@ -70,7 +83,7 @@
 }
 
 .header-menu.interactive {
-  background: linear-gradient(40deg,#00bf82,#0099ae);
+  background: radial-gradient(circle, rgba(93,164,210,1) 0%, rgba(46,148,190,1) 47%, rgba(72,195,195,1) 98%);
 }
 
 .burger-menu,
@@ -95,7 +108,7 @@
 
   list-style-type: none;
 
-  background: linear-gradient(40deg,#ffd86f,#fc6262);
+  background: radial-gradient(circle, rgb(236, 143, 22) 0%, rgb(204, 172, 85) 47%, rgb(214, 223, 92) 98%);
   transform: translate(-100%);
 
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1);
@@ -217,7 +230,7 @@
 
   background-color: #ffffff;
   background-image: linear-gradient(180deg,#eeeeee,#ffffff 25px);
-  border-radius: 5px;
+  border-radius: 5%;
   box-shadow: inset 0 -1px #ffffff, inset 0 1px 1px rgba(0,0,0,0.05);
   cursor: pointer;
 }
@@ -241,11 +254,11 @@
   color: white;
   text-transform: uppercase;
 
-  background: linear-gradient(40deg,#00bf82,#0099ae);
+  background: radial-gradient(circle, rgba(93,164,210,1) 0%, rgba(46,148,190,1) 47%, rgba(72,195,195,1) 98%);
   border-radius: inherit;
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.12), inset 0 0 2px rgba(0,0,0,0.15);
 
-  transition: 0.15s ease-out;
+  transition: 0.3s ease-out;
 }
 
 .slider__label::before {
@@ -381,8 +394,7 @@
   background-repeat: no-repeat;
   background-position: center 16px;
   background-size: 32px;
-
-  transition: 0.3s;
+  transition: ease-in-out 1s;
 
   background-image: url('assets/img/refresh.png');
 }
@@ -390,6 +402,7 @@
 .scene__card_flip:hover {
   cursor: pointer;
   background-image: url('assets/img/refreshh.png');
+  transition: ease-in-out 0.5s;
 }
 
 .scene__card_back,
@@ -521,4 +534,19 @@
 .collapse {
   width: 0;
   height: 0;
+}
+
+@media (max-width: 360px) {
+
+.main-menu__item > img {
+  width: 36vw;
+  height: 36vw;
+  border: 5px solid #d1994f;
+  border-radius: 50%;
+
+  object-fit: cover;
+  margin-bottom: 20vw;
+  margin-left: 36%;
+  margin-top: 17%;
+}
 }
