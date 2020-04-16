@@ -64,8 +64,8 @@ document.querySelectorAll('.scene__card').forEach((key) => {
 });
 
 
-document.querySelectorAll('.header-menu__item').forEach((key) => {
-  key.addEventListener('click', (e) => {
+document.querySelectorAll('.header-menu__item').forEach((el) => {
+  el.addEventListener('click', (e) => {
     page = e.currentTarget.innerText;
     let i = 0;
     let j;
@@ -75,25 +75,25 @@ document.querySelectorAll('.header-menu__item').forEach((key) => {
       document.querySelectorAll('.scene__card_face').forEach((key) => {
         j = count[i];
         key.style.backgroundImage = cards[page][j].image;
-        i++;
+        i += 1;
       });
       i = 0;
       document.querySelectorAll('.scene__card_back').forEach((key) => {
         j = count[i];
         key.style.backgroundImage = cards[page][j].image;
-        i++;
+        i += 1;
       });
       i = 0;
       document.querySelectorAll('.look__header_front').forEach((key) => {
         j = count[i];
         key.innerHTML = cards[page][j].word;
-        i++;
+        i += 1;
       });
       i = 0;
       document.querySelectorAll('.look__header_back').forEach((key) => {
         j = count[i];
         key.innerHTML = cards[page][j].translation;
-        i++;
+        i += 1;
       });
       i = 0;
     } else if (e.currentTarget.innerHTML === document.querySelector('.header-menu__item').innerHTML) {
@@ -128,25 +128,25 @@ document.querySelectorAll('.main-menu__item').forEach((key) => {
     document.querySelectorAll('.scene__card_face').forEach((key) => {
       j = count[i];
       key.style.backgroundImage = cards[page][j].image;
-      i++;
+      i += 1;
     });
     i = 0;
     document.querySelectorAll('.scene__card_back').forEach((key) => {
       j = count[i];
       key.style.backgroundImage = cards[page][j].image;
-      i++;
+      i += 1;
     });
     i = 0;
     document.querySelectorAll('.look__header_front').forEach((key) => {
       j = count[i];
       key.innerText = cards[page][j].word;
-      i++;
+      i += 1;
     });
     i = 0;
     document.querySelectorAll('.look__header_back').forEach((key) => {
       j = count[i];
       key.innerText = cards[page][j].translation;
-      i++;
+      i += 1;
     });
     i = 0;
     document.querySelector('.active').classList.remove('active');
@@ -157,6 +157,94 @@ document.querySelectorAll('.main-menu__item').forEach((key) => {
     });
   });
 });
+
+document.querySelector('.starter__item').addEventListener('click', () => {
+  if (gameStart) {
+    for (let i = 0; i < 8; i += 1) {
+      sound.push(cards[page][count[i]].audioSRC);
+      cards.sound[cards[page][count[i]].audioSRC] = count[i];
+    }
+    shuffle(sound);
+    document.querySelector('.starter__item').classList.add('repeat');
+    document.querySelectorAll('.scene__card_face').forEach((key) => {
+      key.classList.add('front-play');
+    });
+    gameStart = false;
+  }
+  document.querySelector('.voice').src = sound[currentSound];
+});
+
+document.querySelectorAll('.scene__card_face').forEach((key) => {
+  let star;
+  key.addEventListener('click', (e) => {
+    if (e.currentTarget.classList.contains('front-play')) {
+      if (e.currentTarget.getAttribute('num') === cards.sound[sound[currentSound]]) {
+        star = document.createElement('div');
+        e.currentTarget.classList.add('inactive');
+        e.currentTarget.classList.remove('front-play');
+        document.querySelector('.voice').src = sound[currentSound + 1];
+        document.querySelector('.reaction').src = 'assets/audio/correct.mp3';
+        star.classList.add('star-success');
+        document.querySelector('.library_progress-bar').appendChild(star);
+        currentSound += 1;
+        correct += 1;
+        if (correct === 8) {
+          goBackToMain();
+        }
+      } else {
+        star = document.createElement('div');
+        document.querySelector('.reaction').src = 'assets/audio/error.mp3';
+        star.classList.add('star-error');
+        document.querySelector('.library_progress-bar').appendChild(star);
+        errors += 1;
+      }
+    }
+  });
+});
+
+function goBackToMain() {
+  document.querySelectorAll('.scene').forEach((key) => {
+    key.classList.add('hidden');
+  });
+  document.querySelector('.starter').classList.add('hidden');
+  document.querySelector('.library_progress-bar').classList.add('text');
+  document.querySelector('.header').classList.add('hidden');
+  if (errors === 0) {
+    document.body.classList.add('success');
+    setTimeout(() => {
+      document.body.classList.remove('success');
+    }, 3000);
+    document.querySelector('.library_progress-bar').innerHTML = 'win!';
+    document.querySelector('.reaction').src = 'assets/audio/success.mp3';
+  } else {
+    document.body.classList.add('failure');
+    setTimeout(() => {
+      document.body.classList.remove('failure');
+    }, 3000);
+    document.querySelector('.library_progress-bar').innerHTML = `${errors} errors`;
+    document.querySelector('.reaction').src = 'assets/audio/failure.mp3';
+  }
+  setTimeout(() => {
+    document.querySelector('.library_progress-bar').innerHTML = '';
+  }, 3000);
+  setTimeout(() => {
+    defaultRemove();
+    document.querySelectorAll('.scene').forEach((key) => {
+      key.classList.remove('hidden');
+    });
+    document.querySelector('.header').classList.remove('hidden');
+    document.querySelector('.library_progress-bar').classList.remove('text');
+    document.querySelector('.starter').classList.remove('hidden');
+    document.querySelector('.active').classList.remove('active');
+    document.querySelector('.header-menu__item').classList.add('active');
+    document.querySelector('.library').classList.add('hidden');
+    document.querySelector('.main-menu').classList.remove('hidden');
+
+    document.querySelectorAll('.scene__card_face').forEach((key) => {
+      key.classList.toggle('front-play');
+    });
+  }, 3000);
+}
 
 function defaultRemove() {
   document.querySelectorAll('.scene__card_face').forEach((key) => {
@@ -178,6 +266,22 @@ function defaultRemove() {
   currentSound = 0;
   errors = 0;
   cards.sound = {};
+}
+
+function shuffle(squareNumberay) {
+  let currentIndex = squareNumberay.length; let temporaryValue; let
+    randomIndex;
+  const numberArr = squareNumberay;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = squareNumberay[currentIndex];
+    numberArr[currentIndex] = squareNumberay[randomIndex];
+    numberArr[randomIndex] = temporaryValue;
+  }
+
+  return squareNumberay;
 }
 
 const count = ['first', 'second', 'third', 'fourth', 'fifes', 'six', 'sevens', 'eighth'];
