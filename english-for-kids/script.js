@@ -1,17 +1,25 @@
-let state = false;
-let play = false;
+let anchor = false;
 let sound = [];
 let page;
 let gameStart = true;
 let correct = 0;
 let currentSound = 0;
 let errors = 0;
+const burger = document.querySelector('.burger-menu');
+const header = document.querySelector('.header-menu');
+const flip = document.querySelectorAll('.scene__card_flip');
+const starter = document.querySelector('.starter__item');
+const mainMenu = document.querySelector('.main-menu');
+const library = document.querySelector('.library');
+const menuItem = document.querySelector('.header-menu__item');
+const cardFace = document.querySelectorAll('.scene__card_face');
 
 
 document.querySelector('.burger-menu__item').addEventListener('click', () => {
-  document.querySelector('.burger-menu').classList.toggle('burger-menu_active');
-  document.querySelector('.burger-menu').classList.contains('burger-menu_active');
-  document.querySelector('.header-menu').classList.toggle('_active');
+  burger.classList.toggle('burger-menu_active');
+  burger.classList.contains('burger-menu_active');
+  header.classList.toggle('_active');
+  document.addEventListener('click', onClick);
 });
 
 
@@ -22,16 +30,16 @@ document.querySelector('.slider__input').addEventListener('click', () => {
 });
 
 document.querySelector('.slider').addEventListener('mousedown', () => {
-  if (play) {
-    document.querySelectorAll('.scene__card_flip').forEach((key) => {
+  if (anchor) {
+    flip.forEach((key) => {
       key.classList.remove('collapse');
     });
-    play = false;
+    anchor = false;
   } else {
-    document.querySelectorAll('.scene__card_flip').forEach((key) => {
+    flip.forEach((key) => {
       key.classList.add('collapse');
     });
-    play = true;
+    anchor = true;
   }
   document.querySelectorAll('.main-menu__item').forEach((key) => {
     key.classList.toggle('interactive');
@@ -42,37 +50,22 @@ document.querySelector('.slider').addEventListener('mousedown', () => {
   document.querySelectorAll('.look__header').forEach((key) => {
     key.classList.toggle('hidden');
   });
-  document.querySelector('.starter__item').classList.toggle('invisibly');
-  document.querySelector('.header-menu').classList.toggle('interactive');
+  starter.classList.toggle('invisibly');
+  header.classList.toggle('interactive');
 });
 
 
-document.querySelectorAll('.scene__card_flip').forEach((key) => {
-  key.addEventListener('click', () => {
-    key.parentElement.classList.toggle('translate');
-    state = true;
-  });
-});
-
-document.querySelectorAll('.scene__card').forEach((key) => {
-  key.addEventListener('mouseout', () => {
-    if (state) {
-      key.classList.toggle('translate');
-      state = false;
-    }
-  });
-});
-
+flip.forEach((a) => a.addEventListener('click', flipCard));
 
 document.querySelectorAll('.header-menu__item').forEach((el) => {
   el.addEventListener('click', (e) => {
     page = e.currentTarget.innerText;
     let i = 0;
     let j;
-    if (!e.currentTarget.classList.contains('active') && e.currentTarget.innerHTML !== document.querySelector('.header-menu__item').innerHTML) {
-      document.querySelector('.library').classList.remove('hidden');
-      document.querySelector('.main-menu').classList.add('hidden');
-      document.querySelectorAll('.scene__card_face').forEach((key) => {
+    if (!e.currentTarget.classList.contains('active') && e.currentTarget.innerHTML !== menuItem.innerHTML) {
+      library.classList.remove('hidden');
+      mainMenu.classList.add('hidden');
+      cardFace.forEach((key) => {
         j = count[i];
         key.style.backgroundImage = cards[page][j].image;
         i += 1;
@@ -96,9 +89,9 @@ document.querySelectorAll('.header-menu__item').forEach((el) => {
         i += 1;
       });
       i = 0;
-    } else if (e.currentTarget.innerHTML === document.querySelector('.header-menu__item').innerHTML) {
-      document.querySelector('.library').classList.add('hidden');
-      document.querySelector('.main-menu').classList.remove('hidden');
+    } else if (e.currentTarget.innerHTML === menuItem.innerHTML) {
+      library.classList.add('hidden');
+      mainMenu.classList.remove('hidden');
     }
     defaultRemove();
     document.querySelector('.active').classList.remove('active');
@@ -107,10 +100,10 @@ document.querySelectorAll('.header-menu__item').forEach((el) => {
 });
 
 
-document.querySelectorAll('.scene__card_face').forEach((key) => {
+cardFace.forEach((key) => {
   let currentTarget;
   key.addEventListener('click', (e) => {
-    if (play === false) {
+    if (anchor === false) {
       currentTarget = cards[page][e.currentTarget.getAttribute('num')].audioSRC;
       document.querySelector('.voice').src = `${currentTarget}`;
     }
@@ -123,9 +116,9 @@ document.querySelectorAll('.main-menu__item').forEach((key) => {
     page = e.currentTarget.innerText;
     let i = 0;
     let j;
-    document.querySelector('.library').classList.remove('hidden');
-    document.querySelector('.main-menu').classList.add('hidden');
-    document.querySelectorAll('.scene__card_face').forEach((key) => {
+    library.classList.remove('hidden');
+    mainMenu.classList.add('hidden');
+    cardFace.forEach((key) => {
       j = count[i];
       key.style.backgroundImage = cards[page][j].image;
       i += 1;
@@ -158,15 +151,15 @@ document.querySelectorAll('.main-menu__item').forEach((key) => {
   });
 });
 
-document.querySelector('.starter__item').addEventListener('click', () => {
+starter.addEventListener('click', () => {
   if (gameStart) {
     for (let i = 0; i < 8; i += 1) {
       sound.push(cards[page][count[i]].audioSRC);
       cards.sound[cards[page][count[i]].audioSRC] = count[i];
     }
     shuffle(sound);
-    document.querySelector('.starter__item').classList.add('repeat');
-    document.querySelectorAll('.scene__card_face').forEach((key) => {
+    starter.classList.add('repeat');
+    cardFace.forEach((key) => {
       key.classList.add('front-play');
     });
     gameStart = false;
@@ -174,7 +167,7 @@ document.querySelector('.starter__item').addEventListener('click', () => {
   document.querySelector('.voice').src = sound[currentSound];
 });
 
-document.querySelectorAll('.scene__card_face').forEach((key) => {
+cardFace.forEach((key) => {
   let star;
   key.addEventListener('click', (e) => {
     if (e.currentTarget.classList.contains('front-play')) {
@@ -201,6 +194,30 @@ document.querySelectorAll('.scene__card_face').forEach((key) => {
     }
   });
 });
+
+function onClick(el) {
+  if (!el.target.closest('.burger-menu__item')) {
+    burger.classList.toggle('burger-menu_active');
+    header.classList.toggle('_active');
+    document.removeEventListener('click', onClick);
+  }
+}
+
+function flipCard(a) {
+  document.querySelectorAll('.scene__card')[+a.target.getAttribute('data-target')].classList.toggle('translate');
+  setTimeout(add, 700);
+}
+
+function add() {
+  document.addEventListener('mouseout', mouseOut);
+}
+
+function mouseOut(a) {
+  if (!a.target.closest('.look')) {
+    document.querySelector('.translate').classList.remove('translate');
+    document.removeEventListener('mouseout', mouseOut);
+  }
+}
 
 function goBackToMain() {
   document.querySelectorAll('.scene').forEach((key) => {
@@ -236,24 +253,24 @@ function goBackToMain() {
     document.querySelector('.library_progress-bar').classList.remove('text');
     document.querySelector('.starter').classList.remove('hidden');
     document.querySelector('.active').classList.remove('active');
-    document.querySelector('.header-menu__item').classList.add('active');
-    document.querySelector('.library').classList.add('hidden');
-    document.querySelector('.main-menu').classList.remove('hidden');
+    menuItem.classList.add('active');
+    library.classList.add('hidden');
+    mainMenu.classList.remove('hidden');
 
-    document.querySelectorAll('.scene__card_face').forEach((key) => {
+    cardFace.forEach((key) => {
       key.classList.toggle('front-play');
     });
   }, 3000);
 }
 
 function defaultRemove() {
-  document.querySelectorAll('.scene__card_face').forEach((key) => {
+  cardFace.forEach((key) => {
     key.classList.remove('front-play');
   });
   document.querySelectorAll('.inactive').forEach((key) => {
     key.classList.remove('inactive');
   });
-  document.querySelector('.starter__item').classList.remove('repeat');
+  starter.classList.remove('repeat');
   document.querySelectorAll('.star-success').forEach((key) => {
     key.remove();
   });
