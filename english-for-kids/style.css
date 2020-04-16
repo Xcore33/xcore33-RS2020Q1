@@ -217,6 +217,10 @@ a.main-menu__item.main-menu__item.interactive {
   transform: translate(0);
 }
 
+.header-menu {
+  margin-top: 0;
+}
+
 .slider {
   position: absolute;
   right: 0;
