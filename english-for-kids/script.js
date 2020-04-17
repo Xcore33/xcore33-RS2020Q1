@@ -172,9 +172,8 @@ cardFace.forEach((key) => {
 
 function onClick(el) {
   if (!el.target.closest('.burger-menu__item')) {
-    burger.classList.toggle('burger-menu_active');
-    header.classList.toggle('_active');
-    document.removeEventListener('click', onClick);
+    burger.classList.remove('burger-menu_active');
+    header.classList.remove('_active');
   }
 }
 
