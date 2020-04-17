@@ -13,6 +13,7 @@ const mainMenu = document.querySelector('.main-menu');
 const library = document.querySelector('.library');
 const menuItem = document.querySelector('.header-menu__item');
 const cardFace = document.querySelectorAll('.scene__card_face');
+const List = document.querySelectorAll('.main-menu__item, .header-menu__item');
 
 
 document.querySelector('.burger-menu__item').addEventListener('click', () => {
@@ -57,7 +58,8 @@ document.querySelector('.slider').addEventListener('mousedown', () => {
 
 flip.forEach((a) => a.addEventListener('click', flipCard));
 
-document.querySelectorAll('.header-menu__item').forEach((el) => {
+
+List.forEach((el) => {
   el.addEventListener('click', (e) => {
     page = e.currentTarget.innerText;
     let i = 0;
@@ -66,26 +68,30 @@ document.querySelectorAll('.header-menu__item').forEach((el) => {
       library.classList.remove('hidden');
       mainMenu.classList.add('hidden');
       cardFace.forEach((key) => {
+        const faceCard = key;
         j = count[i];
-        key.style.backgroundImage = cards[page][j].image;
+        faceCard.style.backgroundImage = cards[page][j].image;
         i += 1;
       });
       i = 0;
       document.querySelectorAll('.scene__card_back').forEach((key) => {
+        const faceCard = key;
         j = count[i];
-        key.style.backgroundImage = cards[page][j].image;
+        faceCard.style.backgroundImage = cards[page][j].image;
         i += 1;
       });
       i = 0;
       document.querySelectorAll('.look__header_front').forEach((key) => {
+        const faceCard = key;
         j = count[i];
-        key.innerHTML = cards[page][j].word;
+        faceCard.innerHTML = cards[page][j].word;
         i += 1;
       });
       i = 0;
       document.querySelectorAll('.look__header_back').forEach((key) => {
+        const faceCard = key;
         j = count[i];
-        key.innerHTML = cards[page][j].translation;
+        faceCard.innerHTML = cards[page][j].translation;
         i += 1;
       });
       i = 0;
@@ -107,47 +113,6 @@ cardFace.forEach((key) => {
       currentTarget = cards[page][e.currentTarget.getAttribute('num')].audioSRC;
       document.querySelector('.voice').src = `${currentTarget}`;
     }
-  });
-});
-
-
-document.querySelectorAll('.main-menu__item').forEach((key) => {
-  key.addEventListener('click', (e) => {
-    page = e.currentTarget.innerText;
-    let i = 0;
-    let j;
-    library.classList.remove('hidden');
-    mainMenu.classList.add('hidden');
-    cardFace.forEach((key) => {
-      j = count[i];
-      key.style.backgroundImage = cards[page][j].image;
-      i += 1;
-    });
-    i = 0;
-    document.querySelectorAll('.scene__card_back').forEach((key) => {
-      j = count[i];
-      key.style.backgroundImage = cards[page][j].image;
-      i += 1;
-    });
-    i = 0;
-    document.querySelectorAll('.look__header_front').forEach((key) => {
-      j = count[i];
-      key.innerText = cards[page][j].word;
-      i += 1;
-    });
-    i = 0;
-    document.querySelectorAll('.look__header_back').forEach((key) => {
-      j = count[i];
-      key.innerText = cards[page][j].translation;
-      i += 1;
-    });
-    i = 0;
-    document.querySelector('.active').classList.remove('active');
-    document.querySelectorAll('.header-menu__item').forEach((key) => {
-      if (page === key.innerText) {
-        key.classList.toggle('active');
-      }
-    });
   });
 });
 

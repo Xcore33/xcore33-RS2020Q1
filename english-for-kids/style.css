@@ -24,14 +24,15 @@
 }
 
 a.main-menu__item {
-  text-decoration: none;
-  text-shadow: 1px 1px grey(44, 160, 160);
-  color: #d1994f;
   bottom: -100px;
+
+  font-weight: bold;
   font-size: 24px;
   line-height: 36px;
   text-align: center;
-  font-weight: bold;
+  color: #d1994f;
+  text-decoration: none;
+  text-shadow: 1px 1px grey(44, 160, 160);
 }
 
 a.main-menu__item.main-menu__item.interactive {
@@ -44,6 +45,7 @@ a.main-menu__item.main-menu__item.interactive {
   width: 300px;
   height: 280px;
   margin: 20px;
+
   background-image: url("assets/img/mainbackgame.png");
   background-repeat: no-repeat;
   background-size: 100% auto;
@@ -57,13 +59,14 @@ a.main-menu__item.main-menu__item.interactive {
 .main-menu__item > img {
   width: 43.335%;
   height: 46.434%;
+  margin-top: 17%;
+  margin-bottom: 18%;
+  margin-left: 36%;
+
   border: 5px solid #d1994f;
   border-radius: 50%;
 
   object-fit: cover;
-  margin-bottom: 18%;
-  margin-left: 36%;
-  margin-top: 17%;
 }
 
 .main-menu__item.interactive > img {
@@ -95,16 +98,16 @@ a.main-menu__item.main-menu__item.interactive {
 
 .header-menu {
   position: fixed;
+  top: 0;
+  left: 0;
 
   display: flex;
   flex-direction: column;
-  max-width: 350px;
-  min-width: 200px;
-  height: 100%;
-  left: 0;
-  top: 0;
-  padding-top: 14%;
   width: 17vw;
+  min-width: 200px;
+  max-width: 350px;
+  height: 100%;
+  padding-top: 14%;
 
   list-style-type: none;
 
@@ -116,6 +119,7 @@ a.main-menu__item.main-menu__item.interactive {
 
 .header {
   position: relative;
+
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -136,9 +140,9 @@ a.main-menu__item.main-menu__item.interactive {
   height: 4px;
 
   background-color: rgb(146, 140, 140);
+  border-radius: 25%;
 
   transition: 0.5s;
-  border-radius: 25%;
 }
 
 .burger-menu span::before,
@@ -192,8 +196,8 @@ a.main-menu__item.main-menu__item.interactive {
 
 .header-menu__item {
   min-width: 145px;
-  padding: 10px 0;
   margin-left: 30px;
+  padding: 10px 0;
 
   font-size: 22px;
   text-align: left;
@@ -204,9 +208,11 @@ a.main-menu__item.main-menu__item.interactive {
 }
 
 .header-menu__item:hover {
-  text-shadow: 2px 2px rgba(120, 139, 139, 0.95);
-  transform: scale(1.1);
   margin-left: 40px;
+
+  text-shadow: 2px 2px rgba(120, 139, 139, 0.95);
+
+  transform: scale(1.1);
 }
 
 .header-menu__item.active {
@@ -374,16 +380,16 @@ a.main-menu__item.main-menu__item.interactive {
   margin-top: 200px;
   padding: 0 15px;
 
+  font-weight: bold;
   font-size: 24px;
   line-height: 45px;
   text-align: center;
   color: #212529;
+  text-shadow: 1px 0 rgba(154, 167, 179, 0.3);
 
   background: #ffffff;
 
   pointer-events: none;
-  text-shadow: 1px 0 rgba(154, 167, 179, 0.3);
-  font-weight: bold;
 }
 
 .scene__card_flip {
@@ -397,17 +403,18 @@ a.main-menu__item.main-menu__item.interactive {
   width: 50px;
   height: 50px;
 
+  background-image: url("assets/img/refresh.png");
   background-repeat: no-repeat;
   background-position: center 16px;
   background-size: 32px;
-  transition: ease-in-out 1s;
 
-  background-image: url('assets/img/refresh.png');
+  transition: ease-in-out 1s;
 }
 
 .scene__card_flip:hover {
+  background-image: url("assets/img/refreshh.png");
   cursor: pointer;
-  background-image: url('assets/img/refreshh.png');
+
   transition: ease-in-out 0.5s;
 }
 
@@ -543,22 +550,21 @@ a.main-menu__item.main-menu__item.interactive {
 }
 
 @media (max-width: 360px) {
+  .main-menu__item > img {
+    width: 36vw;
+    height: 36vw;
+    margin-top: 17%;
+    margin-bottom: 20vw;
+    margin-left: 36%;
 
-.main-menu__item > img {
-  width: 36vw;
-  height: 36vw;
-  border: 5px solid #d1994f;
-  border-radius: 50%;
+    border: 5px solid #d1994f;
+    border-radius: 50%;
 
-  object-fit: cover;
-  margin-bottom: 20vw;
-  margin-left: 36%;
-  margin-top: 17%;
-}
+    object-fit: cover;
+  }
 }
 
 @media (min-width: 2000px) {
-
   .burger-menu {
     top: 50px;
     left: 300px;
@@ -571,5 +577,4 @@ a.main-menu__item.main-menu__item.interactive {
   .burger-menu input {
     position: fixed;
   }
-
-  }
+}
