@@ -382,6 +382,8 @@ a.main-menu__item.main-menu__item.interactive {
   background: #ffffff;
 
   pointer-events: none;
+  text-shadow: 1px 0 rgba(154, 167, 179, 0.3);
+  font-weight: bold;
 }
 
 .scene__card_flip {
@@ -554,3 +556,20 @@ a.main-menu__item.main-menu__item.interactive {
   margin-top: 17%;
 }
 }
+
+@media (min-width: 2000px) {
+
+  .burger-menu {
+    top: 50px;
+    left: 300px;
+    z-index: 3;
+
+    user-select: none;
+  }
+
+  .burger-menu,
+  .burger-menu input {
+    position: fixed;
+  }
+
+  }
