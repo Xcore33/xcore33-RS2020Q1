@@ -14,6 +14,7 @@ const library = document.querySelector('.library');
 const menuItem = document.querySelector('.header-menu__item');
 const cardFace = document.querySelectorAll('.scene__card_face');
 const List = document.querySelectorAll('.main-menu__item, .header-menu__item');
+const mainItem = document.querySelectorAll('.main-menu__item');
 
 
 document.querySelector('.burger-menu__item').addEventListener('click', () => {
@@ -42,7 +43,7 @@ document.querySelector('.slider').addEventListener('mousedown', () => {
     });
     anchor = true;
   }
-  document.querySelectorAll('.main-menu__item').forEach((key) => {
+  mainItem.forEach((key) => {
     key.classList.toggle('interactive');
   });
   document.querySelectorAll('.scene__card').forEach((key) => {
@@ -105,6 +106,15 @@ List.forEach((el) => {
   });
 });
 
+mainItem.forEach((key) => {
+  key.addEventListener('click', () => {
+    document.querySelectorAll('.header-menu__item').forEach((c) => {
+      if (page === c.innerText) {
+        c.classList.toggle('active');
+      }
+    });
+  });
+});
 
 cardFace.forEach((key) => {
   let currentTarget;
