@@ -171,7 +171,11 @@ cardFace.forEach((key) => {
 });
 
 function onClick(el) {
-  if (!el.target.closest('.burger-menu__item')) {
+  if (!el.target.closest('.burger-menu__item, .header-menu')) {
+    burger.classList.remove('burger-menu_active');
+    header.classList.remove('_active');
+  }
+  if (el.target.closest('a.header-menu__item')) {
     burger.classList.remove('burger-menu_active');
     header.classList.remove('_active');
   }
