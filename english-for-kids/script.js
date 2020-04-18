@@ -65,7 +65,7 @@ List.forEach((el) => {
     page = e.currentTarget.innerText;
     let i = 0;
     let j;
-    if (!e.currentTarget.classList.contains('active') && e.currentTarget.innerHTML !== menuItem.innerHTML) {
+    if (e.currentTarget.innerHTML !== menuItem.innerHTML) {
       library.classList.remove('hidden');
       mainMenu.classList.add('hidden');
       cardFace.forEach((key) => {
