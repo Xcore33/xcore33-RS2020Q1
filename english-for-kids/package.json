@@ -1,20 +1,22 @@
 {
   "name": "english-for-kids",
   "version": "1.0.0",
-  "description": "",
+  "description": "RSS task JS",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "JS"
+  ],
+  "author": "Ihar Soltan <mauler1987@gmail.com>",
   "license": "ISC",
+  "dependencies": {
+    "eslint-config-airbnb": "^18.1.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
-    "@babel/node": "^7.8.7",
-    "@babel/preset-env": "^7.9.5",
     "eslint": "^6.8.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
