@@ -4,7 +4,10 @@
   "description": "RSS task JS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx webpack",
+    "dev": "webpack --mode development",
+    "prod": "webpack --mode production"
   },
   "keywords": [
     "JS"
