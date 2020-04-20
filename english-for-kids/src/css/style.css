@@ -20,7 +20,7 @@
 }
 
 .main-menu__item.interactive {
-  background-image: url("assets/img/mainback.png");
+  background-image: url("../assets/img/mainback.png");
 }
 
 a.main-menu__item {
@@ -46,7 +46,7 @@ a.main-menu__item.main-menu__item.interactive {
   height: 280px;
   margin: 20px;
 
-  background-image: url("assets/img/mainbackgame.png");
+  background-image: url("../assets/img/mainbackgame.png");
   background-repeat: no-repeat;
   background-size: 100% auto;
   border-radius: 5px;
@@ -400,7 +400,7 @@ a.main-menu__item.main-menu__item.interactive {
   width: 50px;
   height: 50px;
 
-  background-image: url("assets/img/refresh.png");
+  background-image: url("../assets/img/refresh.png");
   background-repeat: no-repeat;
   background-position: center 16px;
   background-size: 32px;
@@ -409,7 +409,7 @@ a.main-menu__item.main-menu__item.interactive {
 }
 
 .scene__card_flip:hover {
-  background-image: url("assets/img/refreshh.png");
+  background-image: url("../assets/img/refreshh.png");
   cursor: pointer;
 
   transition: ease-in-out 0.5s;
@@ -488,7 +488,7 @@ a.main-menu__item.main-menu__item.interactive {
 
   font-size: 0;
 
-  background-image: url("assets/img/repeat.svg"),linear-gradient(40deg,#ffd86f,#fc6262);
+  background-image: url("../assets/img/repeat.svg"),linear-gradient(40deg,#ffd86f,#fc6262);
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: 32px 32px,cover;
@@ -510,18 +510,18 @@ a.main-menu__item.main-menu__item.interactive {
 }
 
 .star-success {
-  background-image: url("assets/img/star-win.svg");
+  background-image: url("../assets/img/star-win.svg");
 }
 
 .star-error {
-  background-image: url("assets/img/star.svg");
+  background-image: url("../assets/img/star.svg");
 }
 
 .failure {
   width: 99vw;
   height: 100vh;
 
-  background-image: url("assets/img/failure.jpg");
+  background-image: url("../assets/img/failure.jpg");
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: 40% 55%,cover;
@@ -531,7 +531,7 @@ a.main-menu__item.main-menu__item.interactive {
   width: 99vw;
   height: 100vh;
 
-  background-image: url("assets/img/success.jpg");
+  background-image: url("../assets/img/success.jpg");
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: 40% 55%,cover;

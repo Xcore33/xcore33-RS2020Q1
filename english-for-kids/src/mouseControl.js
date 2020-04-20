@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable import/prefer-default-export */
-import { burger, header } from './index.js';
+import { burger, header } from './index';
 
 function onClick(el) {
   if (!el.target.closest('.burger-menu__item, .header-menu')) {

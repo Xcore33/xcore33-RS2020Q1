@@ -1,2 +1,1 @@
-# english-for-kids
-Private repository for @xcore33
+# webpack-boilerplate

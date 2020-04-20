@@ -1,10 +1,12 @@
-/* eslint-disable import/no-cycle */
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-use-before-define */
+/* eslint-disable import/no-cycle */
 /* eslint-disable import/prefer-default-export */
-import { count, cards } from './cards.js';
-import { shuffle } from './shuffle.js';
-import { goBackToMain } from './toMain.js';
-import { onClick, flipCard } from './mouseControl.js';
+import './css/style.css';
+
+import { count, cards } from './cards';
+import { shuffle } from './shuffle';
+import { onClick, flipCard } from './mouseControl';
 
 let sound = [];
 let correct = 0;
@@ -13,6 +15,8 @@ let errors = 0;
 let gameStart = true;
 let page;
 let anchor = false;
+
+
 const burger = document.querySelector('.burger-menu');
 const header = document.querySelector('.header-menu');
 const flip = document.querySelectorAll('.scene__card_flip');
@@ -125,33 +129,12 @@ mainItem.forEach((key) => {
 
 cardFace.forEach((key) => {
   let currentTarget;
+  let star;
   key.addEventListener('click', (e) => {
     if (anchor === false) {
       currentTarget = cards[page][e.currentTarget.getAttribute('num')].audioSRC;
       document.querySelector('.voice').src = `${currentTarget}`;
     }
-  });
-});
-
-starter.addEventListener('click', () => {
-  if (gameStart) {
-    for (let i = 0; i < 8; i += 1) {
-      sound.push(cards[page][count[i]].audioSRC);
-      cards.sound[cards[page][count[i]].audioSRC] = count[i];
-    }
-    shuffle(sound);
-    starter.classList.add('repeat');
-    cardFace.forEach((key) => {
-      key.classList.add('front-play');
-    });
-    gameStart = false;
-  }
-  document.querySelector('.voice').src = sound[currentSound];
-});
-
-cardFace.forEach((key) => {
-  let star;
-  key.addEventListener('click', (e) => {
     if (e.currentTarget.classList.contains('front-play')) {
       if (e.currentTarget.getAttribute('num') === cards.sound[sound[currentSound]]) {
         star = document.createElement('div');
@@ -175,6 +158,23 @@ cardFace.forEach((key) => {
       }
     }
   });
+  });
+
+
+starter.addEventListener('click', () => {
+  if (gameStart) {
+    for (let i = 0; i < 8; i += 1) {
+      sound.push(cards[page][count[i]].audioSRC);
+      cards.sound[cards[page][count[i]].audioSRC] = count[i];
+    }
+    shuffle(sound);
+    starter.classList.add('repeat');
+    cardFace.forEach((key) => {
+      key.classList.add('front-play');
+    });
+    gameStart = false;
+  }
+  document.querySelector('.voice').src = sound[currentSound];
 });
 
 function defaultRemove() {
@@ -197,6 +197,50 @@ function defaultRemove() {
   currentSound = 0;
   errors = 0;
   cards.sound = {};
+}
+
+function goBackToMain() {
+  document.querySelectorAll('.scene').forEach((key) => {
+    key.classList.add('hidden');
+  });
+  document.querySelector('.starter').classList.add('hidden');
+  document.querySelector('.library_progress-bar').classList.add('text');
+  document.querySelector('.header').classList.add('hidden');
+  if (errors === 0) {
+    document.body.classList.add('success');
+    setTimeout(() => {
+      document.body.classList.remove('success');
+    }, 3000);
+    document.querySelector('.library_progress-bar').innerHTML = 'win!';
+    document.querySelector('.reaction').src = 'assets/audio/success.mp3';
+  } else {
+    document.body.classList.add('failure');
+    setTimeout(() => {
+      document.body.classList.remove('failure');
+    }, 3000);
+    document.querySelector('.library_progress-bar').innerHTML = `${errors} errors`;
+    document.querySelector('.reaction').src = 'assets/audio/failure.mp3';
+  }
+  setTimeout(() => {
+    document.querySelector('.library_progress-bar').innerHTML = '';
+  }, 3000);
+  setTimeout(() => {
+    defaultRemove();
+    document.querySelectorAll('.scene').forEach((key) => {
+      key.classList.remove('hidden');
+    });
+    document.querySelector('.header').classList.remove('hidden');
+    document.querySelector('.library_progress-bar').classList.remove('text');
+    document.querySelector('.starter').classList.remove('hidden');
+    document.querySelector('.active').classList.remove('active');
+    menuItem.classList.add('active');
+    library.classList.add('hidden');
+    mainMenu.classList.remove('hidden');
+
+    cardFace.forEach((key) => {
+      key.classList.toggle('front-play');
+    });
+  }, 3000);
 }
 
 export { burger, header, defaultRemove };
