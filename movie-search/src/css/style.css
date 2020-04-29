@@ -12,6 +12,44 @@ h1 {
   margin: 15px 0 0 15px;
 }
 
+footer {
+  bottom: 0;
+  position: absolute;
+
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(to bottom, #1d0b0d, #615251);
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+
+footer .sb:hover {
+  cursor: pointer;
+}
+
+footer h2 {
+  position: relative;
+
+  margin-left: 10px;
+  padding: 13px 0 0 33px;
+
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: aliceblue;
+}
+
+.sb {
+  color: aliceblue;
+  margin: 10px 165px 0 0;
+}
+
+.sb i {
+  position: absolute;
+margin-top: 5px;
+margin-left: 10px;
+}
+
 /* SECTIONS */
 
 .section-container {
@@ -293,7 +331,7 @@ h1 {
   box-shadow: 0px 10px 5px 3px rgba(0, 0, 0, 0.2);
 }
 
-.movie-item-poster {
+.movie-item__poster {
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
@@ -307,27 +345,27 @@ h1 {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.movie-item:hover .movie-item-poster {
+.movie-item:hover .movie-item__poster {
   filter: grayscale(0%);
 }
 
-.movie-item-heart {
+.movie-item__heart {
   color: #ef473a;
   font-size: 2em;
   margin: 5px;
   /* display: none; */
 }
 
-.movie-item-heart-visible {
+.movie-item__heart_visible {
   display: block;
 }
 
-.movie-item-title {
+.movie-item__title {
   font-size: 1.4em;
   text-align: center;
 }
 
-.movie-item-year {
+.movie-item__year {
   font-size: 1em;
   text-align: center;
   color: grey;
@@ -347,7 +385,7 @@ h1 {
   z-index: 5;
 }
 
-.movie-modal-detail {
+.movie-modal__detail {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -359,7 +397,7 @@ h1 {
   pointer-events: all;
 }
 
-.movie-modal-poster {
+.movie-modal__poster {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -370,7 +408,7 @@ h1 {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.movie-modal-close {
+.movie-modal__close {
   position: sticky;
   top: 10px;
   color: #ef473a;
@@ -379,16 +417,16 @@ h1 {
   text-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
 }
 
-.movie-modal-close:hover {
+.movie-modal__close:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
 
-.movie-modal-close:active {
+.movie-modal__close:active {
   transform: scale(1);
 }
 
-.movie-modal-heart {
+.movie-modal__heart {
   position: sticky;
   top: 10px;
   color: #ef473a;
@@ -397,52 +435,52 @@ h1 {
   text-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
 }
 
-.movie-modal-heart:hover {
+.movie-modal__heart:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
 
-.movie-modal-heart:active {
+.movie-modal__heart:active {
   transform: scale(1);
 }
 
-.movie-modal-header {
+.movie-modal__header {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
 }
 
-.movie-modal-body {
+.movie-modal__body {
   padding: 10px;
   max-width: 500px;
 }
 
-.movie-modal-title {
+.movie-modal__title {
   display: flex;
   align-items: center;
   text-align: center;
   font-size: 2em;
 }
 
-.movie-modal-year {
+.movie-modal__year {
   color: grey;
   font-size: 1.5em;
 }
 
-.movie-modal-director {
+.movie-modal__director {
   font-size: 1.3em;
   font-weight: 300;
   margin-bottom: 5px;
 }
 
-.movie-modal-rating-container {
+.movie-modal__rating-container {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.movie-modal-rating-item {
+.movie-modal__rating-item {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -450,14 +488,14 @@ h1 {
   margin-right: 10px;
 }
 
-.movie-modal-rating-item-icon {
+.movie-modal__rating-item_icon {
   height: 16px;
   width: 16px;
   background-size: cover;
   margin-right: 3px;
 }
 
-.movie-modal-plot {
+.movie-modal__plot {
   font-size: 1.3em;
   font-weight: 300;
 }
