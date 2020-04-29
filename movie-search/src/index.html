@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Movie Search RSS</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700,900&display=swap" rel="stylesheet">
+</head>
+
+<body class="content-wrapper">
+  <h1>MovieSearch</h1>
+  <div class="section-container">
+    <div id="sectionSearch" class="section section-visible">
+      <div class="header">
+        <div class="header__title">
+          <div class="header__title_subtitle" data-section-target="sectionBookmarks">
+            Bookmarks
+          </div>
+          <div class="header__button">Search</div>
+        </div>
+      </div>
+      <div class="content-box">
+        <div class="search">
+          <input type="text" name="sectionContentSearch" id="sectionContentSearch" class="search__input"
+            placeholder="Title..." />
+          <div class="search__engine_icon-container">
+            <i class="fa fa-times search__engine_icon"></i><i
+              class="fa fa-circle-o-notch fa-spin fa-fw search__engine_icon"></i>
+          </div>
+        </div>
+        <div class="search-history">
+          <i class="fa fa-caret-down search-history__icon"></i>
+          <div class="search-history__button">
+            Show Search History
+          </div>
+        </div>
+        <div class="history-library">
+          <div class="history-library__item content-wrapper"></div>
+        </div>
+        <div class="content-box__films_result"></div>
+      </div>
+    </div>
+    <div id="sectionBookmarks" class="section">
+      <div class="header">
+        <div class="header__title">
+          <div class="header__button">Bookmarks</div>
+          <div class="header__title_subtitle" data-section-target="sectionSearch">
+            Search
+          </div>
+        </div>
+      </div>
+      <div class="content-box marked-results">
+        <div class="marked-results__my-movies">
+          <div class="marked-results__my-movies_tip">
+            <div>Add movies in</div>
+            <div class="marked-results__my-movies_link">
+              <i class="fa fa-search"></i>Search
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-container"></div>
+</body>
+<script src="index.js"></script>
+<script src="fontawesome/js/all.min.js"></script>
+
+</html>
