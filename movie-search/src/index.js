@@ -58,7 +58,17 @@ sectionHeaderMenu.forEach(element => {
   });
 });
 
+sectionContentSearch.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    startSearch()
+  }
+});
+
 sectionContentSearchButton.addEventListener("click", () => {
+  startSearch()
+});
+
+function startSearch() {
   clearTimeout(typeTimer);
   typeTimer = setTimeout(() => {
     if (sectionContentSearch.value.trim() !== "") {
@@ -66,7 +76,7 @@ sectionContentSearchButton.addEventListener("click", () => {
       populateSearchResult(sectionContentSearch.value.trim());
     }
   }, typeWaitMilliseconds);
-});
+}
 
 sectionContentSearchIconContainer.addEventListener("click", () => {
   sectionContentSearch.value = "";
@@ -196,7 +206,6 @@ class Movie {
             <div class="movie-item__title">${this.Title}</div>
             <div class="movie-item__year">${this.Year}</div>
             <div class="movie-modal__rating-item">
-            <div id="info" class="movie-item__info"><i class="fas fa-info-circle"></i></div>
             <div class="movie-modal__rating-item_icon" style="background-image: url(https://cdn4.iconfinder.com/data/icons/socialmediaicons_v120/16/imdb.png);"></div>
             <div class="movie-modal__rating-item_score">${
               this.Ratings[0] != null
@@ -204,17 +213,22 @@ class Movie {
                 : "N/A"
             }</div>`;
 
-    movieItem.addEventListener("click", () => {
+            const infoButton = document.createElement("button");
+            infoButton.classList.add("movie-item__info_push");
+            movieItem.appendChild(infoButton);
+            infoButton.innerText = "info";
+
+    movieItem.addEventListener("click", (event) => {
       const ImdbAdress = "https://www.imdb.com/title/"
       const url = this.imdbID;
-      window.open(ImdbAdress + url);
+      if (event.target.closest('.movie-item__info_push')) {
+        sectionContainer.classList.add("section-container-blurred");
+      modalContainer.appendChild(this.getMovieModal());
+      }
+      if (event.target.closest('.movie-item__poster')) {
+        window.open(ImdbAdress + url);
+      }
     });
-
-    // document.getElementById('info').addEventListener("click", () => {
-    //   sectionContainer.classList.add("section-container-blurred");
-    //   modalContainer.appendChild(this.getMovieModal());
-    // });
-
 
     this.movieItem = movieItem;
     return movieItem;
