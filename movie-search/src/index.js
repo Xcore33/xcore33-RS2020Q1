@@ -10,31 +10,16 @@ const apiKey = "31849743";
 
 const sectionContainer = document.querySelector(".section-container");
 const sections = document.querySelectorAll(".section");
-
 const sectionHeaderMenu = document.querySelectorAll(".header-menu");
-const sectionHeaderSubtitles = document.querySelectorAll(
-  ".header__title_subtitle"
-);
-
+const sectionHeaderSubtitles = document.querySelectorAll(".header__title_subtitle");
 const sectionContentSearch = document.querySelector("#sectionContentSearch");
-const sectionContentSearchIconContainer = document.querySelector(
-  ".search__engine_icon-container"
-);
-const sectionShowSearchHistoryIcon = document.querySelector(
-  ".search-history__icon"
-);
-const sectionShowSearchHistoryButton = document.querySelector(
-  ".search-history__button"
-);
+const sectionContentSearchButton = document.querySelector("#sectionContentSearchButton");
+const sectionContentSearchIconContainer = document.querySelector(".search__engine_icon-container");
+const sectionShowSearchHistoryIcon = document.querySelector(".search-history__icon");
+const sectionShowSearchHistoryButton = document.querySelector(".search-history__button");
 const sectionSearchHistory = document.querySelector(".history-library__item");
-
-const sectionContentResultMovieContainer = document.querySelector(
-  ".content-box__films_result"
-);
-
-const sectionContentMyMovies = document.querySelector(
-  ".marked-results__my-movies"
-);
+const sectionContentResultMovieContainer = document.querySelector(".content-box__films_result");
+const sectionContentMyMovies = document.querySelector(".marked-results__my-movies");
 const modalContainer = document.querySelector(".modal-container");
 
 let typeTimer;
@@ -73,7 +58,7 @@ sectionHeaderMenu.forEach(element => {
   });
 });
 
-sectionContentSearch.addEventListener("keyup", () => {
+sectionContentSearchButton.addEventListener("click", () => {
   clearTimeout(typeTimer);
   typeTimer = setTimeout(() => {
     if (sectionContentSearch.value.trim() !== "") {
@@ -89,9 +74,8 @@ sectionContentSearchIconContainer.addEventListener("click", () => {
 });
 
 sectionShowSearchHistoryButton.addEventListener("click", () => {
-  if (
-    sectionSearchHistory.classList.contains("history__visible")
-  ) {
+  if (sectionSearchHistory.classList.contains("history__visible"))
+   {
     sectionSearchHistory.classList.remove("history__visible");
   } else {
     sectionSearchHistory.classList.add("history__visible");
@@ -109,12 +93,8 @@ function populateSearchResult(search) {
   searchMovie(search).then(result => {
     sectionContentResultMovieContainer.innerHTML = "";
     if (result.Search == null) {
-      sectionContentSearchIconContainer.childNodes[0].classList.add(
-        "search__engine_icon-visible"
-      );
-      sectionContentSearchIconContainer.childNodes[1].classList.remove(
-        "search__engine_icon-visible"
-      );
+      sectionContentSearchIconContainer.classList.add("search__engine_icon-visible");
+      sectionContentSearchIconContainer.childNodes[1].classList.remove("search__engine_icon-visible");
       return;
     }
       modalContainer.innerHTML = "";
@@ -216,6 +196,7 @@ class Movie {
             <div class="movie-item__title">${this.Title}</div>
             <div class="movie-item__year">${this.Year}</div>
             <div class="movie-modal__rating-item">
+            <div id="info" class="movie-item__info"><i class="fas fa-info-circle"></i></div>
             <div class="movie-modal__rating-item_icon" style="background-image: url(https://cdn4.iconfinder.com/data/icons/socialmediaicons_v120/16/imdb.png);"></div>
             <div class="movie-modal__rating-item_score">${
               this.Ratings[0] != null
@@ -223,10 +204,16 @@ class Movie {
                 : "N/A"
             }</div>`;
 
-    movieItem.addEventListener("click", () => {
-      sectionContainer.classList.add("section-container-blurred");
-      modalContainer.appendChild(this.getMovieModal());
-    });
+    // movieItem.addEventListener("click", () => {
+    //   sectionContainer.classList.add("section-container-blurred");
+    //   modalContainer.appendChild(this.getMovieModal());
+    // });
+
+    // document.getElementById('info').addEventListener("click", () => {
+    //   sectionContainer.classList.add("section-container-blurred");
+    //   modalContainer.appendChild(this.getMovieModal());
+    // });
+
 
     this.movieItem = movieItem;
     return movieItem;
@@ -245,8 +232,8 @@ class Movie {
                   myMoviesProxy.find(element => {
                     return element.imdbID === this.imdbID;
                   }) !== undefined
-                    ? "fa-heart"
-                    : "fa-heart-o"
+                    ? "fa-minus-square"
+                    : "fa-plus-square"
                 }" aria-hidden="true"></i></div>
             </div>
             <div class="movie-modal__body">
@@ -291,12 +278,12 @@ class Movie {
     this.movieItemHeart = movieItem.querySelector(".movie-item__heart");
     if (!myMoviesProxy.includes(movie)) {
       myMoviesProxy.push(movie);
-      event.target.classList.remove("fa-heart-o");
-      event.target.classList.add("fa-heart");
+      event.target.classList.remove("fa-plus-square");
+      event.target.classList.add("fa-minus-square");
     } else {
       myMoviesProxy.splice(myMovies.indexOf(movie), 1);
-      event.target.classList.add("fa-heart-o");
-      event.target.classList.remove("fa-heart");
+      event.target.classList.add("fa-plus-square");
+      event.target.classList.remove("fa-minus-square");
     }
   }
 }
