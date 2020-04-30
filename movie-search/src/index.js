@@ -15,7 +15,6 @@ const sectionHeaderSubtitles = document.querySelectorAll(".header__title_subtitl
 const sectionContentSearch = document.querySelector("#sectionContentSearch");
 const sectionContentSearchButton = document.querySelector("#sectionContentSearchButton");
 const sectionContentSearchIconContainer = document.querySelector(".search__engine_icon-container");
-const sectionShowSearchHistoryIcon = document.querySelector(".search-history__icon");
 const sectionShowSearchHistoryButton = document.querySelector(".search-history__button");
 const sectionSearchHistory = document.querySelector(".history-library__item");
 const sectionContentResultMovieContainer = document.querySelector(".content-box__films_result");
@@ -81,21 +80,19 @@ function startSearch() {
 sectionContentSearchIconContainer.addEventListener("click", () => {
   sectionContentSearch.value = "";
   sectionContentResultMovieContainer.innerHTML = "";
+  revertMistake();
 });
 
 sectionShowSearchHistoryButton.addEventListener("click", () => {
   if (sectionSearchHistory.classList.contains("history__visible"))
    {
     sectionSearchHistory.classList.remove("history__visible");
+    document.querySelector('.search-history_open').style.display = "block";
+    document.querySelector('.search-history_close').style.display = "none";
   } else {
     sectionSearchHistory.classList.add("history__visible");
-  }
-  if (sectionShowSearchHistoryIcon.classList.contains("fa-caret-down")) {
-    sectionShowSearchHistoryIcon.classList.remove("fa-caret-down");
-    sectionShowSearchHistoryIcon.classList.add("fa-caret-up");
-  } else {
-    sectionShowSearchHistoryIcon.classList.add("fa-caret-down");
-    sectionShowSearchHistoryIcon.classList.remove("fa-caret-up");
+    document.querySelector('.search-history_open').style.display = "none";
+    document.querySelector('.search-history_close').style.display = "block";
   }
 });
 
@@ -103,10 +100,12 @@ function populateSearchResult(search) {
   searchMovie(search).then(result => {
     sectionContentResultMovieContainer.innerHTML = "";
     if (result.Search == null) {
-      sectionContentSearchIconContainer.classList.add("search__engine_icon-visible");
-      sectionContentSearchIconContainer.childNodes[1].classList.remove("search__engine_icon-visible");
+      sectionContentResultMovieContainer.classList.add('dont_find');
+      sectionContentResultMovieContainer.style.width = "500px";
+      sectionContentResultMovieContainer.style.height = "500px";
       return;
     }
+      revertMistake()
       modalContainer.innerHTML = "";
 
     result.Search.map((element) => {
@@ -117,6 +116,12 @@ function populateSearchResult(search) {
       return true;
     });
   });
+}
+
+function revertMistake() {
+  sectionContentResultMovieContainer.classList.remove('dont_find');
+  sectionContentResultMovieContainer.style.width = "";
+  sectionContentResultMovieContainer.style.height = "";
 }
 
 function updateMyMoviesResult() {
@@ -247,8 +252,8 @@ class Movie {
                   myMoviesProxy.find(element => {
                     return element.imdbID === this.imdbID;
                   }) !== undefined
-                    ? "fa-minus-square"
-                    : "fa-plus-square"
+                    ? "fa-minus"
+                    : "fa-plus"
                 }" aria-hidden="true"></i></div>
             </div>
             <div class="movie-modal__body">
@@ -275,15 +280,11 @@ class Movie {
                 </div>
                 <div class="movie-modal__plot">${this.Plot}</div>
             </div>`;
-    movieModal
-      .querySelector(".movie-modal__close")
-      .addEventListener("click", () => {
+    movieModal.querySelector(".movie-modal__close").addEventListener("click", () => {
         modalContainer.innerHTML = "";
         sectionContainer.classList.remove("section-container-blurred");
       });
-    movieModal
-      .querySelector(".movie-modal__heart")
-      .addEventListener("click", event => {
+    movieModal.querySelector(".movie-modal__heart").addEventListener("click", event => {
         this.changeMyMovieItem(event, this, this.movieItem);
       });
     return movieModal;
@@ -293,12 +294,12 @@ class Movie {
     this.movieItemHeart = movieItem.querySelector(".movie-item__heart");
     if (!myMoviesProxy.includes(movie)) {
       myMoviesProxy.push(movie);
-      event.target.classList.remove("fa-plus-square");
-      event.target.classList.add("fa-minus-square");
+      event.target.classList.remove("fa-plus");
+      event.target.classList.add("fa-minus");
     } else {
       myMoviesProxy.splice(myMovies.indexOf(movie), 1);
-      event.target.classList.add("fa-plus-square");
-      event.target.classList.remove("fa-minus-square");
+      event.target.classList.add("fa-plus");
+      event.target.classList.remove("fa-minus");
     }
   }
 }

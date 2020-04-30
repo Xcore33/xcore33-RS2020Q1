@@ -226,20 +226,19 @@ footer h2 {
   width: 63px;
   height: 40px;
   margin-left: 10px;
-  border-radius: 25%;
-  background-color: #ef473a;
-  color: aliceblue;
+
   font-size: 1em;
+  color: aliceblue;
+
+  background-color: #ef473a;
+  border-radius: 25%;
   outline: none;
 }
 
-
-/* .search__engine_icon {
-  visibility: hidden;
-} */
-
-.search__engine_icon-visible {
-  visibility: visible;
+.dont_find {
+background-image: url(../img/dontfind.png);
+background-size: contain;
+background-repeat: no-repeat;
 }
 
 .history-library {
@@ -283,6 +282,10 @@ footer h2 {
   margin-left: 30px;
 
   font-size: 1em;
+}
+
+.search-history_close {
+  display: none;
 }
 
 .search-history__button {
@@ -434,16 +437,19 @@ footer h2 {
 
 .movie-item__info_push {
   position: absolute;
+
+  align-self: flex-end;
   width: 40px;
   height: 25px;
-  border-radius: 25%;
-  background-color: #ef473a;
-  color: aliceblue;
-  font-size: 1em;
-  outline: none;
-  align-self: flex-end;
   margin-top: 8px;
   margin-left: -8px;
+
+  font-size: 1em;
+  color: aliceblue;
+
+  background-color: #ef473a;
+  border-radius: 25%;
+  outline: none;
 }
 
 /* MODALS*/
