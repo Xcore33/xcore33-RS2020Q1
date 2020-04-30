@@ -204,10 +204,11 @@ class Movie {
                 : "N/A"
             }</div>`;
 
-    // movieItem.addEventListener("click", () => {
-    //   sectionContainer.classList.add("section-container-blurred");
-    //   modalContainer.appendChild(this.getMovieModal());
-    // });
+    movieItem.addEventListener("click", () => {
+      const ImdbAdress = "https://www.imdb.com/title/"
+      const url = this.imdbID;
+      window.open(ImdbAdress + url);
+    });
 
     // document.getElementById('info').addEventListener("click", () => {
     //   sectionContainer.classList.add("section-container-blurred");
