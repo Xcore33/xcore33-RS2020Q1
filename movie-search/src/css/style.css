@@ -6,6 +6,10 @@
   font-family: "Roboto", sans-serif;
 }
 
+body {
+  color: #000000;
+}
+
 h1 {
   position: absolute;
   z-index: 10;
@@ -251,25 +255,25 @@ footer h2 {
 }
 
 .history-library__item {
-  position: relative;
+  position: fixed;
+  z-index: 2;
 
   width: 100%;
   max-width: 400px;
   max-height: 200px;
-  margin-top: -100%;
+  margin-top: -50px;
   overflow-y: scroll;
 
   font-weight: 300;
   font-size: 1.7em;
 
+  background-color: #eeeeee;
   opacity: 0;
 
   transition: 0.5s ease;
 }
 
 .history__visible {
-  margin-top: 0;
-
   opacity: 1;
 }
 
@@ -280,6 +284,7 @@ footer h2 {
   align-items: center;
   width: 100%;
   max-width: 500px;
+  padding-bottom: 50px;
 }
 
 .search-history__icon {
@@ -315,11 +320,7 @@ footer h2 {
   cursor: pointer;
 }
 
-.content-box__films_result {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
+.swiper__films_result {
   max-width: 1000px;
 }
 
@@ -369,20 +370,6 @@ footer h2 {
 }
 
 /* MOVIE ITEM */
-
-.movie-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: content-box;
-  width: 200px;
-  margin: 10px;
-  padding: 5px;
-
-  border-radius: 5px;
-
-  transition: 0.1s ease;
-}
 
 .movie-item:hover {
   box-shadow: 0 10px 5px 3px rgba(0, 0, 0, 0.2);
@@ -434,6 +421,7 @@ footer h2 {
 
 .movie-item__info_push {
   position: absolute;
+  top: 15px;
 
   align-self: flex-end;
   width: 40px;
@@ -447,6 +435,43 @@ footer h2 {
   background-color: #ef473a;
   border-radius: 25%;
   outline: none;
+}
+
+
+/* swiper */
+
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}
+.swiper-slide {
+  position: static;
+
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display:         flex;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+          align-items: center;
+  box-sizing: content-box;
+  width: 200px;
+  margin: 10px;
+  padding: 5px;
+
+  font-size: 18px;
+  text-align: center;
+
+  background: #ffffff;
+  border-radius: 5px;
+
+  transition: 0.1s ease;
 }
 
 /* MODALS*/
@@ -625,4 +650,12 @@ footer h2 {
 
 .content-wrapper::-webkit-scrollbar-thumb {
   background-color: #ef473a;
+}
+
+.alert {
+  margin-top: -130px;
+
+  font-size: 2em;
+  text-align: center;
+  color: #ef473a;
 }

@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Movie Search RSS</title>
+  <link rel="stylesheet" href="css/swiper.min.css" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="fontawesome/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700,900&display=swap" rel="stylesheet">
@@ -28,7 +29,7 @@
         <div class="search">
           <input type="text" name="sectionContentSearch" id="sectionContentSearch" class="search__input"
             placeholder="Title..." autocomplete="off" autofocus />
-            <div class="search__engine_icon-container">
+          <div class="search__engine_icon-container">
             <i class="fa fa-times search__engine_icon"></i>
           </div>
           <button id="sectionContentSearchButton" class="search__engine_submit">Search</button>
@@ -44,7 +45,12 @@
         <div class="history-library">
           <div class="history-library__item content-wrapper"></div>
         </div>
-        <div class="content-box__films_result"></div>
+        <div class="swiper__films_result">
+          <div class="swiper-container">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
       </div>
     </div>
     <div id="sectionBookmarks" class="section">
@@ -77,6 +83,18 @@
   </footer>
 
   <script src="index.js"></script>
+  <script src="swiper.min.js"></script>
+  <script>
+    let swiper = new Swiper('.swiper-container', {
+      slidesPerView: 'auto',
+      centeredSlides: true,
+      spaceBetween: 30,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+  </script>
   <script src="fontawesome/js/all.min.js"></script>
 </body>
 

@@ -17,9 +17,13 @@ const sectionContentSearchButton = document.querySelector("#sectionContentSearch
 const sectionContentSearchIconContainer = document.querySelector(".search__engine_icon-container");
 const sectionShowSearchHistoryButton = document.querySelector(".search-history__button");
 const sectionSearchHistory = document.querySelector(".history-library__item");
-const sectionContentResultMovieContainer = document.querySelector(".content-box__films_result");
+
+const sectionContentResultMovieContainer = document.querySelector(".swiper__films_result");
+
 const sectionContentMyMovies = document.querySelector(".marked-results__my-movies");
 const modalContainer = document.querySelector(".modal-container");
+const swiperSlide = document.querySelector('.swiper-wrapper');
+
 
 let typeTimer;
 const typeWaitMilliseconds = 2000;
@@ -79,7 +83,7 @@ function startSearch() {
 
 sectionContentSearchIconContainer.addEventListener("click", () => {
   sectionContentSearch.value = "";
-  sectionContentResultMovieContainer.innerHTML = "";
+  swiperSlide.innerHTML = "";
   revertMistake();
 });
 
@@ -96,13 +100,20 @@ sectionShowSearchHistoryButton.addEventListener("click", () => {
   }
 });
 
+const divMistake = document.createElement('div');
+divMistake.classList.add('alert');
+
 function populateSearchResult(search) {
+const currentSearch = 'No results for ';
   searchMovie(search).then(result => {
-    sectionContentResultMovieContainer.innerHTML = "";
+    swiperSlide.innerHTML = "";
     if (result.Search == null) {
       sectionContentResultMovieContainer.classList.add('dont_find');
       sectionContentResultMovieContainer.style.width = "500px";
       sectionContentResultMovieContainer.style.height = "500px";
+      divMistake.innerHTML = currentSearch + sectionContentSearch.value;
+      sectionContentResultMovieContainer.appendChild(divMistake);
+
       return;
     }
       revertMistake()
@@ -111,7 +122,7 @@ function populateSearchResult(search) {
     result.Search.map((element) => {
       getMovieData(element.imdbID).then(data => {
         const movie = new Movie(data);
-        sectionContentResultMovieContainer.appendChild(movie.getMovieItem());
+        swiperSlide.appendChild(movie.getMovieItem());
       });
       return true;
     });
@@ -122,6 +133,7 @@ function revertMistake() {
   sectionContentResultMovieContainer.classList.remove('dont_find');
   sectionContentResultMovieContainer.style.width = "";
   sectionContentResultMovieContainer.style.height = "";
+  divMistake.innerHTML = "";
 }
 
 function updateMyMoviesResult() {
@@ -198,7 +210,7 @@ class Movie {
 
   getMovieItem() {
     const movieItem = document.createElement("div");
-    movieItem.classList = "movie-item";
+    movieItem.classList = "movie-item swiper-slide";
     movieItem.innerHTML = `<div class="movie-item__poster" style="background-image:url(${
       this.Poster !== "N/A"
         ? this.Poster
