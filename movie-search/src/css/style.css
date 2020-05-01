@@ -365,10 +365,6 @@ footer h2 {
   text-decoration-color: #ef473a;
 }
 
-.marked-results__my-movies_link:hover {
-  cursor: pointer;
-}
-
 /* MOVIE ITEM */
 
 .movie-item:hover {

@@ -35,6 +35,7 @@ const myMoviesProxy = new Proxy(myMovies, {
     base[property] = value;
     if (property === "length") {
       localStorage.myMovies = JSON.stringify(myMoviesProxy);
+      sectionContentMyMovies.innerHTML = "";
       updateMyMoviesResult();
     }
     return true;
@@ -42,7 +43,7 @@ const myMoviesProxy = new Proxy(myMovies, {
 });
 
 sectionHeaderSubtitles.forEach((element) => {
-  element.addEventListener("mousedown", () => {
+  element.addEventListener("click", () => {
     sections.forEach(el => {
       el.classList.remove("section-visible");
     });
@@ -123,7 +124,6 @@ const currentSearch = 'No results for ';
 }
 
 function updateMyMoviesResult() {
-  sectionContentMyMovies.innerHTML = "";
   myMoviesProxy.forEach(element => {
     sectionContentMyMovies.appendChild(element.getMovieItem());
   });
@@ -308,6 +308,7 @@ if (localStorage.myMovies !== undefined) {
   if (localStorage.myMovies.length > 0) {
     JSON.parse(localStorage.myMovies).forEach(element => {
       myMoviesProxy.push(new Movie(element));
+      sectionContentMyMovies.innerHTML = "";
     });
     updateMyMoviesResult();
   }
