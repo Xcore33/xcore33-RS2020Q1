@@ -252,6 +252,7 @@ class Movie {
   }
 
   getMovieModal() {
+    revertMistake()
     const movieModal = document.createElement("div");
     movieModal.classList = "movie-modal__detail content-wrapper";
     movieModal.innerHTML = `<div class="movie-modal__poster" style="background-image:url(${

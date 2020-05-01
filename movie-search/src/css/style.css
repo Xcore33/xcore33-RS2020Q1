@@ -34,6 +34,7 @@ footer {
 
 footer .sb:hover {
   cursor: pointer;
+  text-shadow: 1px 1px 2px black, 0 0 1em #ef473a;
 }
 
 footer h2 {
@@ -172,6 +173,8 @@ footer h2 {
 
 .header__title_subtitle:hover {
   cursor: pointer;
+  color: rgba(255, 255, 255, 0.65);
+  text-shadow: 1px 1px 2px black, 0 0 1em #ef473a;
 }
 
 .content-box {
@@ -195,7 +198,7 @@ footer h2 {
   max-width: 700px;
   height: 75px;
 
-  font-size: 3em;
+  font-size: 2.5em;
 }
 
 .search__input[type="text"] {
@@ -222,10 +225,6 @@ footer h2 {
   border-bottom: 3px solid #ef473a;
 }
 
-.search__engine_icon-container:hover {
-  cursor: pointer;
-}
-
 #sectionContentSearchButton {
   width: 63px;
   height: 40px;
@@ -237,6 +236,12 @@ footer h2 {
   background-color: #ef473a;
   border-radius: 25%;
   outline: none;
+}
+
+#sectionContentSearchButton:hover,
+.svg-inline--fa.fa-times.fa-w-11.search__engine_icon:hover {
+  cursor: pointer;
+  transform: scale(1.2);
 }
 
 .dont_find {
@@ -261,7 +266,7 @@ footer h2 {
   width: 100%;
   max-width: 400px;
   max-height: 200px;
-  margin-top: -50px;
+  margin-top: -500px;
   overflow-y: scroll;
 
   font-weight: 300;
@@ -275,6 +280,7 @@ footer h2 {
 
 .history__visible {
   opacity: 1;
+  margin-top: -50px;
 }
 
 .search-history {
@@ -435,6 +441,11 @@ footer h2 {
   background-color: #ef473a;
   border-radius: 25%;
   outline: none;
+}
+
+.movie-item__info_push:hover {
+  cursor: pointer;
+  transform: scale(1.2);
 }
 
 
