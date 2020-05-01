@@ -244,12 +244,6 @@ footer h2 {
   transform: scale(1.2);
 }
 
-.dont_find {
-  background-image: url(../img/dontfind.png);
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
 .history-library {
   position: relative;
 
@@ -407,7 +401,6 @@ footer h2 {
 
   font-size: 2em;
   color: #ef473a;
-  /* display: none; */
 }
 
 .movie-item__heart_visible {
@@ -664,9 +657,11 @@ footer h2 {
 }
 
 .alert {
-  margin-top: -130px;
+  position: absolute;
+  margin-top: 130px;
 
-  font-size: 2em;
+  font-size: 1.5em;
   text-align: center;
   color: #ef473a;
+  align-self: center;
 }

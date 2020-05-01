@@ -9,6 +9,7 @@ const IDAPIUrl = (apiKey, id) => {
 const apiKey = "31849743";
 
 const sectionContainer = document.querySelector(".section-container");
+const content = document.querySelector(".content-box");
 const sections = document.querySelectorAll(".section");
 const sectionHeaderMenu = document.querySelectorAll(".header-menu");
 const sectionHeaderSubtitles = document.querySelectorAll(".header__title_subtitle");
@@ -17,9 +18,6 @@ const sectionContentSearchButton = document.querySelector("#sectionContentSearch
 const sectionContentSearchIconContainer = document.querySelector(".search__engine_icon-container");
 const sectionShowSearchHistoryButton = document.querySelector(".search-history__button");
 const sectionSearchHistory = document.querySelector(".history-library__item");
-
-const sectionContentResultMovieContainer = document.querySelector(".swiper__films_result");
-
 const sectionContentMyMovies = document.querySelector(".marked-results__my-movies");
 const modalContainer = document.querySelector(".modal-container");
 const swiperSlide = document.querySelector('.swiper-wrapper');
@@ -71,7 +69,11 @@ sectionContentSearchButton.addEventListener("click", () => {
   startSearch()
 });
 
+const divMistake = document.createElement('div');
+divMistake.classList.add('alert');
+
 function startSearch() {
+  content.appendChild(divMistake);
   clearTimeout(typeTimer);
   typeTimer = setTimeout(() => {
     if (sectionContentSearch.value.trim() !== "") {
@@ -84,7 +86,6 @@ function startSearch() {
 sectionContentSearchIconContainer.addEventListener("click", () => {
   sectionContentSearch.value = "";
   swiperSlide.innerHTML = "";
-  revertMistake();
 });
 
 sectionShowSearchHistoryButton.addEventListener("click", () => {
@@ -100,40 +101,25 @@ sectionShowSearchHistoryButton.addEventListener("click", () => {
   }
 });
 
-const divMistake = document.createElement('div');
-divMistake.classList.add('alert');
-
 function populateSearchResult(search) {
 const currentSearch = 'No results for ';
   searchMovie(search).then(result => {
-    swiperSlide.innerHTML = "";
-    if (result.Search == null) {
-      sectionContentResultMovieContainer.classList.add('dont_find');
-      sectionContentResultMovieContainer.style.width = "500px";
-      sectionContentResultMovieContainer.style.height = "500px";
+      if (result.Search == null) {
       divMistake.innerHTML = currentSearch + sectionContentSearch.value;
-      sectionContentResultMovieContainer.appendChild(divMistake);
-
       return;
     }
-      revertMistake()
+    if (result.Search !== null) {
+      swiperSlide.innerHTML = "";
       modalContainer.innerHTML = "";
-
-    result.Search.map((element) => {
+      result.Search.map((element) => {
       getMovieData(element.imdbID).then(data => {
         const movie = new Movie(data);
         swiperSlide.appendChild(movie.getMovieItem());
       });
       return true;
     });
+  }
   });
-}
-
-function revertMistake() {
-  sectionContentResultMovieContainer.classList.remove('dont_find');
-  sectionContentResultMovieContainer.style.width = "";
-  sectionContentResultMovieContainer.style.height = "";
-  divMistake.innerHTML = "";
 }
 
 function updateMyMoviesResult() {
@@ -209,6 +195,8 @@ class Movie {
   }
 
   getMovieItem() {
+    const currentSearch = 'Showing results for ';
+    divMistake.innerHTML = currentSearch + sectionContentSearch.value;
     const movieItem = document.createElement("div");
     movieItem.classList = "movie-item swiper-slide";
     movieItem.innerHTML = `<div class="movie-item__poster" style="background-image:url(${
@@ -252,7 +240,6 @@ class Movie {
   }
 
   getMovieModal() {
-    revertMistake()
     const movieModal = document.createElement("div");
     movieModal.classList = "movie-modal__detail content-wrapper";
     movieModal.innerHTML = `<div class="movie-modal__poster" style="background-image:url(${
