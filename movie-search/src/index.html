@@ -45,12 +45,17 @@
         <div class="history-library">
           <div class="history-library__item content-wrapper"></div>
         </div>
-        <div class="swiper__films_result">
-          <div class="swiper-container">
-            <div class="swiper-wrapper"></div>
-            <div class="swiper-pagination"></div>
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">Slide 1</div>
+            <div class="swiper-slide">Slide 2</div>
+            <div class="swiper-slide">Slide 3</div>
+            <div class="swiper-slide">Slide 4</div>
           </div>
+          <div class="swiper-pagination"></div>
         </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
       </div>
     </div>
     <div id="sectionBookmarks" class="section">
@@ -81,20 +86,8 @@
     <a class="sb github" href="https://github.com/Xcore33/" target="blanc"><img src="img/github.svg" width="30px"><i
         id="SPAN">Xcore33 github</i></a>
   </footer>
-
-  <script src="index.js"></script>
   <script src="swiper.min.js"></script>
-  <script>
-    let swiper = new Swiper('.swiper-container', {
-      slidesPerView: 'auto',
-      centeredSlides: true,
-      spaceBetween: 30,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-    });
-  </script>
+  <script src="index.js"></script>
   <script src="fontawesome/js/all.min.js"></script>
 </body>
 

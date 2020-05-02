@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-array-constructor */
 /* eslint-disable no-use-before-define */
 const searchAPIUrl = (apiKey, title) => {
@@ -21,6 +22,43 @@ const sectionSearchHistory = document.querySelector(".history-library__item");
 const sectionContentMyMovies = document.querySelector(".marked-results__my-movies");
 const modalContainer = document.querySelector(".modal-container");
 const swiperSlide = document.querySelector('.swiper-wrapper');
+
+const swiper = new Swiper('.swiper-container', {
+  slidesPerView: 1,
+  spaceBetween: 30,
+  // init: false,
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  breakpoints: {
+    480: {
+      slidesPerView: 1,
+      spaceBetween: 0,
+      slidesPerGroup: 1,
+    },
+    640: {
+      slidesPerView: 2,
+      spaceBetween: 10,
+      slidesPerGroup: 2,
+    },
+    842: {
+      slidesPerView: 3,
+      spaceBetween: 20,
+      slidesPerGroup: 3,
+    },
+    1030: {
+      slidesPerView: 4,
+      spaceBetween: 20,
+      slidesPerGroup: 4,
+    },
+  },
+  keyboard: true,
+});
 
 
 let typeTimer;
@@ -86,7 +124,6 @@ function startSearch() {
 
 sectionContentSearchIconContainer.addEventListener("click", () => {
   sectionContentSearch.value = "";
-  swiperSlide.innerHTML = "";
 });
 
 sectionShowSearchHistoryButton.addEventListener("click", () => {
@@ -165,6 +202,16 @@ function getMovieData(imdbID) {
   });
 }
 
+function fillResultText() {
+  const currentSearch = 'Showing results for ';
+  if (sectionContentSearch.value === "") {
+    divMistake.innerHTML = 'Showing results from history';
+  } else {
+    divMistake.innerHTML = currentSearch + sectionContentSearch.value;
+  }
+  swiper.update();
+}
+
 class Movie {
   constructor(movie) {
     this.Title = movie.Title;
@@ -194,9 +241,8 @@ class Movie {
     this.Response = movie.Response;
   }
 
-  getMovieItem() {
-    const currentSearch = 'Showing results for ';
-    divMistake.innerHTML = currentSearch + sectionContentSearch.value;
+   getMovieItem() {
+    fillResultText()
     const movieItem = document.createElement("div");
     movieItem.classList = "movie-item swiper-slide";
     movieItem.innerHTML = `<div class="movie-item__poster" style="background-image:url(${
@@ -313,3 +359,4 @@ if (localStorage.myMovies !== undefined) {
     updateMyMoviesResult();
   }
 }
+
