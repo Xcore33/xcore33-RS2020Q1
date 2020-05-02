@@ -9,6 +9,46 @@ const IDAPIUrl = (apiKey, id) => {
 };
 const apiKey = "31849743";
 
+
+const bestFilms = {
+  "Search": [
+    {
+      "Title": "The Shawshank Redemption",
+      "Year": "1994",
+      "imdbID": "tt0111161",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg"
+    },
+    {
+      "Title": "The Godfather",
+      "Year": "1972",
+      "imdbID": "tt0068646",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg"
+    },
+    {
+      "Title": "The Lord of the Rings: The Return of the King",
+      "Year": "2003",
+      "imdbID": "tt0167260",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmY2EwMWZlMTY3XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Fight Club",
+      "Year": "1999",
+      "imdbID": "tt0137523",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BMjJmYTNkNmItYjYyZC00MGUxLWJhNWMtZDY4Nzc1MDAwMzU5XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg"
+    }
+  ],
+  "totalResults": "4"
+};
+
+
+
+
+populateSearchResult(bestFilms)
+
 const sectionContainer = document.querySelector(".section-container");
 const content = document.querySelector(".content-box");
 const sections = document.querySelectorAll(".section");
@@ -26,7 +66,7 @@ const swiperSlide = document.querySelector('.swiper-wrapper');
 const swiper = new Swiper('.swiper-container', {
   slidesPerView: 1,
   spaceBetween: 30,
-  // init: false,
+  init: true,
   pagination: {
     el: '.swiper-pagination',
     clickable: true,
@@ -59,7 +99,6 @@ const swiper = new Swiper('.swiper-container', {
   },
   keyboard: true,
 });
-
 
 let typeTimer;
 const typeWaitMilliseconds = 2000;
@@ -359,4 +398,5 @@ if (localStorage.myMovies !== undefined) {
     updateMyMoviesResult();
   }
 }
+
 
