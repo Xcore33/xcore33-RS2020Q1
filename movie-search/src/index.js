@@ -121,6 +121,7 @@ const divMistake = document.createElement('div');
 divMistake.classList.add('alert');
 
 function startSearch() {
+  translate();
   content.appendChild(divMistake);
   clearTimeout(typeTimer);
   typeTimer = setTimeout(() => {
@@ -568,7 +569,7 @@ const Keyboard = {
 
 
 
-    open(initialValue, oninput, onclose) {
+    open(oninput, onclose) {
         this.eventHandlers.oninput = oninput;
         this.eventHandlers.onclose = onclose;
         this.elements.main.classList.remove("keyboard__hidden");
@@ -576,6 +577,7 @@ const Keyboard = {
     },
 
     close() {
+      this.properties.value = "";
         this.eventHandlers.oninput = oninput;
         this.eventHandlers.onclose = onclose;
         this.elements.main.classList.add("keyboard__hidden");
@@ -587,22 +589,21 @@ window.addEventListener("DOMContentLoaded", function keyboardStart () {
 });
 
 
-// translate 
-window.addEventListener("DOMContentLoaded", function() {
-  const btn = document.querySelector("#sectionContentSearchButton");
-  const txt = document.querySelector("#sectionContentSearch");
-  btn.addEventListener("click", function() {
-const request = new XMLHttpRequest();
-const text = encodeURIComponent(txt.value);
-const key = "trnsl.1.1.20200504T130133Z.8d398eeea55cc3d6.b0ed35f3724a112b13d6963dc8cbe56a570e02ee";
-const url = `https://translate.yandex.net/api/v1.5/tr.json/translate?key=${key}&text=${text}&lang=ru-en&format=plain&options=1`
-request.open('GET', url, true);
-request.onload = function() {
-if (request.status >= 200 && request.status < 400) {
-  const data = JSON.parse(request.responseText);
-  txt.value = data.text;
-}
-};
-request.send();
-  });
-});
+// translate
+
+const txt = document.querySelector("#sectionContentSearch");
+
+function translate() {
+  const request = new XMLHttpRequest();
+  const text = encodeURIComponent(txt.value);
+  const key = "trnsl.1.1.20200504T130133Z.8d398eeea55cc3d6.b0ed35f3724a112b13d6963dc8cbe56a570e02ee";
+  const url = `https://translate.yandex.net/api/v1.5/tr.json/translate?key=${key}&text=${text}&lang=ru-en&format=plain&options=1`
+  request.open('GET', url, true);
+  request.onload = function getRequest() {
+  if (request.status >= 200 && request.status < 400) {
+    const data = JSON.parse(request.responseText);
+    txt.value = data.text;
+  }
+  };
+  request.send();
+    };
