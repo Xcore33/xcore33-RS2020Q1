@@ -228,7 +228,7 @@ footer h2 {
 }
 
 #sectionContentSearchButton,
-.search__keyboard_input  {
+.search__keyboard_input {
   width: 63px;
   height: 40px;
   margin-left: 10px;
@@ -236,14 +236,15 @@ footer h2 {
   color: aliceblue;
 
   background-color: #ef473a;
+  border: none;
   border-radius: 4px;
   outline: none;
-  border: none;
-  transition: ease-out 0.3s;  
+
+  transition: ease-out 0.3s;
 }
 
 #sectionContentSearchButton {
-font-size: 1em;
+  font-size: 1em;
 }
 
 .search__keyboard_input {
@@ -255,8 +256,8 @@ font-size: 1em;
 .movie-item__info_push:active,
 .swiper-button-next:active,
 .swiper-button-prev:active {
-  transform: scale(0.9);
   box-shadow: 0 0 4px rgba(0,0,0,0.8);
+  transform: scale(0.9);
 }
 
 #sectionContentSearchButton:hover,
@@ -264,13 +265,14 @@ font-size: 1em;
 .movie-item__info_push:hover,
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-filter: grayscale(0.3);
-cursor: pointer;
+  cursor: pointer;
+  filter: grayscale(0.3);
 }
 
 .svg-inline--fa.fa-times.fa-w-11.search__engine_icon:hover {
   transform: scale(1.1);
   cursor: pointer;
+
   transition: all 0.3s;
 }
 
@@ -320,6 +322,7 @@ cursor: pointer;
   width: 100%;
   max-width: 500px;
   padding-bottom: 50px;
+
   transition: ease-out 0.3s;
 }
 
@@ -456,9 +459,10 @@ cursor: pointer;
   color: aliceblue;
 
   background-color: #ef473a;
+  border: none;
   border-radius: 4px;
   outline: none;
-  border: none;
+
   transition: ease-out 0.3s;
 }
 
@@ -472,6 +476,7 @@ cursor: pointer;
 }
 .swiper-slide {
   position: static;
+
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -492,6 +497,7 @@ cursor: pointer;
 
   background: #ffffff;
 }
+
 .swiper-pagination {
   position: relative;
 
@@ -510,8 +516,9 @@ cursor: pointer;
 
 .swiper-button-next,
 .swiper-button-prev {
-  transition: ease-out 0.3s;
   outline: none;
+
+  transition: ease-out 0.3s;
 }
 
 .swiper-wrapper > .swiper-slide {
@@ -577,6 +584,7 @@ cursor: pointer;
   transform: scale(1.1);
   cursor: pointer;
   filter: grayscale(0.3);
+
   transition: ease-in-out 0.3s;
 }
 
@@ -743,12 +751,12 @@ cursor: pointer;
   #keyBoard,
   .search__keyboard_input {
     display: none;
-  }  
+  }
 
-  footer h2, 
+  footer h2,
   .sb i {
     font-size: 0.8em;
-  }  
+  }
 
   .header__title,
   .header__button,
@@ -760,48 +768,48 @@ cursor: pointer;
 @media (max-width: 880px) {
   h1 {
     margin: 20px 0 0 15px;
-  } 
+  }
   h1,
   .header__title,
   .header__button,
   .header__title_subtitle {
     font-size: 1.5em;
-  } 
+  }
 }
 
 @media (max-width: 690px) {
   h1 {
     margin: 22px 0 0 15px;
-  } 
+  }
   h1,
   .header__title,
   .header__button,
   .header__title_subtitle {
     font-size: 1.3em;
-  } 
+  }
 }
 
 @media (max-width: 560px) {
   h1 {
     margin: 24px 0 0 15px;
-  } 
+  }
   .header__title,
   .header__button,
   .header__title_subtitle {
-    margin-right: 0%;
-  } 
+    margin-right: 0;
+  }
 }
 
 @media (max-width: 420px) {
   h1 {
     margin: 27px 0 0 15px;
-  } 
+  }
   h1,
   .header__title,
   .header__button,
   .header__title_subtitle {
     font-size: 1em;
-  } 
+  }
 }
 
 
@@ -814,6 +822,7 @@ cursor: pointer;
   left: 0;
   z-index: 13;
 
+  align-self: center;
   width: 100%;
   padding: 5px 15%;
 
@@ -823,7 +832,6 @@ cursor: pointer;
   transition: bottom 0.4s;
 
   user-select: none;
-  align-self: center;
 }
 
 .keyboard__hidden {
@@ -892,4 +900,3 @@ cursor: pointer;
 .keyboard__key_dark {
   background: rgba(0, 0, 0, 0.25);
 }
-
