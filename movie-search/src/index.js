@@ -414,7 +414,7 @@ const Keyboard = {
 
         document.querySelectorAll(".search__input").forEach(element => {
           const activator = element;
-            element.addEventListener("click", () => {
+            element.addEventListener("focus", () => {
                 this.type(activator.value, currentValue => {
                   activator.value = currentValue;
                 });              
@@ -426,12 +426,9 @@ const Keyboard = {
         });
 
         document.querySelectorAll(".search__keyboard_input").forEach(element => {
-          const activator = element;
             element.addEventListener("click", () => {
               if (this.elements.main.classList.contains('keyboard__hidden')) {
-                this.open(activator.value, currentValue => {
-                  activator.value = currentValue;
-                });
+                this.open()
               } else {
                   this.close();
                   this.triggerEvent("onclose");
@@ -449,8 +446,6 @@ const Keyboard = {
             "done", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?",
             "space"
         ];
-
-        // Creates HTML for an icon
         const createIconHTML = (iconname) => {
             return `<i class="material-icons">${iconname}</i>`;
         };
@@ -459,7 +454,6 @@ const Keyboard = {
             const keyElement = document.createElement("button");
             const insertLineBreak = ["backspace", "p", "enter", "?"].indexOf(key) !== -1;
 
-            // Add attributes/classes
             keyElement.setAttribute("type", "button");
             keyElement.classList.add("keyboard__key");
 
@@ -561,7 +555,7 @@ const Keyboard = {
     },
 
     type(initialValue, oninput, onclose) {
-      this.properties.value = initialValue || "";
+      this.properties.value = initialValue || sectionContentSearch.value;
       this.eventHandlers.oninput = oninput;
       this.eventHandlers.onclose = onclose;
   },
@@ -575,14 +569,13 @@ const Keyboard = {
 
 
     open(initialValue, oninput, onclose) {
-        this.properties.value = initialValue || "";
         this.eventHandlers.oninput = oninput;
         this.eventHandlers.onclose = onclose;
         this.elements.main.classList.remove("keyboard__hidden");
+        sectionContentSearch.focus();
     },
 
     close() {
-        this.properties.value = "";
         this.eventHandlers.oninput = oninput;
         this.eventHandlers.onclose = onclose;
         this.elements.main.classList.add("keyboard__hidden");
