@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="fontawesome/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body class="content-wrapper">
@@ -30,9 +31,14 @@
           <input type="text" name="sectionContentSearch" id="sectionContentSearch" class="search__input"
             placeholder="Title..." autocomplete="off" autofocus />
           <div class="search__engine_icon-container">
+            <div id="loadIcon" class="invisible">
+            <i  class="fas fa-circle-notch fa-spin fa-fw"></i>
+          </div>
             <i class="fa fa-times search__engine_icon"></i>
           </div>
           <button id="sectionContentSearchButton" class="search__engine_submit">Search</button>
+          <button class="search__keyboard_input"><i class="fas fa-keyboard"></i></button>
+          
         </div>
         <div class="search-history">
           <div class="search-history_open"><i class="fas fa-caret-down search-history__icon"></i></div>

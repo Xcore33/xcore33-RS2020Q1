@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-undef */
 /* eslint-disable no-array-constructor */
 /* eslint-disable no-use-before-define */
@@ -9,45 +10,6 @@ const IDAPIUrl = (apiKey, id) => {
 };
 const apiKey = "31849743";
 
-
-const bestFilms = {
-  "Search": [
-    {
-      "Title": "The Shawshank Redemption",
-      "Year": "1994",
-      "imdbID": "tt0111161",
-      "Type": "movie",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg"
-    },
-    {
-      "Title": "The Godfather",
-      "Year": "1972",
-      "imdbID": "tt0068646",
-      "Type": "movie",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg"
-    },
-    {
-      "Title": "The Lord of the Rings: The Return of the King",
-      "Year": "2003",
-      "imdbID": "tt0167260",
-      "Type": "movie",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmY2EwMWZlMTY3XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg"
-    },
-    {
-      "Title": "Fight Club",
-      "Year": "1999",
-      "imdbID": "tt0137523",
-      "Type": "movie",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BMjJmYTNkNmItYjYyZC00MGUxLWJhNWMtZDY4Nzc1MDAwMzU5XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg"
-    }
-  ],
-  "totalResults": "4"
-};
-
-
-
-
-populateSearchResult(bestFilms)
 
 const sectionContainer = document.querySelector(".section-container");
 const content = document.querySelector(".content-box");
@@ -62,6 +24,9 @@ const sectionSearchHistory = document.querySelector(".history-library__item");
 const sectionContentMyMovies = document.querySelector(".marked-results__my-movies");
 const modalContainer = document.querySelector(".modal-container");
 const swiperSlide = document.querySelector('.swiper-wrapper');
+const loadIcon = document.getElementById('loadIcon')
+
+// loadIcon.classList.add('invisible');
 
 const swiper = new Swiper('.swiper-container', {
   slidesPerView: 1,
@@ -99,6 +64,7 @@ const swiper = new Swiper('.swiper-container', {
   },
   keyboard: true,
 });
+
 
 let typeTimer;
 const typeWaitMilliseconds = 2000;
@@ -138,13 +104,17 @@ sectionHeaderMenu.forEach(element => {
 });
 
 sectionContentSearch.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') {
+  if (e.key === 'Enter' && sectionContentSearch.value !== "") {
     startSearch()
+    loadIcon.classList.remove('invisible');
   }
 });
 
 sectionContentSearchButton.addEventListener("click", () => {
-  startSearch()
+  if (sectionContentSearch.value !== "") {
+    startSearch()
+    loadIcon.classList.remove('invisible');
+  }
 });
 
 const divMistake = document.createElement('div');
@@ -183,6 +153,7 @@ const currentSearch = 'No results for ';
   searchMovie(search).then(result => {
       if (result.Search == null) {
       divMistake.innerHTML = currentSearch + sectionContentSearch.value;
+      loadIcon.classList.add('invisible');
       return;
     }
     if (result.Search !== null) {
@@ -192,6 +163,7 @@ const currentSearch = 'No results for ';
       getMovieData(element.imdbID).then(data => {
         const movie = new Movie(data);
         swiperSlide.appendChild(movie.getMovieItem());
+        loadIcon.classList.add('invisible');
       });
       return true;
     });
@@ -311,12 +283,13 @@ class Movie {
     movieItem.addEventListener("click", (event) => {
       const ImdbAdress = "https://www.imdb.com/title/"
       const url = this.imdbID;
+      const gallery = "/videogallery/"
       if (event.target.closest('.movie-item__info_push')) {
         sectionContainer.classList.add("section-container-blurred");
       modalContainer.appendChild(this.getMovieModal());
       }
       if (event.target.closest('.movie-item__poster')) {
-        window.open(ImdbAdress + url);
+        window.open(ImdbAdress + url + gallery);
       }
     });
 
@@ -399,4 +372,223 @@ if (localStorage.myMovies !== undefined) {
   }
 }
 
+const bestFilms = [{
+  "id": "star"
+}
+]
 
+
+populateSearchResult(bestFilms);
+
+// keyboard 
+
+const Keyboard = {
+    elements: {
+        main: null,
+        keysContainer: null,
+        keys: []
+    },
+
+    eventHandlers: {
+        oninput: null,
+        onclose: null
+    },
+
+    properties: {
+        value: "",
+        capsLock: false
+    },
+
+    init() {
+        this.elements.main = document.createElement("div");
+        this.elements.main.id = "keyBoard";
+        this.elements.keysContainer = document.createElement("div");
+        this.elements.main.classList.add("keyboard", "keyboard__hidden");
+        this.elements.keysContainer.classList.add("keyboard__keys");
+        this.elements.keysContainer.appendChild(this.createKeys());
+        this.elements.keys = this.elements.keysContainer.querySelectorAll(".keyboard__key");
+        this.elements.main.appendChild(this.elements.keysContainer);
+        document.body.appendChild(this.elements.main);
+
+
+
+        document.querySelectorAll(".search__input").forEach(element => {
+          const activator = element;
+            element.addEventListener("click", () => {
+                this.type(activator.value, currentValue => {
+                  activator.value = currentValue;
+                });              
+            });
+        });    
+
+        sectionContentSearchIconContainer.addEventListener("click", () => {
+          this.erase();
+        });
+
+        document.querySelectorAll(".search__keyboard_input").forEach(element => {
+          const activator = element;
+            element.addEventListener("click", () => {
+              if (this.elements.main.classList.contains('keyboard__hidden')) {
+                this.open(activator.value, currentValue => {
+                  activator.value = currentValue;
+                });
+              } else {
+                  this.close();
+                  this.triggerEvent("onclose");
+                }
+            });
+        });
+    },
+
+    createKeys() {
+        const fragment = document.createDocumentFragment();
+        const keyLayout = [
+            "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
+            "q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
+            "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", "enter",
+            "done", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?",
+            "space"
+        ];
+
+        // Creates HTML for an icon
+        const createIconHTML = (iconname) => {
+            return `<i class="material-icons">${iconname}</i>`;
+        };
+
+        keyLayout.forEach(key => {
+            const keyElement = document.createElement("button");
+            const insertLineBreak = ["backspace", "p", "enter", "?"].indexOf(key) !== -1;
+
+            // Add attributes/classes
+            keyElement.setAttribute("type", "button");
+            keyElement.classList.add("keyboard__key");
+
+            switch (key) {
+                case "backspace":
+                    keyElement.classList.add("keyboard__key_wide");
+                    keyElement.innerHTML = createIconHTML("backspace");
+
+                    keyElement.addEventListener("click", () => {
+                        this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
+                        this.triggerEvent("oninput");
+                    });
+
+                    break;
+
+                case "caps":
+                    keyElement.classList.add("keyboard__key_wide", "keyboard__key_activatable");
+                    keyElement.innerHTML = createIconHTML("keyboard_capslock");
+
+                    keyElement.addEventListener("click", () => {
+                        this.toggleCapsLock();
+                        keyElement.classList.toggle("keyboard__key_active", this.properties.capsLock);
+                    });
+
+                    break;
+
+                case "enter":
+                    keyElement.classList.add("keyboard__key_wide");
+                    keyElement.innerHTML = createIconHTML("keyboard_return");
+
+                    keyElement.addEventListener("click", () => {
+                        this.properties.value += "\n";
+                        this.triggerEvent("oninput");
+                        if (sectionContentSearch.value !== "") {
+                          startSearch()
+                          loadIcon.classList.remove('invisible');
+                        }
+                    });
+
+                    break;
+
+                case "space":
+                    keyElement.classList.add("keyboard__key_extra-wide");
+                    keyElement.innerHTML = createIconHTML("space_bar");
+
+                    keyElement.addEventListener("click", () => {
+                        this.properties.value += " ";
+                        this.triggerEvent("oninput");
+                    });
+
+                    break;
+
+                case "done":
+                    keyElement.classList.add("keyboard__key_wide", "keyboard__key_dark");
+                    keyElement.innerHTML = createIconHTML("check_circle");
+
+                    keyElement.addEventListener("click", () => {
+                        this.close();
+                        this.triggerEvent("onclose");
+                    });
+
+                    break;
+
+                default:
+                    keyElement.textContent = key.toLowerCase();
+
+                    keyElement.addEventListener("click", () => {
+                        this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
+                        this.triggerEvent("oninput");
+                    });
+
+                    break;
+            }
+
+            fragment.appendChild(keyElement);
+
+            if (insertLineBreak) {
+                fragment.appendChild(document.createElement("br"));
+            }
+        });
+
+        return fragment;
+    },
+
+    triggerEvent(handlerName) {
+        if (typeof this.eventHandlers[handlerName] === "function") {
+            this.eventHandlers[handlerName](this.properties.value);
+        }
+    },
+
+    toggleCapsLock() {
+        this.properties.capsLock = !this.properties.capsLock;
+
+        for (const key of this.elements.keys) {
+            if (key.childElementCount === 0) {
+                key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
+            }
+        }
+    },
+
+    type(initialValue, oninput, onclose) {
+      this.properties.value = initialValue || "";
+      this.eventHandlers.oninput = oninput;
+      this.eventHandlers.onclose = onclose;
+  },
+
+  erase() {
+    this.properties.value = "";
+    this.eventHandlers.oninput = oninput;
+    this.eventHandlers.onclose = onclose;
+},
+
+
+
+    open(initialValue, oninput, onclose) {
+        this.properties.value = initialValue || "";
+        this.eventHandlers.oninput = oninput;
+        this.eventHandlers.onclose = onclose;
+        this.elements.main.classList.remove("keyboard__hidden");
+    },
+
+    close() {
+        this.properties.value = "";
+        this.eventHandlers.oninput = oninput;
+        this.eventHandlers.onclose = onclose;
+        this.elements.main.classList.add("keyboard__hidden");
+    }
+};
+
+window.addEventListener("DOMContentLoaded", function keyboardStart () {
+    Keyboard.init();
+});
