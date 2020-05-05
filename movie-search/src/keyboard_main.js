@@ -10,31 +10,31 @@ const KEY_CODE = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5',
   'BracketLeft', 'BracketRight', 'Backslash', 'Delete', 'CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK',
   'KeyL', 'Semicolon', 'Quote', 'Enter', 'ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period',
   'Slash', 'ArrowUp', 'ShiftRight', 'ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight',
-  'ControlRight'];
+  'ControlRight', 'ContextMenu'];
 
 const KEYS_EN = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace',
   'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'Del',
   'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'Enter',
   'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '▲', 'Shift ',
-  'Ctrl', 'Win', 'Alt', 'Space', 'Alt ', '◄', '▼', '►', 'Ctrl ',
+  'Ctrl', 'Win', 'Alt', 'Space', 'Alt ', '◄', '▼', '►', 'Ctrl ', 'Lang ',
 ];
 const KEYS_EN_CAPS = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace',
   'Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '|', 'Del',
   'CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"', 'Enter',
   'Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '▲', 'Shift ',
-  'Ctrl', 'Win', 'Alt', 'Space', 'Alt ', '◄', '▼', '►', 'Ctrl ',
+  'Ctrl', 'Win', 'Alt', 'Space', 'Alt ', '◄', '▼', '►', 'Ctrl ', 'Lang ',
 ];
 const KEYS_RU = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace',
   'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Del',
   'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter',
   'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '▲', 'Shift',
-  'Ctrl', 'Win', 'Alt', 'Space', 'Alt ', '◄', '▼', '►', 'Ctrl ',
+  'Ctrl', 'Win', 'Alt', 'Space', 'Alt ', '◄', '▼', '►', 'Ctrl ', 'Lang ',
 ];
 const KEYS_RU_CAPS = ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'Backspace',
   'Tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', '/', 'Del',
   'CapsLock', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', 'Enter',
   'Shift', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', ',', '▲', 'Shift ',
-  'Ctrl', 'Win', 'Alt', 'Space', 'Alt ', '◄', '▼', '►', 'Ctrl ',
+  'Ctrl', 'Win', 'Alt', 'Space', 'Alt ', '◄', '▼', '►', 'Ctrl ', 'Lang ',
 ];
 
 const mainDiv = document.querySelector(".content-wrapper");
@@ -168,20 +168,6 @@ const KEYS = {
         if (child.getAttribute('code') !== 'CapsLock') child.classList.remove('clicked-button');
       });
     };
-    document.addEventListener('keydown', (event) => {
-      event.preventDefault();
-      const { code } = event;
-      if (this.keyCode.indexOf(code) < 0) return;
-      this.clickedButton.add(code);
-      this.keyDownHandler(event, code);
-    });
-    document.addEventListener('keyup', (event) => {
-      event.preventDefault();
-      const { code } = event;
-      if (this.keyCode.indexOf(code) < 0) return;
-      if (this.upperkey.indexOf(code) < 0) this.clickedButton.delete(code);
-      this.keyUpHandler(event, code);
-    });
     document.addEventListener('mousedown', (event) => {
       if (event.target.classList.contains('active-button')) {
         const code = event.target.parentNode.parentNode.getAttribute('code');
@@ -230,6 +216,18 @@ const KEYS = {
         Keybord.renderActiveButton(this.language, letterClass, null, true);
       }
     }
+    if (e) {
+      if (e.target.innerText === "Lang") {
+        localStorage.lang = localStorage.lang === 'ru' ? 'en' : 'ru';
+        this.language = localStorage.lang;
+        document.querySelectorAll('.lang').forEach((span) => {
+          span.classList.toggle('active');
+          span.childNodes.forEach((item) => item.classList.remove('active-button'));
+        });
+        const letterClass = this.capsLockFlag ? 'button' : 'buttonUp';
+        Keybord.renderActiveButton(this.language, letterClass, null, true);
+      }
+    }
     if (key === 'ShiftLeft' || key === 'ShiftRight') {
       document.querySelector('.ShiftLeft').classList.remove('clicked-button-capslock');
       document.querySelector('.ShiftRight').classList.remove('clicked-button-capslock');
@@ -275,6 +273,7 @@ const KEYS = {
       this.input.selectionEnd = selectionStart;
       return;
     }
+
     if (key === 'Tab') keyValue = '\t';
     if (key === 'Enter') {
       keyValue = '\n',
@@ -286,6 +285,7 @@ const KEYS = {
     if (key === 'ArrowRight') keyValue = '→';
     if (key === 'ArrowUp') keyValue = '↑';
     if (key === 'ArrowDown') keyValue = '↓';
+    if (key === 'ContextMenu') keyValue = '';
 
 
     this.input.value = this.input.value.slice(0, selectionStart) + keyValue
@@ -435,45 +435,45 @@ window.onload = () => {
     keybord.addListenersOnKeys();
 };
 
-function runOnKeys(func, ...codes) {
-  const pressed = new Set();
-  document.addEventListener('keydown', function reload(event) {
-    pressed.add(event.code);
-    for (const code of codes) {
-      if (!pressed.has(code)) {
-        return;
-      }
-    }
-    pressed.clear();
+// function runOnKeys(func, ...codes) {
+//   const pressed = new Set();
+//   document.addEventListener('keydown', function reload(event) {
+//     pressed.add(event.code);
+//     for (const code of codes) {
+//       if (!pressed.has(code)) {
+//         return;
+//       }
+//     }
+//     pressed.clear();
 
-    func();
-  });
-  document.addEventListener('keyup', function reload(event) {
-    pressed.delete(event.code);
-  });
+//     func();
+//   });
+//   document.addEventListener('keyup', function reload(event) {
+//     pressed.delete(event.code);
+//   });
 
-}
+// }
 
-runOnKeys(
-  () => location.reload(),
-  "KeyR",
-  "ControlLeft"
-);
+// runOnKeys(
+//   () => location.reload(),
+//   "KeyR",
+//   "ControlLeft"
+// );
 
-runOnKeys(
-  () => location.reload(),
-  "KeyR",
-  "ControlRight"
-);
+// runOnKeys(
+//   () => location.reload(),
+//   "KeyR",
+//   "ControlRight"
+// );
 
-runOnKeys(
-  () => startFromKeyboard(),
-  "Enter"
-);
+// runOnKeys(
+//   () => startFromKeyboard(),
+//   "Enter"
+// );
 
-function startFromKeyboard() {
-  if (sectionContentSearch.value !== "") {
-    startSearch()
-    loadIcon.classList.remove('invisible');
-  }
-}
+// function startFromKeyboard() {
+//   if (sectionContentSearch.value !== "") {
+//     startSearch()
+//     loadIcon.classList.remove('invisible');
+//   }
+// }

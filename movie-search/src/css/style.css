@@ -385,7 +385,7 @@ footer h2 {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  margin-top: 100%;
+  /* margin-top: 100%; */
 
   font-size: 2em;
   text-align: center;

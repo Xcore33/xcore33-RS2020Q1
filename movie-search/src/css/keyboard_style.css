@@ -79,20 +79,13 @@
 .clicked-button-capslock {
   color: aliceblue;
 
-  background-color: rgb(138, 12, 170);
-  border-radius: 50px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.8);
+  transform: scale(0.9);
 
   transition-duration: 0.4s;
 }
-.key:hover {
-  background-color: slateblue;
-  border-radius: 5px;
-}
-.key:active {
-  color: aliceblue;
-
-  background-color: rgb(138, 12, 170);
-  border-radius: 50px;
+.keyboard__key:hover {
+  background: rgba(255, 255, 255, 0.4);
 }
 
 .Backspace,
@@ -104,7 +97,7 @@
 }
 
 .Space {
-  width: 40%;
+  width: 35%;
 }
 
 @media (max-width: 1802px) {
@@ -238,4 +231,3 @@
     width: 38%;
   }
 }
-
