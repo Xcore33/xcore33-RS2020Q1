@@ -3,12 +3,15 @@
 /* eslint-disable no-array-constructor */
 /* eslint-disable no-use-before-define */
 const searchAPIUrl = (apiKey, title) => {
-  return `https://www.omdbapi.com/?apikey=${apiKey}&s=${title}`;
+  return `https://www.omdbapi.com/?apikey=${apiKey}&s=${title}=${pageSearch}${nextpageSearch}`;
 };
 const IDAPIUrl = (apiKey, id) => {
   return `https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`;
 };
 const apiKey = "31849743";
+
+const pageSearch = "&page=";
+let nextpageSearch = 1;
 
 
 const sectionContainer = document.querySelector(".section-container");
@@ -120,6 +123,7 @@ divMistake.classList.add('alert');
 
 function startSearch() {
   translate();
+  nextpageSearch = 1;
   content.appendChild(divMistake);
   clearTimeout(typeTimer);
   typeTimer = setTimeout(() => {
@@ -375,6 +379,7 @@ if (localStorage.myMovies !== undefined) {
 // slider end
 function ReStartSearch() {
   translate();
+  nextpageSearch+=1;
   content.appendChild(divMistake);
   clearTimeout(typeTimer);
   typeTimer = setTimeout(() => {
