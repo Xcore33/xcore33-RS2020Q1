@@ -9,10 +9,8 @@ const IDAPIUrl = (apiKey, id) => {
   return `https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`;
 };
 const apiKey = "31849743";
-
 const pageSearch = "&page=";
 let nextpageSearch = 1;
-
 
 const sectionContainer = document.querySelector(".section-container");
 const content = document.querySelector(".content-box");
@@ -31,7 +29,7 @@ const loadIcon = document.getElementById('loadIcon')
 
 const swiper = new Swiper('.swiper-container', {
   slidesPerView: 1,
-  spaceBetween: 30,
+  spaceBetween: 20,
   init: true,
   pagination: {
     el: '.swiper-pagination',
@@ -45,22 +43,18 @@ const swiper = new Swiper('.swiper-container', {
     480: {
       slidesPerView: 1,
       spaceBetween: 0,
-      slidesPerGroup: 1,
     },
     640: {
       slidesPerView: 2,
       spaceBetween: 10,
-      slidesPerGroup: 2,
     },
     842: {
       slidesPerView: 3,
       spaceBetween: 20,
-      slidesPerGroup: 3,
     },
     1030: {
       slidesPerView: 4,
       spaceBetween: 20,
-      slidesPerGroup: 4,
     },
   },
   keyboard: true,
@@ -153,7 +147,7 @@ sectionShowSearchHistoryButton.addEventListener("click", () => {
 });
 
 function populateSearchResult(search) {
-const currentSearch = 'No results for ';
+const currentSearch = 'No results were found for ';
   searchMovie(search).then(result => {
       if (result.Search == null) {
       divMistake.innerHTML = currentSearch + sectionContentSearch.value;
@@ -390,7 +384,7 @@ function ReStartSearch() {
 }
 
 function RePopulateSearchResult(search) {
-  const currentSearch = 'No results for ';
+  const currentSearch = 'No results were found for ';
     searchMovie(search).then(result => {
         if (result.Search == null) {
         divMistake.innerHTML = currentSearch + sectionContentSearch.value;
@@ -414,10 +408,9 @@ function RePopulateSearchResult(search) {
 
 
 const nextSlide = document.querySelector('.swiper-button-next');
-const global = document.querySelector('.content-box');
 
 function startLook() {
-global.addEventListener ('click', () => {
+  nextSlide.addEventListener('transitionend', () => {
   if (nextSlide.classList.contains("swiper-button-disabled") && sectionContentSearch.value !== "" ) {
     loadIcon.classList.remove('invisible');
     ReStartSearch()

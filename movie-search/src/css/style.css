@@ -496,14 +496,18 @@ footer h2 {
   text-align: center;
 
   background: #ffffff;
-  /* transition: all 0.5s ease-out; */
+
+  transition: all 0.7s ease-out;
 }
 
 .swiper-pagination {
-  position: relative;
+  position: static;
 
-  margin-top: 35px;
+  margin-top: 60px;
+
+  transition-duration: 1s;
 }
+
 
 .swiper-button-next {
   margin-top: 80px;
