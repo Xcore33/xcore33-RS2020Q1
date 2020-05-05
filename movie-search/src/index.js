@@ -103,15 +103,15 @@ sectionHeaderMenu.forEach(element => {
 
 sectionContentSearch.addEventListener('keypress', (e) => {
   if (e.key === 'Enter' && sectionContentSearch.value !== "") {
-    startSearch()
     loadIcon.classList.remove('invisible');
+    startSearch()
   }
 });
 
 sectionContentSearchButton.addEventListener("click", () => {
   if (sectionContentSearch.value !== "") {
-    startSearch()
     loadIcon.classList.remove('invisible');
+    startSearch()
   }
 });
 
@@ -124,6 +124,7 @@ function startSearch() {
   clearTimeout(typeTimer);
   typeTimer = setTimeout(() => {
     if (sectionContentSearch.value.trim() !== "") {
+      startLook()
       addSearchHistoryItem(sectionContentSearch.value.trim());
       populateSearchResult(sectionContentSearch.value.trim());
     }
@@ -371,12 +372,59 @@ if (localStorage.myMovies !== undefined) {
   }
 }
 
-const bestFilms = [{
-  "id": "star"
+// slider end
+function ReStartSearch() {
+  translate();
+  content.appendChild(divMistake);
+  clearTimeout(typeTimer);
+  typeTimer = setTimeout(() => {
+    if (sectionContentSearch.value.trim() !== "") {
+      RePopulateSearchResult(sectionContentSearch.value.trim());
+    }
+  }, typeWaitMilliseconds);
 }
-]
+
+function RePopulateSearchResult(search) {
+  const currentSearch = 'No results for ';
+    searchMovie(search).then(result => {
+        if (result.Search == null) {
+        divMistake.innerHTML = currentSearch + sectionContentSearch.value;
+        loadIcon.classList.add('invisible');
+        return;
+      }
+      if (result.Search !== null) {
+        modalContainer.innerHTML = "";
+        result.Search.map((element) => {
+        getMovieData(element.imdbID).then(data => {
+          const movie = new Movie(data);
+          swiperSlide.appendChild(movie.getMovieItem());
+          loadIcon.classList.add('invisible');
+        });
+        return true;
+      });
+    }
+    });
+  }
 
 
+
+const nextSlide = document.querySelector('.swiper-button-next');
+const global = document.querySelector('.content-box');
+
+function startLook() {
+global.addEventListener ('click', () => {
+  if (nextSlide.classList.contains("swiper-button-disabled") && sectionContentSearch.value !== "" ) {
+    loadIcon.classList.remove('invisible');
+    ReStartSearch()
+  }
+})
+}
+
+
+
+const bestFilms = "star wars";
+
+loadIcon.classList.remove('invisible');
 populateSearchResult(bestFilms);
 
 // translate

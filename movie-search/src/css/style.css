@@ -417,7 +417,7 @@ footer h2 {
   border-radius: 5px;
   filter: grayscale(50%);
 
-  transition: 0.1s ease;
+  transition: 0.2s ease;
 }
 
 .movie-item:hover .movie-item__poster {
@@ -496,6 +496,7 @@ footer h2 {
   text-align: center;
 
   background: #ffffff;
+  /* transition: all 0.5s ease-out; */
 }
 
 .swiper-pagination {
