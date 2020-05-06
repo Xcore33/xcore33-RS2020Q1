@@ -274,10 +274,11 @@ const KEYS = {
       return;
     }
 
+
     if (key === 'Tab') keyValue = '\t';
-    if (key === 'Enter') {
-      keyValue = '\n',
-      startSearch(),
+    if (key === 'Enter') keyValue = '\n';
+    if (key === 'Enter' && sectionContentSearch.value !== "") {
+      startSearch();
       loadIcon.classList.remove('invisible');
     };
     if (key === 'Space') keyValue = ' ';
@@ -294,7 +295,7 @@ const KEYS = {
     this.input.selectionEnd = selectionStart + 1;
   }
 
-  keyUpHandler(e, key) {
+  keyUpHandler(key) {
     if (key === 'CapsLock') return;
 
     if (key === 'ShiftLeft' || key === 'ShiftRight') {
@@ -434,46 +435,3 @@ window.onload = () => {
     keybord.renderKeybord();
     keybord.addListenersOnKeys();
 };
-
-// function runOnKeys(func, ...codes) {
-//   const pressed = new Set();
-//   document.addEventListener('keydown', function reload(event) {
-//     pressed.add(event.code);
-//     for (const code of codes) {
-//       if (!pressed.has(code)) {
-//         return;
-//       }
-//     }
-//     pressed.clear();
-
-//     func();
-//   });
-//   document.addEventListener('keyup', function reload(event) {
-//     pressed.delete(event.code);
-//   });
-
-// }
-
-// runOnKeys(
-//   () => location.reload(),
-//   "KeyR",
-//   "ControlLeft"
-// );
-
-// runOnKeys(
-//   () => location.reload(),
-//   "KeyR",
-//   "ControlRight"
-// );
-
-// runOnKeys(
-//   () => startFromKeyboard(),
-//   "Enter"
-// );
-
-// function startFromKeyboard() {
-//   if (sectionContentSearch.value !== "") {
-//     startSearch()
-//     loadIcon.classList.remove('invisible');
-//   }
-// }

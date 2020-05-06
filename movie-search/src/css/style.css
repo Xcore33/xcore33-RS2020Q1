@@ -400,7 +400,7 @@ footer h2 {
 /* MOVIE ITEM */
 
 .movie-item:hover {
-  box-shadow: 0 10px 5px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: inset  0 0 5px 3px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
@@ -491,6 +491,8 @@ footer h2 {
   -ms-flex-align: center;
           align-items: center;
   width: auto;
+  max-width: 25%;
+  padding-top: 5px;
 
   font-size: 18px;
   text-align: center;
@@ -809,5 +811,46 @@ footer h2 {
   .header__button,
   .header__title_subtitle {
     font-size: 1em;
+  }
+}
+
+@media (max-width: 1029px) {
+  .swiper-slide {
+    max-width: 33.33%;
+  }
+
+  .swiper-button-next {
+    right: 4px;
+
+    margin-right: 1px;
+  }
+
+  .swiper-button-prev {
+    left: 4px;
+
+    margin-left: 1px;
+  }
+}
+
+@media (max-width: 841px) {
+  .swiper-slide {
+    max-width: 50%;
+  }
+  .swiper-button-next {
+    right: 2px;
+
+    margin-right: 1px;
+  }
+
+  .swiper-button-prev {
+    left: 2px;
+
+    margin-left: 1px;
+  }
+}
+
+@media (max-width: 639px) {
+  .swiper-slide {
+    max-width: 100%;
   }
 }

@@ -3,25 +3,25 @@
 /* eslint-disable no-array-constructor */
 /* eslint-disable no-use-before-define */
 const searchAPIUrl = (apiKey, title) => {
-  return `https://www.omdbapi.com/?apikey=${apiKey}&s=${title}=${pageSearch}${nextpageSearch}`;
+  return `https://www.omdbapi.com/?apikey=${apiKey}&s=${title}=${pageSearch}${nextPageSearch}`;
 };
 const IDAPIUrl = (apiKey, id) => {
   return `https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`;
 };
 const apiKey = "31849743";
 const pageSearch = "&page=";
-let nextpageSearch = 1;
+let nextPageSearch = 1;
 
 const sectionContainer = document.querySelector(".section-container");
 const content = document.querySelector(".content-box");
 const sections = document.querySelectorAll(".section");
-const sectionHeaderMenu = document.querySelectorAll(".header-menu");
-const sectionHeaderSubtitles = document.querySelectorAll(".header__title_subtitle");
+const HeaderMenu = document.querySelectorAll(".header-menu");
+const HeaderSubtitles = document.querySelectorAll(".header__title_subtitle");
 const sectionContentSearch = document.querySelector("#sectionContentSearch");
-const sectionContentSearchButton = document.querySelector("#sectionContentSearchButton");
-const sectionContentSearchIconContainer = document.querySelector(".search__engine_icon-container");
-const sectionShowSearchHistoryButton = document.querySelector(".search-history__button");
-const sectionSearchHistory = document.querySelector(".history-library__item");
+const ContentSearchButton = document.querySelector("#sectionContentSearchButton");
+const ContentSearchIconContainer = document.querySelector(".search__engine_icon-container");
+const ShowSearchHistoryButton = document.querySelector(".search-history__button");
+const SearchHistory = document.querySelector(".history-library__item");
 const sectionContentMyMovies = document.querySelector(".marked-results__my-movies");
 const modalContainer = document.querySelector(".modal-container");
 const swiperSlide = document.querySelector('.swiper-wrapper');
@@ -54,7 +54,7 @@ const swiper = new Swiper('.swiper-container', {
     },
     1030: {
       slidesPerView: 4,
-      spaceBetween: 20,
+      spaceBetween: 5,
     },
   },
   keyboard: true,
@@ -80,7 +80,7 @@ const myMoviesProxy = new Proxy(myMovies, {
   }
 });
 
-sectionHeaderSubtitles.forEach((element) => {
+HeaderSubtitles.forEach((element) => {
   element.addEventListener("click", () => {
     sections.forEach(el => {
       el.classList.remove("section-visible");
@@ -92,7 +92,7 @@ sectionHeaderSubtitles.forEach((element) => {
   });
 });
 
-sectionHeaderMenu.forEach(element => {
+HeaderMenu.forEach(element => {
   element.addEventListener("click", () => {
     sectionContainer.classList.add("section-container-blurred");
   });
@@ -105,7 +105,7 @@ sectionContentSearch.addEventListener('keypress', (e) => {
   }
 });
 
-sectionContentSearchButton.addEventListener("click", () => {
+ContentSearchButton.addEventListener("click", () => {
   if (sectionContentSearch.value !== "") {
     loadIcon.classList.remove('invisible');
     startSearch()
@@ -117,7 +117,7 @@ divMistake.classList.add('alert');
 
 function startSearch() {
   translate();
-  nextpageSearch = 1;
+  nextPageSearch = 1;
   content.appendChild(divMistake);
   clearTimeout(typeTimer);
   typeTimer = setTimeout(() => {
@@ -129,18 +129,18 @@ function startSearch() {
   }, typeWaitMilliseconds);
 }
 
-sectionContentSearchIconContainer.addEventListener("click", () => {
+ContentSearchIconContainer.addEventListener("click", () => {
   sectionContentSearch.value = "";
 });
 
-sectionShowSearchHistoryButton.addEventListener("click", () => {
-  if (sectionSearchHistory.classList.contains("history__visible"))
+ShowSearchHistoryButton.addEventListener("click", () => {
+  if (SearchHistory.classList.contains("history__visible"))
    {
-    sectionSearchHistory.classList.remove("history__visible");
+    SearchHistory.classList.remove("history__visible");
     document.querySelector('.search-history_open').style.display = "block";
     document.querySelector('.search-history_close').style.display = "none";
   } else {
-    sectionSearchHistory.classList.add("history__visible");
+    SearchHistory.classList.add("history__visible");
     document.querySelector('.search-history_open').style.display = "none";
     document.querySelector('.search-history_close').style.display = "block";
   }
@@ -177,7 +177,7 @@ function updateMyMoviesResult() {
 
 function addSearchHistoryItem(item) {
   searchHistory.push(item);
-  sectionSearchHistory.insertAdjacentHTML(
+  SearchHistory.insertAdjacentHTML(
     "beforeend",
     `<div class="history__item" onclick="populateSearchResult('${item}')">${item}</div>`
   );
@@ -225,28 +225,12 @@ class Movie {
   constructor(movie) {
     this.Title = movie.Title;
     this.Year = movie.Year;
-    this.Rated = movie.Rated;
-    this.Released = movie.Released;
-    this.Runtime = movie.Runtime;
-    this.Genre = movie.Genre;
     this.Director = movie.Director;
-    this.Writer = movie.Writer;
-    this.Actors = movie.Actors;
     this.Plot = movie.Plot;
-    this.Language = movie.Language;
-    this.Country = movie.Country;
-    this.Awards = movie.Awards;
     this.Poster = movie.Poster;
     this.Ratings = movie.Ratings;
-    this.Metascore = movie.Metascore;
-    this.imdbRating = movie.imdbRating;
-    this.imdbVotes = movie.imdbVotes;
     this.imdbID = movie.imdbID;
     this.Type = movie.Type;
-    this.DVD = movie.DVD;
-    this.BoxOffice = movie.BoxOffice;
-    this.Production = movie.Production;
-    this.Website = movie.Website;
     this.Response = movie.Response;
   }
 
@@ -373,7 +357,7 @@ if (localStorage.myMovies !== undefined) {
 // slider end
 function ReStartSearch() {
   translate();
-  nextpageSearch+=1;
+  nextPageSearch+=1;
   content.appendChild(divMistake);
   clearTimeout(typeTimer);
   typeTimer = setTimeout(() => {

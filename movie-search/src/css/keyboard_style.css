@@ -8,7 +8,7 @@
   width: 100%;
   padding: 5px 25%;
 
-  background: linear-gradient(to bottom, #1d0b0d, #615251);
+  background: linear-gradient(to bottom, #000000, #615251);
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
 
   transition: bottom 0.4s;
@@ -43,6 +43,10 @@
 
   -webkit-tap-highlight-color: transparent;
 }
+
+.keyboard__key:last-child {
+  background: rgba(190, 30, 30, 0.849);
+}
 .ru,
 .en {
   display: none;
@@ -54,6 +58,8 @@
 .buttonUp {
   display: none;
 }
+
+
 
 .active {
   display: flex;
@@ -86,6 +92,10 @@
 }
 .keyboard__key:hover {
   background: rgba(255, 255, 255, 0.4);
+}
+
+.keyboard__key:last-child:hover {
+  background: rgba(190, 30, 30, 0.49);;
 }
 
 .Backspace,
