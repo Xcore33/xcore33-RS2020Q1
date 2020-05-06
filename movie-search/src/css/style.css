@@ -1,3 +1,11 @@
+@keyframes fade-in {
+  0% {
+    opacity: 0.1;
+  }   100% {
+    opacity: 1;
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -417,7 +425,7 @@ footer h2 {
   border-radius: 5px;
   filter: grayscale(50%);
 
-  transition: 1s ease-out;
+  animation: fade-in 1s linear;
 }
 
 .movie-item:hover .movie-item__poster {
@@ -497,8 +505,6 @@ footer h2 {
   text-align: center;
 
   background: #ffffff;
-
-  transition-duration: 0.3s;
 }
 
 .swiper-pagination {
@@ -510,12 +516,14 @@ footer h2 {
 
 .swiper-button-next {
   position: fixed;
+
   margin-top: 30px;
   margin-right: 50px;
 }
 
 .swiper-button-prev {
   position: fixed;
+
   margin-top: 30px;
   margin-left: 50px;
 }
@@ -573,6 +581,7 @@ footer h2 {
   background-color: rgba(0, 0, 0, 0.1);
   background-position: 50% 50%;
   background-size: cover;
+
   transition: all ease-in-out 0.5s;
 }
 
