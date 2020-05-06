@@ -372,7 +372,7 @@ footer h2 {
   overflow-y: scroll;
 }
 .marked-results__my-movies > .movie-item {
-  margin: 10px;
+  width: 240px;
 }
 
 
@@ -417,7 +417,7 @@ footer h2 {
   border-radius: 5px;
   filter: grayscale(50%);
 
-  transition: 0.2s ease;
+  transition: 1s ease-out;
 }
 
 .movie-item:hover .movie-item__poster {
@@ -463,7 +463,7 @@ footer h2 {
   border-radius: 4px;
   outline: none;
 
-  transition: ease-out 0.3s;
+  transition: ease-out 0.7s;
 }
 
 /* swiper */
@@ -474,9 +474,8 @@ footer h2 {
   height: 100%;
   margin-top: 20px;
 }
-.swiper-slide {
-  position: static;
 
+.swiper-slide {
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -499,25 +498,25 @@ footer h2 {
 
   background: #ffffff;
 
-  transition: all 0.7s ease-out;
+  transition-duration: 0.3s;
 }
 
 .swiper-pagination {
-  position: static;
+  position: fixed;
 
-  margin-top: 60px;
-
-  transition-duration: 1s;
+  margin-bottom: 46px;
 }
 
 
 .swiper-button-next {
-  margin-top: 80px;
+  position: fixed;
+  margin-top: 30px;
   margin-right: 50px;
 }
 
 .swiper-button-prev {
-  margin-top: 80px;
+  position: fixed;
+  margin-top: 30px;
   margin-left: 50px;
 }
 
@@ -574,6 +573,7 @@ footer h2 {
   background-color: rgba(0, 0, 0, 0.1);
   background-position: 50% 50%;
   background-size: cover;
+  transition: all ease-in-out 0.5s;
 }
 
 .movie-modal__close {

@@ -404,7 +404,7 @@ function startLook() {
 
 
 
-const bestFilms = "star wars";
+const bestFilms = "akito";
 
 loadIcon.classList.remove('invisible');
 populateSearchResult(bestFilms);
