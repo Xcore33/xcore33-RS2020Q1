@@ -83,6 +83,10 @@ footer .sb:hover {
   cursor: pointer;
 }
 
+.fa-github {
+  font-size: 30px;
+}
+
 footer h2 {
   position: relative;
 

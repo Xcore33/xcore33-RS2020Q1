@@ -1,7 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-undef */
-/* eslint-disable no-array-constructor */
-/* eslint-disable no-use-before-define */
 const searchAPIUrl = (apiKey, title) => {
   return `https://www.omdbapi.com/?apikey=${apiKey}&s=${title}=${pageSearch}${nextPageSearch}`;
 };

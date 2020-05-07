@@ -182,10 +182,11 @@ const config = {
       filename: './index.html'
     }),
     new CopyWebpackPlugin([
-      {from: './src/assets/audio/', to: './assets/audio/'},
-      {from: './src/assets/img/', to: './assets/img/'},
+      // {from: './src/assets/audio/', to: './assets/audio/'},
+      // {from: './src/assets/img/', to: './assets/img/'},
       {from: './src/favicon.ico', to: './'},
-      {from: './src/undefined', to: './'}
+      // {from: './src/undefined', to: './'},
+      {from: './src/fontawesome/', to: './fontawesome/'},
     ]),
   ],
 
@@ -199,10 +200,10 @@ const config = {
   }
 }
 
-if (isProd) {
-  config.plugins.push(
-    new UglifyJSPlugin(),
-  );
-};
+// if (isProd) {
+//   config.plugins.push(
+//     new UglifyJSPlugin(),
+//   );
+// };
 
 module.exports = config;
