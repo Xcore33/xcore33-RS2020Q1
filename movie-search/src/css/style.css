@@ -896,10 +896,20 @@ footer h2 {
 
     margin-left: 1px;
   }
+
+  .movie-item__poster {
+    width: 167px;
+    height: 250px;
+  }
 }
 
 @media (max-width: 639px) {
   .swiper-slide {
     max-width: 100%;
+  }
+
+  .movie-item__poster {
+    width: 133px;
+    height: 200px;
   }
 }
