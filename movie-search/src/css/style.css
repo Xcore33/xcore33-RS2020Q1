@@ -1,7 +1,44 @@
-@keyframes fade-in {
+@keyframes fadeIn {
   0% {
-    opacity: 0.1;
-  }   100% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
     opacity: 1;
   }
 }
@@ -393,7 +430,6 @@ footer h2 {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  /* margin-top: 100%; */
 
   font-size: 2em;
   text-align: center;
@@ -425,7 +461,11 @@ footer h2 {
   border-radius: 5px;
   filter: grayscale(50%);
 
-  animation: fade-in 1s linear;
+  -webkit-animation: fadeIn ease 1.5s;
+     -moz-animation: fadeIn ease 1.5s;
+      -ms-animation: fadeIn ease 1.5s;
+       -o-animation: fadeIn ease 1.5s;
+          animation: fadeIn ease 1.5s;
 }
 
 .movie-item:hover .movie-item__poster {
