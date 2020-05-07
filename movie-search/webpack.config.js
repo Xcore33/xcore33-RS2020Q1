@@ -26,7 +26,7 @@ function setDMode() {
 
 const config = {
   target: "web",
-  entry: {index: './src/index.js'},
+  entry: {index: './src/js/index.js'},
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js'
@@ -182,11 +182,9 @@ const config = {
       filename: './index.html'
     }),
     new CopyWebpackPlugin([
-      // {from: './src/assets/audio/', to: './assets/audio/'},
-      // {from: './src/assets/img/', to: './assets/img/'},
       {from: './src/favicon.ico', to: './'},
-      // {from: './src/undefined', to: './'},
       {from: './src/fontawesome/', to: './fontawesome/'},
+      {from: './src/css/', to: './css/'}
     ]),
   ],
 
@@ -200,10 +198,22 @@ const config = {
   }
 }
 
-// if (isProd) {
-//   config.plugins.push(
-//     new UglifyJSPlugin(),
-//   );
-// };
+if (isProd) {
+  config.plugins.push(
+    new UglifyJSPlugin({
+      beautify: false,
+      comments: false,
+      compress: {
+          sequences: true,
+          booleans: true,
+          loops: true,
+          unused: true,
+          warnings: false,
+          drop_console: true,
+          unsafe: true
+      }
+  }),
+  );
+};
 
 module.exports = config;
