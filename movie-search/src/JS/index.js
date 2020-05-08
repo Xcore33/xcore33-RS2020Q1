@@ -84,3 +84,5 @@ const capsLock = localStorage.capsLock === '1';
 const keybord = new Keybord(localStorage.lang, capsLock, KEYS, KEY_CODE, UPPERKEY);
 keybord.renderKeybord();
 keybord.addListenersOnKeys();
+
+window.populateSearchResult = populateSearchResult;

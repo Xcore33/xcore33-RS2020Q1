@@ -153,8 +153,7 @@ function RePopulateSearchResult(search) {
 
 const searchHistory = new Array();
 function addSearchHistoryItem(item) {
-  // const biba = (`<div class="history__item" @click="populateSearchResult('${item}')">${item}</div>`);
   searchHistory.push(item);
   SearchHistory.insertAdjacentHTML("beforeend",
-  `<div class="history__item">${item}</div>`);
+  `<div class="history__item" onClick="populateSearchResult('${item}')">${item}</div>`);
 }
