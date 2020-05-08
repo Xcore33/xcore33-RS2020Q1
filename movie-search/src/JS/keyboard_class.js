@@ -1,5 +1,7 @@
-import {startSearch, sectionContentSearch, loadIcon} from "./index";
+import {startSearch} from "./index_movie_search";
 
+const sectionContentSearch = document.querySelector("#sectionContentSearch");
+const loadIcon = document.getElementById('loadIcon');
 const mainDiv = document.querySelector(".content-wrapper");
 const textArea = document.querySelector("#sectionContentSearch");
 const searchButton = document.querySelector('.search__keyboard_input');
