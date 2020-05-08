@@ -22,7 +22,6 @@ const modalContainer = document.querySelector(".modal-container");
 const content = document.querySelector(".content-box");
 const swiperSlide = document.querySelector('.swiper-wrapper');
 
-
 function startLook() {
   nextSlide.addEventListener('transitionend', () => {
   if (nextSlide.classList.contains("swiper-button-disabled") && sectionContentSearch.value !== "" ) {
@@ -62,10 +61,11 @@ export function fillResultText() {
 
 
 export function populateSearchResult(search) {
-  const currentSearch = 'No results were found for ';
     searchMovie(search).then(result => {
+      const currentSearch = 'No results were found for ';
+      const errorValue = ` API: ${Object.values(result)[1]}`;
         if (result.Search == null) {
-        divMistake.innerHTML = currentSearch + sectionContentSearch.value;
+        divMistake.innerHTML = currentSearch + sectionContentSearch.value + errorValue;
         loadIcon.classList.add('invisible');
         return;
       }
@@ -104,7 +104,7 @@ function getMovieData(imdbID) {
   return new Promise((resolve, reject) => {
     fetch(IDAPIUrl(apiKey, imdbID))
       .then(result => {
-        result.json().then(json => {
+          result.json().then(json => {
           resolve(json);
         });
       })
@@ -131,8 +131,9 @@ function ReStartSearch() {
 function RePopulateSearchResult(search) {
   const currentSearch = 'No more results for ';
     searchMovie(search).then(result => {
+      const errorValue = ` API: ${Object.values(result)[1]}`;
         if (result.Search == null) {
-        divMistake.innerHTML = currentSearch + sectionContentSearch.value;
+        divMistake.innerHTML = currentSearch + sectionContentSearch.value + errorValue;
         loadIcon.classList.add('invisible');
         return;
       }
