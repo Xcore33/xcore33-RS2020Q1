@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const ENV = process.env.npm_lifecycle_event;
@@ -45,7 +45,7 @@ const config = {
       },
       {
         test: /\.js$/,
-        use: ['babel-loader'/* , 'eslint-loader' */],
+        // use: ['raw-loader'/*'babel-loader' , 'eslint-loader' */],
         exclude: [
           /node_modules/
         ]
@@ -198,22 +198,10 @@ const config = {
   }
 }
 
-if (isProd) {
-  config.plugins.push(
-    new UglifyJSPlugin({
-      beautify: false,
-      comments: false,
-      compress: {
-          sequences: true,
-          booleans: true,
-          loops: true,
-          unused: true,
-          warnings: false,
-          drop_console: true,
-          unsafe: true
-      }
-  }),
-  );
-};
+// if (isProd) {
+//   config.plugins.push(
+//     new UglifyJSPlugin(),
+//   );
+// };
 
 module.exports = config;

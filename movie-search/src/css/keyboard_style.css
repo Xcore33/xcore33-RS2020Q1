@@ -42,6 +42,7 @@
   cursor: pointer;
 
   -webkit-tap-highlight-color: transparent;
+  transition: ease-out 0.4s;
 }
 
 .keyboard__key:last-child {
@@ -81,6 +82,7 @@
   cursor: pointer;
 }
 
+.keyboard__key:active,
 .clicked-button,
 .clicked-button-capslock {
   color: aliceblue;

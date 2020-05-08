@@ -1,3 +1,9 @@
+/* eslint-disable no-unused-vars */
+import {swiper} from "./swiper_const";
+import {Keybord} from "./keyboard_class";
+import {KEYS, KEY_CODE, UPPERKEY} from "./keyboard_const";
+import {translate} from "./translate";
+
 const searchAPIUrl = (apiKey, title) => {
   return `https://www.omdbapi.com/?apikey=${apiKey}&s=${title}=${pageSearch}${nextPageSearch}`;
 };
@@ -8,62 +14,20 @@ const apiKey = "31849743";
 const pageSearch = "&page=";
 let nextPageSearch = 1;
 
-const sectionContainer = document.querySelector(".section-container");
-const content = document.querySelector(".content-box");
-const sections = document.querySelectorAll(".section");
-const HeaderMenu = document.querySelectorAll(".header-menu");
-const HeaderSubtitles = document.querySelectorAll(".header__title_subtitle");
-const sectionContentSearch = document.querySelector("#sectionContentSearch");
-const ContentSearchButton = document.querySelector("#sectionContentSearchButton");
-const ContentSearchIconContainer = document.querySelector(".search__engine_icon-container");
-const ShowSearchHistoryButton = document.querySelector(".search-history__button");
-const SearchHistory = document.querySelector(".history-library__item");
+export const sectionContentSearch = document.querySelector("#sectionContentSearch");
+export const loadIcon = document.getElementById('loadIcon');
+const divMistake = document.createElement('div');
 const sectionContentMyMovies = document.querySelector(".marked-results__my-movies");
-const modalContainer = document.querySelector(".modal-container");
-const swiperSlide = document.querySelector('.swiper-wrapper');
-const loadIcon = document.getElementById('loadIcon')
 
-const swiper = new Swiper('.swiper-container', {
-  slidesPerView: 1,
-  spaceBetween: 20,
-  init: true,
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-  breakpoints: {
-    480: {
-      slidesPerView: 1,
-      spaceBetween: 0,
-    },
-    640: {
-      slidesPerView: 2,
-      spaceBetween: 10,
-    },
-    842: {
-      slidesPerView: 3,
-      spaceBetween: 20,
-    },
-    1030: {
-      slidesPerView: 4,
-      spaceBetween: 5,
-    },
-  },
-  keyboard: true,
-});
+export const myMovies = new Array();
+
+function updateMyMoviesResult() {
+  myMoviesProxy.forEach(element => {
+    sectionContentMyMovies.appendChild(element.getMovieItem());
+  });}
 
 
-let typeTimer;
-const typeWaitMilliseconds = 2000;
-
-const searchHistory = new Array();
-const myMovies = new Array();
-
-const myMoviesProxy = new Proxy(myMovies, {
+export const myMoviesProxy = new Proxy(myMovies, {
   set(target, property, value) {
     const base = target;
     base[property] = value;
@@ -75,109 +39,6 @@ const myMoviesProxy = new Proxy(myMovies, {
     return true;
   }
 });
-
-HeaderSubtitles.forEach((element) => {
-  element.addEventListener("click", () => {
-    sections.forEach(el => {
-      el.classList.remove("section-visible");
-    });
-    document
-      .querySelector(`#${element.dataset.sectionTarget}`)
-      .classList.add("section-visible");
-    modalContainer.innerHTML = "";
-  });
-});
-
-HeaderMenu.forEach(element => {
-  element.addEventListener("click", () => {
-    sectionContainer.classList.add("section-container-blurred");
-  });
-});
-
-sectionContentSearch.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter' && sectionContentSearch.value !== "") {
-    loadIcon.classList.remove('invisible');
-    startSearch()
-  }
-});
-
-ContentSearchButton.addEventListener("click", () => {
-  if (sectionContentSearch.value !== "") {
-    loadIcon.classList.remove('invisible');
-    startSearch()
-  }
-});
-
-const divMistake = document.createElement('div');
-divMistake.classList.add('alert');
-
-function startSearch() {
-  translate();
-  nextPageSearch = 1;
-  content.appendChild(divMistake);
-  clearTimeout(typeTimer);
-  typeTimer = setTimeout(() => {
-    if (sectionContentSearch.value.trim() !== "") {
-      startLook()
-      addSearchHistoryItem(sectionContentSearch.value.trim());
-      populateSearchResult(sectionContentSearch.value.trim());
-    }
-  }, typeWaitMilliseconds);
-}
-
-ContentSearchIconContainer.addEventListener("click", () => {
-  sectionContentSearch.value = "";
-});
-
-ShowSearchHistoryButton.addEventListener("click", () => {
-  if (SearchHistory.classList.contains("history__visible"))
-   {
-    SearchHistory.classList.remove("history__visible");
-    document.querySelector('.search-history_open').style.display = "block";
-    document.querySelector('.search-history_close').style.display = "none";
-  } else {
-    SearchHistory.classList.add("history__visible");
-    document.querySelector('.search-history_open').style.display = "none";
-    document.querySelector('.search-history_close').style.display = "block";
-  }
-});
-
-function populateSearchResult(search) {
-const currentSearch = 'No results were found for ';
-  searchMovie(search).then(result => {
-      if (result.Search == null) {
-      divMistake.innerHTML = currentSearch + sectionContentSearch.value;
-      loadIcon.classList.add('invisible');
-      return;
-    }
-    if (result.Search !== null) {
-      swiperSlide.innerHTML = "";
-      modalContainer.innerHTML = "";
-      result.Search.map((element) => {
-      getMovieData(element.imdbID).then(data => {
-        const movie = new Movie(data);
-        swiperSlide.appendChild(movie.getMovieItem());
-        loadIcon.classList.add('invisible');
-      });
-      return true;
-    });
-  }
-  });
-}
-
-function updateMyMoviesResult() {
-  myMoviesProxy.forEach(element => {
-    sectionContentMyMovies.appendChild(element.getMovieItem());
-  });
-}
-
-function addSearchHistoryItem(item) {
-  searchHistory.push(item);
-  SearchHistory.insertAdjacentHTML(
-    "beforeend",
-    `<div class="history__item" onclick="populateSearchResult('${item}')">${item}</div>`
-  );
-}
 
 function searchMovie(title) {
   return new Promise((resolve, reject) => {
@@ -206,6 +67,7 @@ function getMovieData(imdbID) {
       });
   });
 }
+
 
 function fillResultText() {
   const currentSearch = 'Showing results for ';
@@ -340,30 +202,124 @@ class Movie {
   }
 }
 
-if (localStorage.myMovies !== undefined) {
-  if (localStorage.myMovies.length > 0) {
-    JSON.parse(localStorage.myMovies).forEach(element => {
-      myMoviesProxy.push(new Movie(element));
-      sectionContentMyMovies.innerHTML = "";
+function populateSearchResult(search) {
+  const currentSearch = 'No results were found for ';
+    searchMovie(search).then(result => {
+        if (result.Search == null) {
+        divMistake.innerHTML = currentSearch + sectionContentSearch.value;
+        loadIcon.classList.add('invisible');
+        return;
+      }
+      if (result.Search !== null) {
+        swiperSlide.innerHTML = "";
+        modalContainer.innerHTML = "";
+        result.Search.map((element) => {
+        getMovieData(element.imdbID).then(data => {
+          const movie = new Movie(data);
+          swiperSlide.appendChild(movie.getMovieItem());
+          loadIcon.classList.add('invisible');
+        });
+        return true;
+      });
+    }
     });
-    updateMyMoviesResult();
-  }
 }
 
-// slider end
-function ReStartSearch() {
+
+const nextSlide = document.querySelector('.swiper-button-next');
+const sectionContainer = document.querySelector(".section-container");
+const sections = document.querySelectorAll(".section");
+const HeaderMenu = document.querySelectorAll(".header-menu");
+const HeaderSubtitles = document.querySelectorAll(".header__title_subtitle");
+const ContentSearchButton = document.querySelector("#sectionContentSearchButton");
+const ContentSearchIconContainer = document.querySelector(".search__engine_icon-container");
+const ShowSearchHistoryButton = document.querySelector(".search-history__button");
+const SearchHistory = document.querySelector(".history-library__item");
+const modalContainer = document.querySelector(".modal-container");
+const content = document.querySelector(".content-box");
+const swiperSlide = document.querySelector('.swiper-wrapper');
+
+let typeTimer;
+const typeWaitMilliseconds = 2000;
+
+HeaderSubtitles.forEach((element) => {
+  element.addEventListener("click", () => {
+    sections.forEach(el => {
+      el.classList.remove("section-visible");
+    });
+    document
+      .querySelector(`#${element.dataset.sectionTarget}`)
+      .classList.add("section-visible");
+    modalContainer.innerHTML = "";
+  });
+});
+
+HeaderMenu.forEach(element => {
+  element.addEventListener("click", () => {
+    sectionContainer.classList.add("section-container-blurred");
+  });
+});
+
+function startLook() {
+  nextSlide.addEventListener('transitionend', () => {
+  if (nextSlide.classList.contains("swiper-button-disabled") && sectionContentSearch.value !== "" ) {
+    loadIcon.classList.remove('invisible');
+    ReStartSearch()
+  }
+})
+}
+
+export function startSearch() {
   translate();
-  nextPageSearch+=1;
+  nextPageSearch = 1;
   content.appendChild(divMistake);
   clearTimeout(typeTimer);
   typeTimer = setTimeout(() => {
     if (sectionContentSearch.value.trim() !== "") {
-      RePopulateSearchResult(sectionContentSearch.value.trim());
+      startLook()
+      addSearchHistoryItem(sectionContentSearch.value.trim());
+      populateSearchResult(sectionContentSearch.value.trim());
     }
   }, typeWaitMilliseconds);
 }
 
-function RePopulateSearchResult(search) {
+sectionContentSearch.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter' && sectionContentSearch.value !== "") {
+    loadIcon.classList.remove('invisible');
+    startSearch()
+  }
+});
+
+ContentSearchButton.addEventListener("click", () => {
+  if (sectionContentSearch.value !== "") {
+    loadIcon.classList.remove('invisible');
+    startSearch()
+  }
+});
+
+
+divMistake.classList.add('alert');
+
+
+ContentSearchIconContainer.addEventListener("click", () => {
+  sectionContentSearch.value = "";
+});
+
+ShowSearchHistoryButton.addEventListener("click", () => {
+  if (SearchHistory.classList.contains("history__visible"))
+   {
+    SearchHistory.classList.remove("history__visible");
+    document.querySelector('.search-history_open').style.display = "block";
+    document.querySelector('.search-history_close').style.display = "none";
+  } else {
+    SearchHistory.classList.add("history__visible");
+    document.querySelector('.search-history_open').style.display = "none";
+    document.querySelector('.search-history_close').style.display = "block";
+  }
+});
+
+
+export function RePopulateSearchResult(search) {
   const currentSearch = 'No more results for ';
     searchMovie(search).then(result => {
         if (result.Search == null) {
@@ -383,43 +339,47 @@ function RePopulateSearchResult(search) {
       });
     }
     });
-  }
+}
 
-
-
-const nextSlide = document.querySelector('.swiper-button-next');
-
-function startLook() {
-  nextSlide.addEventListener('transitionend', () => {
-  if (nextSlide.classList.contains("swiper-button-disabled") && sectionContentSearch.value !== "" ) {
-    loadIcon.classList.remove('invisible');
-    ReStartSearch()
-  }
-})
+function ReStartSearch() {
+  translate();
+  nextPageSearch+=1;
+  content.appendChild(divMistake);
+  clearTimeout(typeTimer);
+  typeTimer = setTimeout(() => {
+    if (sectionContentSearch.value.trim() !== "") {
+      RePopulateSearchResult(sectionContentSearch.value.trim());
+    }
+  }, typeWaitMilliseconds);
 }
 
 
+const searchHistory = new Array();
+function addSearchHistoryItem(item) {
+  searchHistory.push(item);
+  SearchHistory.insertAdjacentHTML(
+    "beforeend",
+    `<div class="history__item" onclick="populateSearchResult('${item}')">${item}</div>`
+  );
+}
 
-const bestFilms = "akito";
-
-loadIcon.classList.remove('invisible');
-populateSearchResult(bestFilms);
-
-// translate
-
-const txt = document.querySelector("#sectionContentSearch");
-
-function translate() {
-  const request = new XMLHttpRequest();
-  const text = encodeURIComponent(txt.value);
-  const key = "trnsl.1.1.20200504T130133Z.8d398eeea55cc3d6.b0ed35f3724a112b13d6963dc8cbe56a570e02ee";
-  const url = `https://translate.yandex.net/api/v1.5/tr.json/translate?key=${key}&text=${text}&lang=en&format=plain&options=1`
-  request.open('GET', url, true);
-  request.onload = function getRequest() {
-  if (request.status >= 200 && request.status < 400 ) {
-    const data = JSON.parse(request.responseText);
-    txt.value = data.text;
+if (localStorage.myMovies !== undefined) {
+  if (localStorage.myMovies.length > 0) {
+    JSON.parse(localStorage.myMovies).forEach(element => {
+      myMoviesProxy.push(new Movie(element));
+      sectionContentMyMovies.innerHTML = "";
+    });
+    updateMyMoviesResult();
   }
-  };
-  request.send();
-    };
+}
+
+// window.onload = () => {
+  const bestFilms = "akito";
+ loadIcon.classList.remove('invisible');
+ populateSearchResult(bestFilms);
+ Keybord.checkLocalstorage();
+ const capsLock = localStorage.capsLock === '1';
+ const keybord = new Keybord(localStorage.lang, capsLock, KEYS, KEY_CODE, UPPERKEY);
+ keybord.renderKeybord();
+ keybord.addListenersOnKeys();
+// };
