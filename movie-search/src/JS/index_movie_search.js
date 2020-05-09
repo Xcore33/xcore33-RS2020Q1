@@ -104,7 +104,7 @@ function getMovieData(imdbID) {
   return new Promise((resolve, reject) => {
     fetch(IDAPIUrl(apiKey, imdbID))
       .then(result => {
-          result.json().then(json => {
+        result.json().then(json => {
           resolve(json);
         });
       })

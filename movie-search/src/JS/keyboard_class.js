@@ -145,6 +145,17 @@ const searchButton = document.querySelector('.search__keyboard_input');
   }
 
   keyDownHandler(e, key) {
+    if (key === 'ArrowLeft') {
+       const caretPosition = sectionContentSearch.selectionStart;
+      sectionContentSearch.setSelectionRange(caretPosition -1, caretPosition -1);
+    };
+    if (key === 'ArrowUp') {
+      sectionContentSearch.setSelectionRange(0, 0);
+    };
+    if (key === 'ArrowDown') {
+      sectionContentSearch.setSelectionRange(-1, -1);
+    };
+    if (key === 'ContextMenu') keyValue = '';
     if (key === 'CapsLock') {
       if (e.repeat) return;
       localStorage.capsLock = this.capsLockFlag ? 2 : 1;
@@ -231,17 +242,25 @@ const searchButton = document.querySelector('.search__keyboard_input');
       loadIcon.classList.remove('invisible');
     };
     if (key === 'Space') keyValue = ' ';
-    if (key === 'ArrowLeft') keyValue = '←';
-    if (key === 'ArrowRight') keyValue = '→';
-    if (key === 'ArrowUp') keyValue = '↑';
-    if (key === 'ArrowDown') keyValue = '↓';
+    if (key === 'ArrowLeft') {
+      keyValue = ''
+      selectionStart -=1;
+      selectionEnd -=1;
+    };
+    if (key === 'ArrowRight') keyValue = '';
+    if (key === 'ArrowUp') {
+      keyValue = ''
+      selectionStart -=1;
+      selectionEnd -=1;
+    };
+    if (key === 'ArrowDown') keyValue = '';
     if (key === 'ContextMenu') keyValue = '';
 
 
     this.input.value = this.input.value.slice(0, selectionStart) + keyValue
     + this.input.value.slice(selectionEnd);
-    this.input.selectionStart = selectionStart + 1;
-    this.input.selectionEnd = selectionStart + 1;
+    this.input.selectionStart = selectionStart +1;
+    this.input.selectionEnd = selectionStart +1;
   }
 
   keyUpHandler(key) {
@@ -370,3 +389,4 @@ const searchButton = document.querySelector('.search__keyboard_input');
     return letter
   }
 }
+
