@@ -560,15 +560,17 @@ footer h2 {
 
 
 .swiper-button-next {
-  position: fixed;
+  position: absolute;
   top: 450px;
+  z-index: 1;
 
   margin-right: 50px;
 }
 
 .swiper-button-prev {
-  position: fixed;
+  position: absolute;
   top: 450px;
+  z-index: 1;
 
   margin-left: 50px;
 }
@@ -831,6 +833,9 @@ footer h2 {
   .header__title_subtitle {
     font-size: 1.5em;
   }
+  .section-container {
+    min-height: 700px;
+  }
 }
 
 @media (max-width: 690px) {
@@ -908,11 +913,19 @@ footer h2 {
     width: 167px;
     height: 250px;
   }
+
+  .movie-item__info_push {
+    margin-left: 55px;
+  }
 }
 
 @media (max-width: 639px) {
   .swiper-slide {
     max-width: 100%;
+  }
+
+  .movie-item__info_push {
+    margin-left: 42px;
   }
 
   .alert {
@@ -945,6 +958,10 @@ footer h2 {
     margin-top: 10%;
   }
 
+  .movie-item__info_push {
+    margin-left: 3.8vw;
+  }
+
   .swiper-button-next {
     position: absolute;
 
@@ -959,7 +976,6 @@ footer h2 {
     margin-left: 50px;
   }
 }
-
 
 @media (max-width: 1024px) {
   .swiper-container {
