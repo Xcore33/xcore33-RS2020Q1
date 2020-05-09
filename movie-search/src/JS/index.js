@@ -1,5 +1,5 @@
 import {Movie, myMoviesProxy, updateMyMoviesResult} from "./index_movie_class";
-import {startSearch, populateSearchResult} from "./index_movie_search";
+import {startSearch, populateSearchResult, divMistake, content} from "./index_movie_search";
 import {Keybord} from "./keyboard_class";
 import {KEYS, KEY_CODE, UPPERKEY} from "./keyboard_const";
 
@@ -84,5 +84,11 @@ const capsLock = localStorage.capsLock === '1';
 const keybord = new Keybord(localStorage.lang, capsLock, KEYS, KEY_CODE, UPPERKEY);
 keybord.renderKeybord();
 keybord.addListenersOnKeys();
+window.onload = function creator() {
+  content.appendChild(divMistake);
+divMistake.classList.add('alert');
+divMistake.innerHTML = "Let's find the movies.";
+}
+
 
 window.populateSearchResult = populateSearchResult;

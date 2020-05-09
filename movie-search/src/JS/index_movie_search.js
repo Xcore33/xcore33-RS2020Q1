@@ -15,11 +15,11 @@ let nextPageSearch = 1;
 
 const sectionContentSearch = document.querySelector("#sectionContentSearch");
 const loadIcon = document.getElementById('loadIcon');
-const divMistake = document.createElement('div');
+export const divMistake = document.createElement('div');
 const nextSlide = document.querySelector('.swiper-button-next');
 const SearchHistory = document.querySelector(".history-library__item");
 const modalContainer = document.querySelector(".modal-container");
-const content = document.querySelector(".content-box");
+export const content = document.querySelector(".content-box");
 const swiperSlide = document.querySelector('.swiper-wrapper');
 
 function startLook() {
@@ -37,8 +37,6 @@ const typeWaitMilliseconds = 2000;
 export function startSearch() {
   translate();
   nextPageSearch = 1;
-  content.appendChild(divMistake);
-  divMistake.classList.add('alert');
   clearTimeout(typeTimer);
   typeTimer = setTimeout(() => {
     if (sectionContentSearch.value.trim() !== "") {
@@ -52,7 +50,7 @@ export function startSearch() {
 export function fillResultText() {
   const currentSearch = 'Showing results for ';
    if (sectionContentSearch.value === "") {
-     divMistake.innerHTML = 'Showing results from history';
+     divMistake.innerHTML = 'Showing results from my memory';
    } else {
      divMistake.innerHTML = currentSearch + sectionContentSearch.value;
    }

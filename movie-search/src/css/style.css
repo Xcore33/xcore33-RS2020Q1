@@ -56,8 +56,8 @@ body {
 }
 
 h1 {
-  position: absolute;
-  z-index: 10;
+  position: fixed;
+  z-index: 3;
 
   margin: 15px 0 0 15px;
 
@@ -65,8 +65,9 @@ h1 {
 }
 
 footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
+  z-index: 1;
 
   display: flex;
   flex-flow: row;
@@ -117,7 +118,7 @@ footer h2 {
   position: relative;
 
   width: 100%;
-  min-height: 100%;
+  min-height: 800px;
 
   transition: 0.3s ease;
 }
@@ -159,7 +160,7 @@ footer h2 {
 .header {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 2;
 
   display: flex;
   flex-direction: row;
@@ -524,7 +525,7 @@ footer h2 {
   width: 80%;
   max-width: 1300px;
   height: 100%;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .swiper-slide {
@@ -560,15 +561,15 @@ footer h2 {
 
 .swiper-button-next {
   position: fixed;
+  top: 450px;
 
-  margin-top: 30px;
   margin-right: 50px;
 }
 
 .swiper-button-prev {
   position: fixed;
+  top: 450px;
 
-  margin-top: 30px;
   margin-left: 50px;
 }
 
@@ -873,12 +874,14 @@ footer h2 {
   }
 
   .swiper-button-next {
+    top: 400px;
     right: 4px;
 
     margin-right: 1px;
   }
 
   .swiper-button-prev {
+    top: 400px;
     left: 4px;
 
     margin-left: 1px;
@@ -912,8 +915,54 @@ footer h2 {
     max-width: 100%;
   }
 
+  .alert {
+    font-size: 1em;
+  }
+
   .movie-item__poster {
     width: 133px;
     height: 200px;
+  }
+
+  .swiper-button-next {
+    top: 350px;
+  }
+
+  .swiper-button-prev {
+    top: 350px;
+  }
+}
+
+@media (min-width: 2000px) {
+  .movie-item__poster {
+    width: 10vw;
+    max-width: 400px;
+    height: 15vw;
+    max-height: 600px;
+  }
+
+  .swiper-container {
+    margin-top: 10%;
+  }
+
+  .swiper-button-next {
+    position: absolute;
+
+    margin-top: 8vw;
+    margin-right: 50px;
+  }
+
+  .swiper-button-prev {
+    position: absolute;
+
+    margin-top: 8vw;
+    margin-left: 50px;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .swiper-container {
+    margin-top: 0;
   }
 }
