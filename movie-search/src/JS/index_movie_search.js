@@ -126,7 +126,7 @@ function ReStartSearch() {
 }
 
 
-function RePopulateSearchResult(search) {
+export function RePopulateSearchResult(search) {
   const currentSearch = 'No more results for ';
     searchMovie(search).then(result => {
       const errorValue = ` API: ${Object.values(result)[1]}`;
@@ -153,5 +153,5 @@ const searchHistory = new Array();
 function addSearchHistoryItem(item) {
   searchHistory.push(item);
   SearchHistory.insertAdjacentHTML("beforeend",
-  `<div class="history__item">${item}</div>`);
+  `<div class="history__item" onClick="RePopulateSearchResult('${item}')">${item}</div>`);
 }

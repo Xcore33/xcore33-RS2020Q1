@@ -1,5 +1,5 @@
 import {Movie, myMoviesProxy, updateMyMoviesResult} from "./index_movie_class";
-import {startSearch, populateSearchResult, divMistake, content} from "./index_movie_search";
+import {startSearch, populateSearchResult, divMistake, content, RePopulateSearchResult} from "./index_movie_search";
 import {Keybord} from "./keyboard_class";
 import {KEYS, KEY_CODE, UPPERKEY} from "./keyboard_const";
 
@@ -91,3 +91,4 @@ divMistake.innerHTML = "Let's find the movies.";
 }
 
 
+window.RePopulateSearchResult = RePopulateSearchResult;
