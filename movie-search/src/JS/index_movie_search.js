@@ -126,7 +126,7 @@ function ReStartSearch() {
 }
 
 
-export function RePopulateSearchResult(search) {
+function RePopulateSearchResult(search) {
   const currentSearch = 'No more results for ';
     searchMovie(search).then(result => {
       const errorValue = ` API: ${Object.values(result)[1]}`;
@@ -149,9 +149,38 @@ export function RePopulateSearchResult(search) {
     });
 }
 
+export function historySearchResult(search) {
+  searchMovie(search).then(result => {
+    const currentSearch = 'No results were found for ';
+    const NoCurrentSearch = 'Show history results';
+    const errorValue = ` API: ${Object.values(result)[1]}`;
+    const NoErrorValue = ` in my block №: ${Object.values(result)[1]}`;
+      if (result.Search == null) {
+      divMistake.innerHTML = currentSearch + errorValue;
+      loadIcon.classList.add('invisible');
+      return;
+    }
+    if (result.Search !== null) {
+      swiperSlide.innerHTML = "";
+      modalContainer.innerHTML = "";
+      result.Search.map((element) => {
+      getMovieData(element.imdbID).then(data => {
+        sectionContentSearch.value ="i show you mi history"
+        const movie = new Movie(data);
+        swiperSlide.appendChild(movie.getMovieItem());
+        loadIcon.classList.add('invisible');
+        divMistake.innerHTML = NoCurrentSearch + NoErrorValue;
+      });
+      return true;
+    });
+  }
+  });
+}
+
+
 const searchHistory = new Array();
 function addSearchHistoryItem(item) {
   searchHistory.push(item);
   SearchHistory.insertAdjacentHTML("beforeend",
-  `<div class="history__item" onClick="RePopulateSearchResult('${item}')">${item}</div>`);
+  `<div class="history__item" onClick=" historySearchResult('${item}')">${item}</div>`);
 }
