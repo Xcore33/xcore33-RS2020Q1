@@ -21,10 +21,11 @@ const SearchHistory = document.querySelector(".history-library__item");
 const modalContainer = document.querySelector(".modal-container");
 export const content = document.querySelector(".content-box");
 const swiperSlide = document.querySelector('.swiper-wrapper');
+const nameResult = document.querySelector('.history-library__item');
 
 function startLook() {
   nextSlide.addEventListener('transitionend', () => {
-  if (nextSlide.classList.contains("swiper-button-disabled") && sectionContentSearch.value !== "" ) {
+  if (nextSlide.classList.contains("swiper-button-disabled")) {
     loadIcon.classList.remove('invisible');
     ReStartSearch()
   }
@@ -52,7 +53,7 @@ export function fillResultText() {
    if (sectionContentSearch.value === "") {
      divMistake.innerHTML = 'Showing results from my memory';
    } else {
-     divMistake.innerHTML = currentSearch + sectionContentSearch.value;
+     divMistake.innerHTML = currentSearch + nameResult.lastChild.innerHTML;
    }
    swiper.update();
  }
@@ -63,7 +64,7 @@ export function populateSearchResult(search) {
       const currentSearch = 'No results were found for ';
       const errorValue = ` API: ${Object.values(result)[1]}`;
         if (result.Search == null) {
-        divMistake.innerHTML = currentSearch + sectionContentSearch.value + errorValue;
+        divMistake.innerHTML = currentSearch + nameResult.lastChild.innerHTML + errorValue;
         loadIcon.classList.add('invisible');
         return;
       }
@@ -114,13 +115,12 @@ function getMovieData(imdbID) {
 
 
 function ReStartSearch() {
-  translate();
   nextPageSearch+=1;
   content.appendChild(divMistake);
   clearTimeout(typeTimer);
   typeTimer = setTimeout(() => {
-    if (sectionContentSearch.value.trim() !== "") {
-      RePopulateSearchResult(sectionContentSearch.value.trim());
+    if (nameResult.lastChild.innerHTML !== "") {
+      RePopulateSearchResult(nameResult.lastChild.innerHTML);
     }
   }, typeWaitMilliseconds);
 }
@@ -131,7 +131,7 @@ function RePopulateSearchResult(search) {
     searchMovie(search).then(result => {
       const errorValue = ` API: ${Object.values(result)[1]}`;
         if (result.Search == null) {
-        divMistake.innerHTML = currentSearch + sectionContentSearch.value + errorValue;
+        divMistake.innerHTML = currentSearch + nameResult.lastChild.innerHTML + errorValue;
         loadIcon.classList.add('invisible');
         return;
       }
@@ -149,10 +149,9 @@ function RePopulateSearchResult(search) {
     });
 }
 
-
 const searchHistory = new Array();
 function addSearchHistoryItem(item) {
   searchHistory.push(item);
   SearchHistory.insertAdjacentHTML("beforeend",
-  `<div class="history__item" onClick="populateSearchResult('${item}')">${item}</div>`);
+  `<div class="history__item">${item}</div>`);
 }

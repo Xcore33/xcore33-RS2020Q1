@@ -91,4 +91,3 @@ divMistake.innerHTML = "Let's find the movies.";
 }
 
 
-window.populateSearchResult = populateSearchResult;
