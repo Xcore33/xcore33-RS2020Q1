@@ -49,7 +49,10 @@ const searchButton = document.querySelector('.search__keyboard_input');
     const keyboard = Keybord.createButton('div', null, 'keyboard');
     searchButton.addEventListener('click', () =>{
       if (keyboard.classList.contains('keyboard__hidden')) {
-        keyboard.classList.remove('keyboard__hidden')
+        keyboard.classList.remove('keyboard__hidden');
+        document.querySelector(".header__title_subtitle").addEventListener('click', () =>{
+          keyboard.classList.add('keyboard__hidden')
+        })
       } else {
     keyboard.classList.add('keyboard__hidden')
   }

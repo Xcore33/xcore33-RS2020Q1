@@ -609,13 +609,15 @@ footer h2 {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  overflow: hidden;
+  overflow: scroll;
 
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 10px 5px 3px rgba(0, 0, 0, 0.2);
 
   pointer-events: all;
+  max-height: 80%;
+  max-width: 100%;
 }
 
 .movie-modal__poster {
