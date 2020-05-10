@@ -29,6 +29,9 @@ function startLook() {
     loadIcon.classList.remove('invisible');
     ReStartSearch()
   }
+  if (sectionContentSearch.value.trim() === "i show you mi history") {
+    loadIcon.classList.add('invisible');
+  }
 })
 }
 
@@ -119,7 +122,7 @@ function ReStartSearch() {
   content.appendChild(divMistake);
   clearTimeout(typeTimer);
   typeTimer = setTimeout(() => {
-    if (nameResult.lastChild.innerHTML !== "") {
+    if (nameResult.lastChild.innerHTML !== "" && sectionContentSearch.value.trim() !== "i show you mi history") {
       RePopulateSearchResult(nameResult.lastChild.innerHTML);
     }
   }, typeWaitMilliseconds);
