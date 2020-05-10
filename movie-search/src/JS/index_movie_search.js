@@ -118,11 +118,11 @@ function getMovieData(imdbID) {
 
 
 function ReStartSearch() {
-  nextPageSearch+=1;
   content.appendChild(divMistake);
   clearTimeout(typeTimer);
   typeTimer = setTimeout(() => {
     if (nameResult.lastChild.innerHTML !== "" && sectionContentSearch.value.trim() !== "i show you mi history") {
+      nextPageSearch += 1;
       RePopulateSearchResult(nameResult.lastChild.innerHTML);
     }
   }, typeWaitMilliseconds);
@@ -130,6 +130,9 @@ function ReStartSearch() {
 
 
 function RePopulateSearchResult(search) {
+  if (sectionContentSearch.value.trim() === "i show you mi history") {
+    nextPageSearch = 1;
+  }
   const currentSearch = 'No more results for ';
     searchMovie(search).then(result => {
       const errorValue = ` API: ${Object.values(result)[1]}`;
@@ -154,6 +157,7 @@ function RePopulateSearchResult(search) {
 
 export function historySearchResult(search) {
   searchMovie(search).then(result => {
+    nextPageSearch = 1;
     const currentSearch = 'No results were found for ';
     const NoCurrentSearch = 'Show history results';
     const errorValue = ` API: ${Object.values(result)[1]}`;
@@ -163,7 +167,7 @@ export function historySearchResult(search) {
       loadIcon.classList.add('invisible');
       return;
     }
-    if (result.Search !== null) {
+    if (nameResult.lastChild.innerHTML !== null) {
       swiperSlide.innerHTML = "";
       modalContainer.innerHTML = "";
       result.Search.map((element) => {
