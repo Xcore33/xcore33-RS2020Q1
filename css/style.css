@@ -1,0 +1,53 @@
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4
+ {
+ color: rgb(218, 168, 44);
+}
+
+.reveal h4
+ {
+ text-transform: none;
+}
+
+.reveal h4
+ {
+ font-size: 50px;
+}
+
+section.present a {
+line-height: 30px;
+}
+.mirror {
+  transform: scale(-1, 1)
+}
+.box {
+  display: flex;
+  flex-direction: row;
+}
+
+.small-box {
+  font-size: 18px;
+  line-height: 25px;
+}
+
+span {
+  color: rgb(138, 141, 141);
+}
+
+i {
+  color: rgb(247, 208, 109);
+}
+.width {
+  width: 100%;
+  overflow-x: visible;
+}
+
+pre.pre_width {
+  margin-left: 70px;
+}
+
+.text-container {
+  font-size: 30px;
+}

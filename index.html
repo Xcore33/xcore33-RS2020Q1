@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <title>RSS Presentation Xcore33</title>
-
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/reveal.css">
   <link rel="stylesheet" href="css/theme/black.css">
+  <link rel="stylesheet" href="/css/style.css">
+
+
 
   <!-- Theme used for syntax highlighting of code -->
   <link rel="stylesheet" href="lib/css/monokai.css">
@@ -27,45 +29,87 @@
 <body>
   <div class="reveal">
     <div class="slides">
-      <section><img src="/img/js_logo.jpg" alt="" width="200"> <br>
-        <h1>History API and Routing</h1>
+      <section>
+        <section>
+          <h1>History API and Routing</h1>
+          <img src="/img/js_logo.png">
         </section>
+        <section>
+          <h4>Why do we need History API?</h4>
+          <div class="text-container">The HTML5 History API gives developers the ability to modify a website’s URL
+            without a full page refresh. This is particularly useful for loading portions of a page with JavaScript,
+            such that the content is significantly different and warrants a new URL.
+
+            Here’s an example. Let’s say a person navigates from the homepage of a site to the Help page. We’re loading
+            the content of that Help page with Ajax. That user then heads off to the Products page which we again load
+            and swap out content with Ajax. Then they want to share the URL. With the History API, we could have been
+            changing the URL of the page right along with the user as they navigate, so the URL they see (and thus share
+            or save) is relevant and correct.</div>
+        </section>
+        <section>
+          <h4>A Quick History</h4>
+          <div class="text-container">
+            The most significant thing with these history API’s is that they don’t reload the page. In the past, the
+            only way to change the URL was to change the window.location which always reloaded the page. Except, if all
+            you changed was the hash (like how clicking a <a href="#target">link</a> doesn’t reload the page).
+
+            This lead to the old hashbang method of changing the URL without a full page refresh. Famously, Twitter used
+            to do things this way and was largely criticized for it (a hash not being a “real” resource location).
+
+            Twitter moved aways from that, and was one of the early proponents of this API. In 2012 <a
+              href="https://blog.twitter.com/engineering/en_us/a/2012/implementing-pushstate-for-twittercom.html">the
+              team described
+              their new approach.</a> Here they outline some of their problems when working at this kind of scale whilst
+            also
+            detailing how various browsers implement this specification.
+          </div>
+        </section>
+      </section>
       <section>
         <section>
           <h2>HISTORY API</h2> <br>
           The History interface allows manipulation of the browser session history, that is the pages visited in the tab
           or frame that the current page is loaded in.<br>
-          <a>window.history;</a>
+          <pre><code>window.history;</code></pre>
         </section>
         <section>
           <h3>For example</h3><br><img src="img/hist2.png" alt=""><br>These are the methods available to us
           to manipulate the browser's history.
         </section>
         <section>
-          <h4>Traveling through history</h4><br>
-          <img src="img/left.png" alt="" width="30px"> <a>window.history.back();</a> <br>
-          To move backward through history <br>
-          <img src="img/right.png" alt="" width="30px"> <a> window.history.forward();</a> <br>
-          To move forward through history <br>
-          <a>window.history.go(n);</a> <br>
-          Moving to a specific point in history <br>
-          <a> window.history.length();</a> <br>
-          Determines the number of pages in the history stack
+          <h3>Traveling through history</h3>
+          <div class="box"><img src="img/left.png" alt="" width="35px" height="35px">
+            <pre><code>window.history.back(); </code>To move backward through history</pre>
+          </div>
+          <div class="box"><img class="mirror" src="img/left.png" alt="" width="35px" height="35px">
+            <pre><code>window.history.forward();</code>To move forward through history </pre>
+          </div>
+          <pre
+            class="pre_width"><code class="no_width">window.history.go(n);</code>Moving to a specific point in history</pre>
+          <pre
+            class="pre_width"><code class="no_width">window.history.length();</code>Determines the number of pages in the history stack</pre>
         </section>
         <section>
-          <h4>Modefying history</h4><br>
-          In HTML5 we have pushState and replaceState methods <br>
-          <a>window.history.pushState([stateObj], [title], [url]); </a> <br>
-          <a>window.history.replaceState([stateObj], [title], [url]); </a>
+          <h3>Modefying history</h3><br>
+          In HTML5 we have pushState<br>and replaceState methods
+          <pre><code>window.history.pushState([stateObj], [title], [url]); </code></pre>
+          <pre><code>window.history.replaceState([stateObj], [title], [url]); </code></pre>
+        </section>
+        <section>
+          <h3>TITEL</h3><br>
+          <div class="text-container">
+            All browsers currently ignor this parameter - the title is being changed in all modern browsers using <i><span>history.</span>push()</i>, but you have to change
+            the URL. If you only add "#locationhash" it won't change the title, which makes sense.
+          </div>
         </section>
         <section>
           <h4>pushState()</h4><br>
-          This method create a new entry in the history of the browser.
+          This method create a new entry<br>in the history of the browser.
         </section>
         <section>
-          <h4>STATE OBJECT</h4><br>
-          State object includes the data we'll need if the state of the web page changes<br>
-          <code>window.history.state
+          <h3>STATE OBJECT</h3>
+          State object includes the data we'll need <br> if the state of the web page changes
+          <pre><code class="small-box">window.history.state
   {entryTime: 51591.855, endpoint: {…}, savedComponentState: null}
   endpoint:
   clickTrackingParams:"CD8QlDUYAiITCIGLpPiXndcCFQLgHQodhx8AYiibHDILYzQtdmlkZW9zLXVaGFVDVWdtSGJrMXJURmFmNEdHS1ExT1hmUQ=="
@@ -79,25 +123,18 @@
       __proto__: Object
   __proto__: Object
   entryTime:51591.855
-  savedComponentState:null</code>
-          Example from YouTube
+  savedComponentState:null</code>Example from YouTube</pre>
         </section>
         <section>
-          <h4>TITEL</h4><br>
-          All browsers currently ignor this parameter.
-        </section>
-        <section>
-          <h4>URL</h4><br>
-          <a>window.history.pushState(null, 'title', 'mystate'); </a><br>
-          The new history entry's URL is given by this parameter.<br>
-          <a>window.history.pushState(null, 'title', '/mystate'); </a><br>
-          The new URL can be relative if it need.<br>
-          <a>window.history.pushState(null, 'title', 'http://google.com/mystate'); </a><br>
-          The new URL must be of the same origin as the current URL.
+          <h3>URL</h3><br>
+          <pre><code class="width">window.history.pushState(null, 'title', 'mystate'); </code>The new history entry's URL is given by this parameter.</pre>
+          <pre><code class="width">window.history.pushState(null, 'title', '/mystate'); </code>The new URL can be relative if it need.</pre>
+          <pre><code class="width">window.history.pushState(null, 'title', "http://google.com/mystate");</code>The new URL must be of the same origin as the current URL.</pre>
         </section>
         <section>
           <h4>replaceState() method</h4><br>
-          history.replaceState() operates exactly like history.pushState() except that replaceState() modifies the
+          <i><span>history.</span>replaceState()</i> operates exactly like <i><span>history.</span>pushState()</i>
+          except that <i>replaceState()</i> modifies the
           current history entry instead of creating a new one.
         </section>
       </section>
@@ -122,28 +159,33 @@
           <h3>Reading the route</h3><br>
           To read the anchor bit from the URL we may use the following code <br>
           <img src="img/rev1.png" alt=""><br>
-          <code>var hash = window.location.hash.slice(1);
+          <pre><code>var hash = window.location.hash.slice(1);
 
             // or extracting the hash from the entire URL
-            var hash = window.location.href.split('#')[1] || '';</code>
+            var hash = window.location.href.split('#')[1] || '';</code></pre>
         </section>
         <section>
           <h3>Changing the path</h3><br>
           To read the anchor bit from the URL we may use the following code <br>
-          <code>ar navigate = function (path) {
+          <pre><code>ar navigate = function (path) {
             var current = window.location.href;
             window.location.href = current.replace(/#(.*)$/, '') + '#' + path;
           }
-          
-          navigate('rolling-scopes');</code>
+
+          navigate('rolling-scopes');</code></pre>
           <img src="img/rev2.png" alt=""><br>
         </section>
         <section>
           <h3>A routing revolution with pushState</h3><br>
           Now we do not need to use a #. We use a pushState() method to manipulate the history of the browser.<br>
-          <code>var stateObj = { foo: "bar" };
-            history.pushState(stateObj, "page 2", "bar.html");</code>
+          <pre><code>var stateObj = { foo: "bar" };
+            history.pushState(stateObj, "page 2", "bar.html");</code></pre>
           To use this method for routing we need to make redirect from each route to index.html in our server.
+        </section>
+        <section>
+          <h3>DEMO</h3><br>
+          <video class="wrap" src="/img/Example.mp4" controls="controls" frameborder="0" allowfullscreen="" height="500"
+            autoplay loop></video>
         </section>
         <section>As a summary I would like to say that with HTML 5 history API our application to look & act like
           proper, server-rendered sites as much as possible, especially with minimal effort.</section>
