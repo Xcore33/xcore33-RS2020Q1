@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>RSS Presentation Xcore33</title>
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/black.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/monokai.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section><img src="/img/js_logo.jpg" alt="" width="200"> <br>
+        <h1>History API and Routing</h1>
+        </section>
+      <section>
+        <section>
+          <h2>HISTORY API</h2> <br>
+          The History interface allows manipulation of the browser session history, that is the pages visited in the tab
+          or frame that the current page is loaded in.<br>
+          <a>window.history;</a>
+        </section>
+        <section>
+          <h3>For example</h3><br><img src="img/hist2.png" alt=""><br>These are the methods available to us
+          to manipulate the browser's history.
+        </section>
+        <section>
+          <h4>Traveling through history</h4><br>
+          <img src="img/left.png" alt="" width="30px"> <a>window.history.back();</a> <br>
+          To move backward through history <br>
+          <img src="img/right.png" alt="" width="30px"> <a> window.history.forward();</a> <br>
+          To move forward through history <br>
+          <a>window.history.go(n);</a> <br>
+          Moving to a specific point in history <br>
+          <a> window.history.length();</a> <br>
+          Determines the number of pages in the history stack
+        </section>
+        <section>
+          <h4>Modefying history</h4><br>
+          In HTML5 we have pushState and replaceState methods <br>
+          <a>window.history.pushState([stateObj], [title], [url]); </a> <br>
+          <a>window.history.replaceState([stateObj], [title], [url]); </a>
+        </section>
+        <section>
+          <h4>pushState()</h4><br>
+          This method create a new entry in the history of the browser.
+        </section>
+        <section>
+          <h4>STATE OBJECT</h4><br>
+          State object includes the data we'll need if the state of the web page changes<br>
+          <code>window.history.state
+  {entryTime: 51591.855, endpoint: {…}, savedComponentState: null}
+  endpoint:
+  clickTrackingParams:"CD8QlDUYAiITCIGLpPiXndcCFQLgHQodhx8AYiibHDILYzQtdmlkZW9zLXVaGFVDVWdtSGJrMXJURmFmNEdHS1ExT1hmUQ=="
+  watchEndpoint:
+      startTimeSeconds: 1246
+      videoId:"k2GtDJKC6HQ"
+      __proto__: Object
+  webNavigationEndpointData:
+      url:"/watch?v=k2GtDJKC6HQ&t=1246s"
+      webPageType:"WATCH"
+      __proto__: Object
+  __proto__: Object
+  entryTime:51591.855
+  savedComponentState:null</code>
+          Example from YouTube
+        </section>
+        <section>
+          <h4>TITEL</h4><br>
+          All browsers currently ignor this parameter.
+        </section>
+        <section>
+          <h4>URL</h4><br>
+          <a>window.history.pushState(null, 'title', 'mystate'); </a><br>
+          The new history entry's URL is given by this parameter.<br>
+          <a>window.history.pushState(null, 'title', '/mystate'); </a><br>
+          The new URL can be relative if it need.<br>
+          <a>window.history.pushState(null, 'title', 'http://google.com/mystate'); </a><br>
+          The new URL must be of the same origin as the current URL.
+        </section>
+        <section>
+          <h4>replaceState() method</h4><br>
+          history.replaceState() operates exactly like history.pushState() except that replaceState() modifies the
+          current history entry instead of creating a new one.
+        </section>
+      </section>
+      <section>
+        <section>
+          <h2>ROUTING</h2><br>
+          Router is one of the must-have parts of single page application. <br><br>
+          Router knows how to tweak the content of the address bar and notifies the rest of the system for URL changes
+        </section>
+        <section>
+          <h3>Methods of routing</h3><br>
+          <li>Hash-based routing</li>
+          <li>Routing with pushState</li>
+        </section>
+        <section>
+          <h3>Hash-based routing</h3><br>
+          What we meant by hash-based routing is using the anchor part of the URL to simulate different content <br>
+          <img src="img/rev1.png" alt=""><br>
+          The routing is possible because changes in the hash don’t trigger page reload.
+        </section>
+        <section>
+          <h3>Reading the route</h3><br>
+          To read the anchor bit from the URL we may use the following code <br>
+          <img src="img/rev1.png" alt=""><br>
+          <code>var hash = window.location.hash.slice(1);
+
+            // or extracting the hash from the entire URL
+            var hash = window.location.href.split('#')[1] || '';</code>
+        </section>
+        <section>
+          <h3>Changing the path</h3><br>
+          To read the anchor bit from the URL we may use the following code <br>
+          <code>ar navigate = function (path) {
+            var current = window.location.href;
+            window.location.href = current.replace(/#(.*)$/, '') + '#' + path;
+          }
+          
+          navigate('rolling-scopes');</code>
+          <img src="img/rev2.png" alt=""><br>
+        </section>
+        <section>
+          <h3>A routing revolution with pushState</h3><br>
+          Now we do not need to use a #. We use a pushState() method to manipulate the history of the browser.<br>
+          <code>var stateObj = { foo: "bar" };
+            history.pushState(stateObj, "page 2", "bar.html");</code>
+          To use this method for routing we need to make redirect from each route to index.html in our server.
+        </section>
+        <section>As a summary I would like to say that with HTML 5 history API our application to look & act like
+          proper, server-rendered sites as much as possible, especially with minimal effort.</section>
+      </section>
+    </div>
+  </div>
+
+  <script src="js/reveal.js"></script>
+
+  <script>
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+      hash: true,
+      dependencies: [
+        { src: 'plugin/markdown/marked.js' },
+        { src: 'plugin/markdown/markdown.js' },
+        { src: 'plugin/highlight/highlight.js' },
+        { src: 'plugin/notes/notes.js', async: true }
+      ]
+    });
+  </script>
+</body>
+
+</html>
