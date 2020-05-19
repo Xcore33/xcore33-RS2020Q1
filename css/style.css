@@ -32,6 +32,16 @@ line-height: 30px;
   line-height: 25px;
 }
 
+.medium-box {
+  font-size: 25px;
+  line-height: 30px;
+}
+
+.bigger-box {
+  font-size: 30px;
+  line-height: 35px;
+}
+
 span {
   color: rgb(138, 141, 141);
 }
@@ -50,4 +60,22 @@ pre.pre_width {
 
 .text-container {
   font-size: 30px;
+}
+
+.left {
+  justify-content: left;
+  text-align: left;
+}
+
+.top {
+  margin-top: -15px;
+  color: bisque;
+}
+
+.text-color {
+  color: bisque;
+}
+
+.wrap {
+  margin-top: -50px;
 }

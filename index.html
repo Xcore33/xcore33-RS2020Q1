@@ -34,6 +34,8 @@
           <h1>History API and Routing</h1>
           <img src="/img/js_logo.png">
         </section>
+      </section>
+      <section>
         <section>
           <h4>Why do we need History API?</h4>
           <div class="text-container">The HTML5 History API gives developers the ability to modify a website’s URL
@@ -64,78 +66,130 @@
             detailing how various browsers implement this specification.
           </div>
         </section>
-      </section>
-      <section>
         <section>
-          <h2>HISTORY API</h2> <br>
-          The History interface allows manipulation of the browser session history, that is the pages visited in the tab
-          or frame that the current page is loaded in.<br>
-          <pre><code>window.history;</code></pre>
+          <h4>For example</h4>
+          <div class="medium-box">
+            Just typing history into the console. If the API is supported in your browser of choice then we’ll find a
+            host of methods attached to this <i>State</i> object:
+            <pre><code>History {length: 2, scrollRestoration: "auto", state: null}
+            length: 2
+            scrollRestoration: "auto"
+            state: null
+            __proto__: History
+            back: ƒ back()
+            forward: ƒ forward()
+            go: ƒ go()
+            length: (...)
+            pushState: ƒ pushState()
+            replaceState: ƒ replaceState()
+            state: (...)
+            constructor: ƒ History()
+            __proto__: Object</code></pre>
+            These are the methods available to us
+            to manipulate the browser's history. <br>State object includes the data we'll need if the state of the web
+            page changes.
+          </div>
         </section>
         <section>
-          <h3>For example</h3><br><img src="img/hist2.png" alt=""><br>These are the methods available to us
-          to manipulate the browser's history.
+          <h4>Basic concepts</h4>
+          <div class="bigger-box left">The History API relies on a single DOM interface — the History object. There is a
+            unique History object defined for each tab, accessed through the history attribute of the Window interface.
+            This can be manipulated using JavaScript along with some special methods. To relate this to the actual pages
+            in your session history, each Document object is associated with a unique instance of the tab's History
+            object (they all model the same underlying session history). <br><br>
+            History objects represent each tab's session history as a flat, comma-separated list of session history
+            entries. Each session history entry consists of a URL or a state object (or both), and in addition can have
+            a title, a Document object, form data, a scroll position, and other information associated with it.<br><br>
+            Let's look at the basic methods of the history object =>
+          </div>
         </section>
         <section>
-          <h3>Traveling through history</h3>
+          <h4>Traveling through history</h4>
           <div class="box"><img src="img/left.png" alt="" width="35px" height="35px">
             <pre><code>window.history.back(); </code>To move backward through history</pre>
+          </div>
+          <div class="medium-box top left">This acts exactly as if the user clicked on the <button>Back</button> button
+            in
+            their browser toolbar.<br><br>
+            Similarly, you can move forward (as if the user clicked the <button>Forward</button> button), like this:
           </div>
           <div class="box"><img class="mirror" src="img/left.png" alt="" width="35px" height="35px">
             <pre><code>window.history.forward();</code>To move forward through history </pre>
           </div>
+          <div class="medium-box left text-color">You can use the go() method to load a specific page from session
+            history,<br>
+            identified by its relative position to the current page. (The current page's relative<br> position is 0
+            example: we can put <i>1</i> for go forward, or <i>-1</i> to go back)</div>
           <pre
             class="pre_width"><code class="no_width">window.history.go(n);</code>Moving to a specific point in history</pre>
-          <pre
-            class="pre_width"><code class="no_width">window.history.length();</code>Determines the number of pages in the history stack</pre>
         </section>
         <section>
-          <h3>Modefying history</h3><br>
-          In HTML5 we have pushState<br>and replaceState methods
-          <pre><code>window.history.pushState([stateObj], [title], [url]); </code></pre>
-          <pre><code>window.history.replaceState([stateObj], [title], [url]); </code></pre>
-        </section>
-        <section>
-          <h3>TITEL</h3><br>
-          <div class="text-container">
-            All browsers currently ignor this parameter - the title is being changed in all modern browsers using <i><span>history.</span>push()</i>, but you have to change
-            the URL. If you only add "#locationhash" it won't change the title, which makes sense.
+          <h4>Modefying history</h4>
+          <div class="medium-box">In HTML5 we have pushState and replaceState methods:</div>
+          <pre><code>1 window.history.replaceState([stateObj], [title], [url]); </code></pre>
+          <div class="medium-box">
+            method modifies the current history entry, replacing it with the stateObj, title, and URL passed in the
+            method parameters. This method is particularly useful when you want to update the state object or URL of the
+            current history entry in response to some user action.</div>
+          <pre><code>2 window.history.pushState([stateObj], [title], [url]); </code></pre>
+          <div class="medium-box">
+            method adds a state to the browser's session history stack.</div> <br>
+          <div class="medium-box left">
+            <a>1).</a> The first parameter is <i>[stateObj]</i> we’ll need if the state of the web page changes, for
+            instance whenever someone
+            presses the back or forwards button in their browser. Note that in Firefox this data is limited to 640k
+            characters.<br>
+            <a>2).</a> <i>[title]</i> is the second parameter which can be a string, but at the time of writing, every
+            browser simply ignores
+            it. <br>
+            <a>3).</a> This final parameter is the <i>[url]</i> we want to appear in the address bar.
           </div>
         </section>
         <section>
-          <h4>pushState()</h4><br>
-          This method create a new entry<br>in the history of the browser.
+           <div class="medium-box left">
+            <h3>Short examle - p1</h3>
+              <i><span>history.</span>replaceState()</i> operates exactly like <i><span>history.</span>pushState()</i>
+              except that <i>replaceState()</i> modifies the
+              current history entry instead of creating a new one. <br>
+            <i>history.pushState()</i> and <i>history.replaceState()</i>: both of which allow us to add and update
+            history
+            state, respectively. Both work in the same manner and expect same number of parameters. In addition to these
+            methods, we have <a>popstate</a> event. We will see later in this article for how and when to use this
+            <a>popstate</a>
+            event. <br>
+            <i>pushState</i> and <i>replaceState</i> both expect the same number of parameters which are as under:<br>
+
+            <a>1).</a> state can store a JSON string and will be available for popstate event.<br>
+            <a>2).</a> title is a parameter is disregarded by the majority of browsers for now, so better to set it to
+            null for today.<br>
+            <a>3).</a> url can represent any URL. It will be updated with the browser's address, and it won't care if
+            that URL exists or not. Most importantly, it won't reload your web page.<br>
+            The major differences between these methods are that the pushState will add a new entry in the history stack
+            and replaceState will replace current the history value instead of adding new one. If you are still confused
+            in both these methods, then let's demonstrate the same case with better example.
+          </div>
         </section>
         <section>
-          <h3>STATE OBJECT</h3>
-          State object includes the data we'll need <br> if the state of the web page changes
-          <pre><code class="small-box">window.history.state
-  {entryTime: 51591.855, endpoint: {…}, savedComponentState: null}
-  endpoint:
-  clickTrackingParams:"CD8QlDUYAiITCIGLpPiXndcCFQLgHQodhx8AYiibHDILYzQtdmlkZW9zLXVaGFVDVWdtSGJrMXJURmFmNEdHS1ExT1hmUQ=="
-  watchEndpoint:
-      startTimeSeconds: 1246
-      videoId:"k2GtDJKC6HQ"
-      __proto__: Object
-  webNavigationEndpointData:
-      url:"/watch?v=k2GtDJKC6HQ&t=1246s"
-      webPageType:"WATCH"
-      __proto__: Object
-  __proto__: Object
-  entryTime:51591.855
-  savedComponentState:null</code>Example from YouTube</pre>
-        </section>
-        <section>
-          <h3>URL</h3><br>
-          <pre><code class="width">window.history.pushState(null, 'title', 'mystate'); </code>The new history entry's URL is given by this parameter.</pre>
-          <pre><code class="width">window.history.pushState(null, 'title', '/mystate'); </code>The new URL can be relative if it need.</pre>
-          <pre><code class="width">window.history.pushState(null, 'title', "http://google.com/mystate");</code>The new URL must be of the same origin as the current URL.</pre>
-        </section>
-        <section>
-          <h4>replaceState() method</h4><br>
-          <i><span>history.</span>replaceState()</i> operates exactly like <i><span>history.</span>pushState()</i>
-          except that <i>replaceState()</i> modifies the
-          current history entry instead of creating a new one.
+          <div class="small-box left">
+            <h3>Short examle - p2</h3>
+            Let's presume we have stacks of two blocks labeled 1 and 2 and you have block labeled 3 in your hand. Now,
+            when we perform pushState, block 3 will be added to an existing stack so stack would have 3 blocks.<br>
+
+            Now assume the same stack with two blocks and one more in your hand. When we perform <i>replaceState</i>, it
+            will
+            pick the block 2 out of stack and place block 3. So the number of history values will remain same.<br>
+            <i>pushState</i>, on the other hand, increases history count by one.
+
+            The below image shows the same demonstration.<br>
+            <img src="/img/push-vs-replace-state.jpg" alt="">
+            Thus far, we have covered the <i>pushState</i> and <i>replaceState</i> events in order to control the browser history, but
+            suppose we have a variety of fake history that we have totaled in the browser. The user may or may not
+            redirected to that page. In such a case, it will be a problem when user hits the browser back and forth
+            button to navigate to history pages.<br>
+            Though you may expect popstate to be fired when the <i>pushState</i> or <i>replaceState</i> methods are addressed, but in
+            reality, it is not the case. Instead, popstate will fire when you are navigating through the session history
+            entry, either by hitting backward or forward buttons or using the <a>history.go</a> or <a>history.back</a> methods.
+          </div>
         </section>
       </section>
       <section>
@@ -167,12 +221,14 @@
         <section>
           <h3>Changing the path</h3><br>
           To read the anchor bit from the URL we may use the following code <br>
-          <pre><code>ar navigate = function (path) {
+          <div class="bigger-box">
+            <pre><code>ar navigate = function (path) {
             var current = window.location.href;
             window.location.href = current.replace(/#(.*)$/, '') + '#' + path;
           }
 
           navigate('rolling-scopes');</code></pre>
+          </div>
           <img src="img/rev2.png" alt=""><br>
         </section>
         <section>
@@ -186,6 +242,111 @@
           <h3>DEMO</h3><br>
           <video class="wrap" src="/img/Example.mp4" controls="controls" frameborder="0" allowfullscreen="" height="500"
             autoplay loop></video>
+        </section>
+        <section>
+          <div class="medium-box">
+            The markup for this example is simple enough: we have a .gallery which contains some links and within each
+            of them is an image. We then have the text beneath that we want to update with the selected name and the
+            empty .content div that we want to replace with the data from each character’s respective HTML files:
+            <pre><code><div class="gallery">
+              <a href="/peter.html">
+                <img src="bill.png" alt="Peter" class="peter" data-name="peter">
+              </a>
+              <a href="/ray.html">
+                <img src="ray.png" alt="Ray" class="ray" data-name="ray">
+              </a>
+              <a href="/egon.html">
+                <img src="egon.png" alt="Egon" class="egon" data-name="egon">
+              </a>
+              <a href="/winston.html">
+                <img src="winston.png" alt="Winston" class="winston" data-name="winston">
+              </a>
+            </div>
+
+            <p class="selected">Ghostbusters</p>
+            <p class="highlight"></p>
+
+            <div class="content"></div></code></pre>
+            Without any JavaScript this page will still function as it should, clicking a link heads to the right page
+            and clicking the back button also works just as a user would expect it too. Yay for accessibility and
+            graceful degradation!
+          </div>
+        </section>
+        <section>
+          <div class="medium-box">
+            Next we’ll hop on over to JavaScript where we can begin adding an event handler to each link inside the
+            .gallery element by using event propagation, like so:
+            <pre><code>var container = document.querySelector('.gallery');
+
+              container.addEventListener('click', function(e) {
+                if (e.target != e.currentTarget) {
+                  e.preventDefault();
+                  // e.target is the image inside the link we just clicked.
+                }
+                e.stopPropagation();
+              }, false);</code></pre>
+            Inside this if statement we can then assign the data-name attribute of the image we select to the data
+            variable. Then we’ll append “.html” to it and use that as the third parameter, the URL we’d like to load, in
+            our pushState method (although in a real example we’d probably want to change the URL only after the Ajax
+            request has been successful):
+            <pre><code>var data = e.target.getAttribute('data-name'),
+              url = data + ".html";
+              history.pushState(null, null, url);
+
+              // here we can fix the current classes
+              // and update text with the data variable
+              // and make an Ajax request for the .content element
+              // finally we can manually update the document’s title</code></pre>
+            I’ve replaced working code with comments so we can focus on the pushState method for now.
+          </div>
+        </section>
+        <section>
+          <div class="bigger-box">
+            So at this point, clicking on an image will update the URL bar and the content with the Ajax request but
+            clicking the back button won’t send us to the previous character we selected. What we need to do here is to
+            make another Ajax request when the user clicks the back/forwards button and then we’ll need to update the
+            URL once again with pushState. <br>
+            We’ll first head back and update the state parameter of our pushState method in order to stash that
+            information away:
+            <pre><code>history.pushState(data, null, url);</code></pre>
+            This is the first parameter, data in the method above. Now anything that’s set to that variable will be
+            accessible to us in a popstate event which fires whenever the user clicks on the forward or back buttons.
+            <pre><code>window.addEventListener('popstate', function(e) {
+              // e.state is equal to the data-attribute of the last image we clicked
+            });</code></pre>
+          </div>
+        </section>
+        <section>
+          <div class="medium-box">
+            Consequently we can then use this information however we like, which in this case is passing the name of the
+            previous Ghostbuster we selected as a parameter into the Ajax requestContent function, which uses jQuery’s
+            load method:
+            <pre><code>function requestContent(file) {
+              $('.content').load(file + ' .content');
+            }
+
+            window.addEventListener('popstate', function(e) {
+              var character = e.state;
+
+              if (character == null) {
+                removeCurrentClass();
+                textWrapper.innerHTML = " ";
+                content.innerHTML = " ";
+                document.title = defaultTitle;
+              } else {
+                  updateText(character);
+                  requestContent(character + ".html");
+                  addCurrentClass(character);
+                  document.title = "Ghostbuster | " + character;
+              }
+            });</code></pre>
+            If a user was to click on the picture of Ray our event listener would fire, which would then store the data
+            attribute of our image within the pushState event. Consequently this loads the ray.html file which will be
+            called upon if the user selects another image and then clicks the back button. <br>
+            What does this leave us with? Well, if we click on a character and then share the URL we’ve updated, then
+            that HTML file would be loaded instead. It might be a less confusing experience and we’ll preserve the
+            integrity of our URLs whilst giving our users a faster browsing experience over all.
+          </div>
         </section>
         <section>As a summary I would like to say that with HTML 5 history API our application to look & act like
           proper, server-rendered sites as much as possible, especially with minimal effort.</section>
