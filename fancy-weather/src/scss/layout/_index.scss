@@ -1,0 +1,126 @@
+
+/* Common styles */
+.body {
+    height: 100vh;
+}
+
+.wrapper {
+    width: 100%;
+    margin: 0 auto;
+    max-width: $desktop;
+    @media screen and (max-width: $mobile) {
+        // styles for mobile
+        width: 100%;
+        margin: 0;
+        min-width: $mobile;
+    }
+}
+
+.active {
+    background-color: $active-bg-color;
+}
+
+// TODO: Consider to move styles for components to /components folder
+/**** COMPONENTS *****/
+.button-styled {
+    cursor: pointer;
+    height: 30px;
+    margin: 0 5px;
+    border: none;
+    background: #0bc0d8;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12);
+    border-radius: 2px;
+    color: #ffffff;
+    padding: 0 10px;
+}
+
+.input-styled {
+    height: 30px;
+    margin: 0 5px;
+    padding: 0px 10px;
+    border: none;
+    background: #f3f3f3;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12);
+    border-radius: 2px;
+}
+
+.weather-card {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    // font-family: Montserrat;
+    font-style: normal;
+    text-transform: uppercase;
+    .weather-card-day {
+        &.format-normal {
+            text-transform: initial;
+        }
+    }
+    .weather-card-details-block {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        .weather-card-temperature {
+            font-weight: 600;
+            font-size: 80px;
+            line-height: 98px;
+            margin: 0;
+        }
+        .weather-card-icon {
+            width: 70px;
+            &.big-icon {
+                width: 170px;
+            }
+        }
+    }
+}
+/**** END COMPONENTS *****/
+
+.body {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.header-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 40px 0;
+    .controls-container {
+        //
+    }
+    .search-container {
+        justify-self: center;
+    }
+}
+
+.main-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: center;
+    .weather-container {
+        // .weather-today {
+        //     .city-country-name {
+        //         text-transform: uppercase;
+        //     }
+        // }
+        .weather-future {
+            display: grid;
+            grid-template-columns: 33% 34% 33%;
+        }
+    }
+    .map-container {
+        justify-self: center;
+        align-self: center;
+        width: 100%;
+        height: 100%;
+        .map-wrapper {
+            width: 100%;
+            height: 90%;
+            .map {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .coordinates-block {
+            text-align: right;
+        }
+    }
+}
