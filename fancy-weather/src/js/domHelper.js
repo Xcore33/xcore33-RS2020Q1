@@ -1,21 +1,26 @@
 const settings = require('./settings');
 const image = require('./image');
-const geoPosition = require('./geoPosition');
+const geoData = require('./geoData');
 
-const generateAppData = async () => {
-  settings.geoPositionData = await geoPosition.getGeoPosition();
-  settings.cityName = settings.geoPositionData.city;
-  settings.countryName = settings.geoPositionData.country;
-  const [latitude, longitude] = [...settings.geoPositionData.loc.split(',')];
-  settings.latitude = latitude;
-  settings.longitude = longitude;
-  settings.weatherData = JSON.parse(localStorage.getItem('weatherData'));
+const saveSettings = () => {
+  localStorage.setItem('weatherAppSettings', JSON.stringify(settings));
 };
 
-const updateAppView = () => {
-  const cityNameElement = document.getElementById('idCityName');
-  cityNameElement.textContent = `${settings.cityName}, ${settings.countryName}`;
+const generateAppData = async () => {
+  settings.geoPosition = await geoData.getGeoPosition();
+  const [latitude, longitude] = [...settings.geoPosition.loc.split(',')];
+  settings.latitude = latitude;
+  settings.longitude = longitude;
 
+  settings.geoPositionData = await geoData.getGeoPositionData(settings.latitude, settings.longitude, settings.language);
+
+  settings.cityName = settings.geoPositionData.results[0].components.city;
+  settings.countryName = settings.geoPositionData.results[0].components.country;
+  settings.weatherData = JSON.parse(localStorage.getItem('weatherData'));
+  saveSettings();
+};
+
+const updateTime = () => {
   const currentDateTimeElement = document.getElementById('idCurrentDateTime');
   const dateTime = new Date();
   currentDateTimeElement.textContent = `${dateTime.toDateString()} ${dateTime.toLocaleTimeString('en-US', {
@@ -23,6 +28,11 @@ const updateAppView = () => {
     minute: 'numeric',
     hour12: false,
   })}`;
+};
+
+const updateAppView = () => {
+  const cityNameElement = document.getElementById('idCityName');
+  cityNameElement.textContent = `${settings.cityName}, ${settings.countryName}`;
 
   const coordinatesElement = document.getElementById('idCoordinates');
   const [lat, long] = [settings.latitude, settings.longitude].map(coordinate => `${coordinate}'`.replace('.', `°`));
@@ -35,7 +45,6 @@ const updateAppView = () => {
     ? parseInt((settings.weatherData.currently.apparentTemperature - 32) / 1.8)
     : parseInt(settings.weatherData.currently.apparentTemperature);
   const { windSpeed, humidity, icon } = settings.weatherData.currently;
-
   const weatherCardDetailedElement = document.querySelector('.weather-card-detailed');
   weatherCardDetailedElement.querySelector('.weather-card-temperature').textContent = `${currentTemperature}°`;
   weatherCardDetailedElement.querySelector(
@@ -50,9 +59,11 @@ const updateAppView = () => {
     const weekDay = new Date(settings.weatherData.daily.data[index + 1].time * 1000).toLocaleDateString('en-EN', {
       weekday: 'long',
     });
-    const temperature = settings.isCelsius
-      ? parseInt((settings.weatherData.daily.data[index + 1].temperatureMin - 32) / 1.8)
-      : parseInt(settings.weatherData.daily.data[index + 1].temperatureMin);
+    const averageTemperature =
+      (settings.weatherData.daily.data[index + 1].temperatureLow +
+        settings.weatherData.daily.data[index + 1].temperatureHigh) /
+      2;
+    const temperature = settings.isCelsius ? parseInt((averageTemperature - 32) / 1.8) : parseInt(averageTemperature);
     weatherCard.querySelector('.weather-card-day').textContent = weekDay;
     weatherCard.querySelector('.weather-card-temperature').textContent = `${temperature}°`;
     weatherCard
@@ -63,13 +74,13 @@ const updateAppView = () => {
 
 const changeBackgroundImage = async () => {
   const imageData = await image.getImageUrl();
-  document.getElementById('idBGImage').style.background = `url("${imageData.urls.regular}") no-repeat`;
-  document.getElementById('idBGImage').style.backgroundSize = 'cover';
+  document.getElementById('idBGImage').style.background = `url("${imageData.urls.regular}") 0% 0% / cover no-repeat`;
 };
 
 const changeTemperatureScale = async () => {
   settings.isCelsius = !settings.isCelsius;
   updateAppView();
+  saveSettings();
 };
 
 const setDOMHandlers = () => {
@@ -83,4 +94,6 @@ module.exports = {
   changeBackgroundImage,
   changeTemperatureScale,
   generateAppData,
+  saveSettings,
+  updateTime,
 };
