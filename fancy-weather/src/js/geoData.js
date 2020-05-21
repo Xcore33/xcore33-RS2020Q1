@@ -19,7 +19,18 @@ const getGeoPositionData = async (latitude, longitude, language) => {
   return geoPositionDataOpenCageData;
 };
 
+const searchByValueData = async (searchValue, language) => {
+  const queryParams = `q=${searchValue}&key=${config.openCageDataApiKey}&language=${language}&pretty=1`;
+  const requestUrl = `${config.openCageDataBaseUrl}${queryParams}`;
+
+  const response = await fetch(requestUrl);
+  const geoPositionDataOpenCageData = await response.json();
+
+  return geoPositionDataOpenCageData;
+};
+
 module.exports = {
   getGeoPosition,
   getGeoPositionData,
+  searchByValueData,
 };
