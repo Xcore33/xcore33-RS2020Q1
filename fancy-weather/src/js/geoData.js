@@ -1,4 +1,4 @@
-const config = require('./config');
+const config = require('./settings/config');
 
 const getGeoPosition = async () => {
   const requestUrl = `${config.ipBaseUrl}${config.ipInfoToken}`;
@@ -29,7 +29,7 @@ const searchByValueData = async (searchValue, language) => {
   return geoPositionDataOpenCageData;
 };
 
-module.exports = {
+export default {
   getGeoPosition,
   getGeoPositionData,
   searchByValueData,

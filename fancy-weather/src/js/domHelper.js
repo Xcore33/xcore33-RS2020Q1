@@ -1,10 +1,10 @@
-const settings = require('./settings');
-const interfaceConfig = require('./interfaceConfig');
-const image = require('./image');
-const weather = require('./weather');
-const geoData = require('./geoData');
-const helper = require('./helper');
-const MapBoxClass = require('./MapBoxClass');
+import settings from './settings/settings';
+import interfaceConfig from './interfaceConfig';
+import image from './image';
+import weather from './weather';
+import geoData from './geoData';
+import helper from './helper';
+import MapBoxClass from './MapBoxClass';
 
 const mapBoxClassInstance = new MapBoxClass();
 
@@ -46,13 +46,14 @@ const updateAppView = () => {
     ? parseInt((settings.weatherData.currently.apparentTemperature - fahrenheitSubtrahend) / fahrenheitCoefficient)
     : parseInt(settings.weatherData.currently.apparentTemperature);
   const { windSpeed, humidity, icon } = settings.weatherData.currently;
+
   const weatherCardDetailedElement = document.querySelector('.weather-card-detailed');
   weatherCardDetailedElement.querySelector('.weather-card-temperature').textContent = `${currentTemperature}°`;
   weatherCardDetailedElement.querySelector('.weather-card-extra-info').innerHTML = `${
     interfaceConfig.feelsLike[settings.language]
   }: ${feelsLike}° <br>${interfaceConfig.wind[settings.language]}: ${windSpeed} ${
     interfaceConfig.windSpeed[settings.language]
-  } <br>${interfaceConfig.humidity[settings.language]}: ${humidity * humidityPercent}%`;
+  } <br>${interfaceConfig.humidity[settings.language]}: ${parseInt(humidity * humidityPercent)}%`;
   weatherCardDetailedElement
     .querySelector('.weather-card-icon')
     .setAttribute('src', `./assets/images/weather_icons/${icon}.png`);
@@ -84,7 +85,31 @@ const updateAppView = () => {
 };
 
 const saveSettings = () => {
-  localStorage.setItem('weatherAppSettings', JSON.stringify(settings));
+  const settingsPreferences = { language: settings.language, isCelsius: settings.isCelsius };
+  localStorage.setItem('settingsPreferences', JSON.stringify(settingsPreferences));
+};
+
+const loadSettings = () => {
+  const data = localStorage.getItem('settingsPreferences');
+  if (data) {
+    const settingsPreferences = JSON.parse(data);
+    settings.isCelsius = settingsPreferences.isCelsius;
+    document.getElementById('idSwitchTemperatureButton').checked = settings.isCelsius;
+
+    settings.language = settingsPreferences.language;
+    const switchLanguageElement = document.getElementById('idSwitchLanguageControl');
+    switch (settings.language) {
+      case 'ru-RU':
+        switchLanguageElement.value = '2';
+        break;
+      case 'be-BY':
+        switchLanguageElement.value = '3';
+        break;
+      default:
+        switchLanguageElement.value = '1';
+        break;
+    }
+  }
 };
 
 const generateAppData = async (isInitialState = false) => {
@@ -99,7 +124,9 @@ const generateAppData = async (isInitialState = false) => {
     settings.geoPositionData.results[0].components.state;
   settings.countryName = settings.geoPositionData.results[0].components.country;
   settings.timeZone = settings.geoPositionData.results[0].annotations.timezone.name;
+
   settings.weatherData = await weather.getWeatherDataByPosition(settings.latitude, settings.longitude);
+
   if (isInitialState) {
     mapBoxClassInstance.setMapPosition(settings.latitude, settings.longitude);
   } else {
@@ -138,7 +165,6 @@ const generateAppDataBySearch = async searchValue => {
   }
 };
 
-
 const changeBackgroundImage = async () => {
   const seasonPeriod = helper.getSeason(new Date());
   const dayPeriod = helper.getDayPeriod(
@@ -167,8 +193,8 @@ const changeLanguage = event => {
 
 const changeTemperatureScale = async () => {
   settings.isCelsius = !settings.isCelsius;
-  updateAppView();
   saveSettings();
+  updateAppView();
 };
 
 const searchHandler = async () => {
@@ -180,7 +206,6 @@ const searchHandler = async () => {
 };
 
 const voiceSearchHandler = async () => {
-  mapBoxClassInstance.flyToPosition(55.75, 37.61);
 };
 
 const setDOMHandlers = () => {
@@ -196,13 +221,14 @@ const setDOMHandlers = () => {
   document.getElementById('idVoiceSearchIcon').addEventListener('click', voiceSearchHandler);
 };
 
-module.exports = {
+export default {
   updateAppView,
   setDOMHandlers,
   changeBackgroundImage,
   changeTemperatureScale,
   generateAppData,
   saveSettings,
+  loadSettings,
   updateTime,
   generateAppDataByIP,
   generateAppDataBySearch,

@@ -1,4 +1,4 @@
-const config = require('./config');
+const config = require('./settings/config');
 
 const getImageUrl = async (season = 'winter', dayPeriod = 'day', weather = 'clear') => {
   const tags = `nature+${season}+${dayPeriod}+${weather}`;
@@ -11,6 +11,6 @@ const getImageUrl = async (season = 'winter', dayPeriod = 'day', weather = 'clea
   return imageData;
 };
 
-module.exports = {
+export default {
   getImageUrl,
 };

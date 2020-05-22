@@ -1,8 +1,11 @@
 import './scss/main.scss';
 
-const domHelper = require('./js/domHelper');
+import domHelper from './js/domHelper';
 
 const initApp = async () => {
+
+  domHelper.loadSettings();
+
   await domHelper.generateAppDataByIP();
 
   await domHelper.changeBackgroundImage();
