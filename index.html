@@ -38,32 +38,12 @@
       <section>
         <section>
           <h4>Why do we need History API?</h4>
-          <div class="text-container">The HTML5 History API gives developers the ability to modify a website’s URL
-            without a full page refresh. This is particularly useful for loading portions of a page with JavaScript,
-            such that the content is significantly different and warrants a new URL.
-
-            Here’s an example. Let’s say a person navigates from the homepage of a site to the Help page. We’re loading
-            the content of that Help page with Ajax. That user then heads off to the Products page which we again load
-            and swap out content with Ajax. Then they want to share the URL. With the History API, we could have been
-            changing the URL of the page right along with the user as they navigate, so the URL they see (and thus share
-            or save) is relevant and correct.</div>
+          <img src="/img/different-page-states.jpg">
         </section>
         <section>
           <h4>A Quick History</h4>
           <div class="text-container">
-            The most significant thing with these history API’s is that they don’t reload the page. In the past, the
-            only way to change the URL was to change the window.location which always reloaded the page. Except, if all
-            you changed was the hash (like how clicking a <a href="#target">link</a> doesn’t reload the page).
-
-            This lead to the old hashbang method of changing the URL without a full page refresh. Famously, Twitter used
-            to do things this way and was largely criticized for it (a hash not being a “real” resource location).
-
-            Twitter moved aways from that, and was one of the early proponents of this API. In 2012 <a
-              href="https://blog.twitter.com/engineering/en_us/a/2012/implementing-pushstate-for-twittercom.html">the
-              team described
-              their new approach.</a> Here they outline some of their problems when working at this kind of scale whilst
-            also
-            detailing how various browsers implement this specification.
+            <img src="/img/twitter_api.png">
           </div>
         </section>
         <section>
@@ -105,36 +85,29 @@
         </section>
         <section>
           <h4>Traveling through history</h4>
+          <img src="/img/back forfard.png" alt="" height="220">
           <div class="box"><img src="img/left.png" alt="" width="35px" height="35px">
             <pre><code>window.history.back(); </code>To move backward through history</pre>
-          </div>
-          <div class="medium-box top left">This acts exactly as if the user clicked on the <button>Back</button> button
-            in
-            their browser toolbar.<br><br>
-            Similarly, you can move forward (as if the user clicked the <button>Forward</button> button), like this:
           </div>
           <div class="box"><img class="mirror" src="img/left.png" alt="" width="35px" height="35px">
             <pre><code>window.history.forward();</code>To move forward through history </pre>
           </div>
-          <div class="medium-box left text-color">You can use the go() method to load a specific page from session
-            history,<br>
-            identified by its relative position to the current page. (The current page's relative<br> position is 0
-            example: we can put <i>1</i> for go forward, or <i>-1</i> to go back)</div>
           <pre
             class="pre_width"><code class="no_width">window.history.go(n);</code>Moving to a specific point in history</pre>
         </section>
         <section>
           <h4>Modefying history</h4>
+          <img src="/img/push.png" height="150">
           <div class="medium-box">In HTML5 we have pushState and replaceState methods:</div>
           <pre><code>1 window.history.replaceState([stateObj], [title], [url]); </code></pre>
-          <div class="medium-box">
+          <div class="small-box">
             method modifies the current history entry, replacing it with the stateObj, title, and URL passed in the
             method parameters. This method is particularly useful when you want to update the state object or URL of the
             current history entry in response to some user action.</div>
           <pre><code>2 window.history.pushState([stateObj], [title], [url]); </code></pre>
-          <div class="medium-box">
-            method adds a state to the browser's session history stack.</div> <br>
-          <div class="medium-box left">
+          <div class="small-box">
+            method adds a state to the browser's session history stack.</div>
+          <div class="small-box left">
             <a>1).</a> The first parameter is <i>[stateObj]</i> we’ll need if the state of the web page changes, for
             instance whenever someone
             presses the back or forwards button in their browser. Note that in Firefox this data is limited to 640k
@@ -204,23 +177,19 @@
           <li>Routing with pushState</li>
         </section>
         <section>
-          <h3>Hash-based routing</h3><br>
+          <div class="small-box">
+          <h3>Hash-based routing</h3>
           What we meant by hash-based routing is using the anchor part of the URL to simulate different content <br>
-          <img src="img/rev1.png" alt=""><br>
-          The routing is possible because changes in the hash don’t trigger page reload.
-        </section>
-        <section>
-          <h3>Reading the route</h3><br>
+          <img src="img/rev1.png" alt="" height="35"><br>
+          The routing is possible because changes in the hash don’t trigger page reload. <br><br>
+          <h3>Reading the route</h3>
           To read the anchor bit from the URL we may use the following code <br>
-          <img src="img/rev1.png" alt=""><br>
           <pre><code>var hash = window.location.hash.slice(1);
 
             // or extracting the hash from the entire URL
             var hash = window.location.href.split('#')[1] || '';</code></pre>
-        </section>
-        <section>
-          <h3>Changing the path</h3><br>
-          To read the anchor bit from the URL we may use the following code <br>
+          <h3>Changing the path</h3>
+          To change path we may use the following code <br>
           <div class="bigger-box">
             <pre><code>ar navigate = function (path) {
             var current = window.location.href;
@@ -229,10 +198,11 @@
 
           navigate('rolling-scopes');</code></pre>
           </div>
-          <img src="img/rev2.png" alt=""><br>
+          <img src="img/rev2.png" alt="" height="35" >
+        </div>
         </section>
         <section>
-          <h3>A routing revolution with pushState</h3><br>
+          <h3>A routing revolution with pushState</h3>
           Now we do not need to use a #. We use a pushState() method to manipulate the history of the browser.<br>
           <pre><code>var stateObj = { foo: "bar" };
             history.pushState(stateObj, "page 2", "bar.html");</code></pre>
