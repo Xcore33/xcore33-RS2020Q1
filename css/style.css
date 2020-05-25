@@ -79,3 +79,25 @@ pre.pre_width {
 .wrap {
   margin-top: -50px;
 }
+
+.example {
+  display: flex;
+  flex-direction: row;
+}
+
+
+.hljs.reasonml {
+ overflow: visible;
+ max-height: 800px;
+width: 500px;
+}
+
+.hljs.xml {
+  overflow: visible;
+  max-height: 800px;
+  width: 500px;
+ }
+
+ .big {
+   font-size: large;
+ }

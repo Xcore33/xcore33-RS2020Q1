@@ -47,10 +47,13 @@
           </div>
         </section>
         <section>
-          <h4>For example</h4>
+          <h4>Basic concepts</h4>
+          <div class="bigger-box left">The History interface allows manipulation of the browser session history, that is
+            the pages visited in the tab or frame that the current page is loaded in.
+
+          </div>
+          <pre><code>window.history;</code></pre>
           <div class="medium-box">
-            Just typing history into the console. If the API is supported in your browser of choice then we’ll find a
-            host of methods attached to this <i>State</i> object:
             <pre><code>History {length: 2, scrollRestoration: "auto", state: null}
             length: 2
             scrollRestoration: "auto"
@@ -71,21 +74,9 @@
           </div>
         </section>
         <section>
-          <h4>Basic concepts</h4>
-          <div class="bigger-box left">The History API relies on a single DOM interface — the History object. There is a
-            unique History object defined for each tab, accessed through the history attribute of the Window interface.
-            This can be manipulated using JavaScript along with some special methods. To relate this to the actual pages
-            in your session history, each Document object is associated with a unique instance of the tab's History
-            object (they all model the same underlying session history). <br><br>
-            History objects represent each tab's session history as a flat, comma-separated list of session history
-            entries. Each session history entry consists of a URL or a state object (or both), and in addition can have
-            a title, a Document object, form data, a scroll position, and other information associated with it.<br><br>
-            Let's look at the basic methods of the history object =>
-          </div>
-        </section>
-        <section>
           <h4>Traveling through history</h4>
           <img src="/img/back forfard.png" alt="" height="220">
+          <div class="medium-box">
           <div class="box"><img src="img/left.png" alt="" width="35px" height="35px">
             <pre><code>window.history.back(); </code>To move backward through history</pre>
           </div>
@@ -94,10 +85,13 @@
           </div>
           <pre
             class="pre_width"><code class="no_width">window.history.go(n);</code>Moving to a specific point in history</pre>
+            <pre
+            class="pre_width"><code class="no_width">window.history.lenght;</code>Returns the number of entries in the joint session history</pre>
+          </div>
         </section>
         <section>
           <h4>Modefying history</h4>
-          <img src="/img/push.png" height="150">
+          <img src="/img/push.png" height="240">
           <div class="medium-box">In HTML5 we have pushState and replaceState methods:</div>
           <pre><code>1 window.history.replaceState([stateObj], [title], [url]); </code></pre>
           <div class="small-box">
@@ -107,69 +101,26 @@
           <pre><code>2 window.history.pushState([stateObj], [title], [url]); </code></pre>
           <div class="small-box">
             method adds a state to the browser's session history stack.</div>
-          <div class="small-box left">
-            <a>1).</a> The first parameter is <i>[stateObj]</i> we’ll need if the state of the web page changes, for
-            instance whenever someone
-            presses the back or forwards button in their browser. Note that in Firefox this data is limited to 640k
-            characters.<br>
-            <a>2).</a> <i>[title]</i> is the second parameter which can be a string, but at the time of writing, every
-            browser simply ignores
-            it. <br>
-            <a>3).</a> This final parameter is the <i>[url]</i> we want to appear in the address bar.
-          </div>
         </section>
         <section>
-           <div class="medium-box left">
-            <h3>Short examle - p1</h3>
-              <i><span>history.</span>replaceState()</i> operates exactly like <i><span>history.</span>pushState()</i>
-              except that <i>replaceState()</i> modifies the
-              current history entry instead of creating a new one. <br>
-            <i>history.pushState()</i> and <i>history.replaceState()</i>: both of which allow us to add and update
-            history
-            state, respectively. Both work in the same manner and expect same number of parameters. In addition to these
-            methods, we have <a>popstate</a> event. We will see later in this article for how and when to use this
-            <a>popstate</a>
-            event. <br>
-            <i>pushState</i> and <i>replaceState</i> both expect the same number of parameters which are as under:<br>
-
-            <a>1).</a> state can store a JSON string and will be available for popstate event.<br>
-            <a>2).</a> title is a parameter is disregarded by the majority of browsers for now, so better to set it to
-            null for today.<br>
-            <a>3).</a> url can represent any URL. It will be updated with the browser's address, and it won't care if
-            that URL exists or not. Most importantly, it won't reload your web page.<br>
-            The major differences between these methods are that the pushState will add a new entry in the history stack
-            and replaceState will replace current the history value instead of adding new one. If you are still confused
-            in both these methods, then let's demonstrate the same case with better example.
-          </div>
-        </section>
-        <section>
-          <div class="small-box left">
-            <h3>Short examle - p2</h3>
-            Let's presume we have stacks of two blocks labeled 1 and 2 and you have block labeled 3 in your hand. Now,
-            when we perform pushState, block 3 will be added to an existing stack so stack would have 3 blocks.<br>
-
-            Now assume the same stack with two blocks and one more in your hand. When we perform <i>replaceState</i>, it
-            will
-            pick the block 2 out of stack and place block 3. So the number of history values will remain same.<br>
-            <i>pushState</i>, on the other hand, increases history count by one.
-
-            The below image shows the same demonstration.<br>
-            <img src="/img/push-vs-replace-state.jpg" alt="">
-            Thus far, we have covered the <i>pushState</i> and <i>replaceState</i> events in order to control the browser history, but
-            suppose we have a variety of fake history that we have totaled in the browser. The user may or may not
-            redirected to that page. In such a case, it will be a problem when user hits the browser back and forth
-            button to navigate to history pages.<br>
-            Though you may expect popstate to be fired when the <i>pushState</i> or <i>replaceState</i> methods are addressed, but in
-            reality, it is not the case. Instead, popstate will fire when you are navigating through the session history
-            entry, either by hitting backward or forward buttons or using the <a>history.go</a> or <a>history.back</a> methods.
+          <div class="medium-box">
+            <h3>Short examle</h3>
+            <i><span>history.</span>replaceState()</i> operates exactly like <i><span>history.</span>pushState()</i>
+            except that <i>replaceState()</i> modifies the
+            current history entry instead of creating a new one. <br>
+            <img src="/img/push-vs-replace-state.jpg" alt=""> <br>
+            We have several blocks located on the stack called 1 and 2. We also have block 3.
+            The <i>pushState</i> command pushes block 3 onto an existing stack. As a result, it will have 3 blocks.
+            When the <i>replaceState</i> function is executed, block 2 will be replaced by block 3. Thus, the number of
+            blocks
+            will remain the same.
           </div>
         </section>
       </section>
       <section>
         <section>
           <h2>ROUTING</h2><br>
-          Router is one of the must-have parts of single page application. <br><br>
-          Router knows how to tweak the content of the address bar and notifies the rest of the system for URL changes
+          Router is one of the must-have parts of single page application.
         </section>
         <section>
           <h3>Methods of routing</h3><br>
@@ -178,47 +129,45 @@
         </section>
         <section>
           <div class="small-box">
-          <h3>Hash-based routing</h3>
-          What we meant by hash-based routing is using the anchor part of the URL to simulate different content <br>
-          <img src="img/rev1.png" alt="" height="35"><br>
-          The routing is possible because changes in the hash don’t trigger page reload. <br><br>
-          <h3>Reading the route</h3>
-          To read the anchor bit from the URL we may use the following code <br>
-          <pre><code>var hash = window.location.hash.slice(1);
+            <h3>Hash-based routing</h3>
+            What we meant by hash-based routing is using the anchor part of the URL to simulate different content <br>
+            <img src="img/rev1.png" alt="" height="35"><br>
+            The routing is possible because changes in the hash don’t trigger page reload. <br><br>
+            <h3>Reading the route</h3>
+            To read the anchor bit from the URL we may use the following code <br>
+            <pre><code>var hash = window.location.hash.slice(1);
 
             // or extracting the hash from the entire URL
             var hash = window.location.href.split('#')[1] || '';</code></pre>
-          <h3>Changing the path</h3>
-          To change path we may use the following code <br>
-          <div class="bigger-box">
-            <pre><code>ar navigate = function (path) {
+            <h3>Changing the path</h3>
+            To change path we may use the following code <br>
+            <div class="bigger-box">
+              <pre><code>ar navigate = function (path) {
             var current = window.location.href;
             window.location.href = current.replace(/#(.*)$/, '') + '#' + path;
           }
 
           navigate('rolling-scopes');</code></pre>
+            </div>
+            <img src="img/rev2.png" alt="" height="35">
           </div>
-          <img src="img/rev2.png" alt="" height="35" >
-        </div>
         </section>
         <section>
           <h3>A routing revolution with pushState</h3>
           Now we do not need to use a #. We use a pushState() method to manipulate the history of the browser.<br>
           <pre><code>var stateObj = { foo: "bar" };
             history.pushState(stateObj, "page 2", "bar.html");</code></pre>
-          To use this method for routing we need to make redirect from each route to index.html in our server.
         </section>
         <section>
           <h3>DEMO</h3><br>
           <video class="wrap" src="/img/Example.mp4" controls="controls" frameborder="0" allowfullscreen="" height="500"
             autoplay loop></video>
         </section>
-        <section>
-          <div class="medium-box">
-            The markup for this example is simple enough: we have a .gallery which contains some links and within each
-            of them is an image. We then have the text beneath that we want to update with the selected name and the
-            empty .content div that we want to replace with the data from each character’s respective HTML files:
-            <pre><code><div class="gallery">
+        <section> <h3>The markup for this example:</h3>
+          <div class="small-box example">
+            <div class="boxes">
+            <pre><a class="big">HTML</a><code>
+              <div class="gallery">
               <a href="/peter.html">
                 <img src="bill.png" alt="Peter" class="peter" data-name="peter">
               </a>
@@ -236,17 +185,18 @@
             <p class="selected">Ghostbusters</p>
             <p class="highlight"></p>
 
-            <div class="content"></div></code></pre>
-            Without any JavaScript this page will still function as it should, clicking a link heads to the right page
-            and clicking the back button also works just as a user would expect it too. Yay for accessibility and
-            graceful degradation!
-          </div>
-        </section>
-        <section>
-          <div class="medium-box">
-            Next we’ll hop on over to JavaScript where we can begin adding an event handler to each link inside the
-            .gallery element by using event propagation, like so:
-            <pre><code>var container = document.querySelector('.gallery');
+            <div class="content"></div></code></pre></div>
+            <div class="boxes">
+            <pre><a class="big">JS</a><code>
+              var data = e.target.getAttribute('data-name'),
+              url = data + ".html";
+              history.pushState(null, null, url);
+              // here we can fix the current classes
+              // and update text with the data variable
+              // and make an Ajax request for the .content element
+              // finally we can manually update the document’s title
+
+              var container = document.querySelector('.gallery');
 
               container.addEventListener('click', function(e) {
                 if (e.target != e.currentTarget) {
@@ -254,71 +204,38 @@
                   // e.target is the image inside the link we just clicked.
                 }
                 e.stopPropagation();
-              }, false);</code></pre>
-            Inside this if statement we can then assign the data-name attribute of the image we select to the data
-            variable. Then we’ll append “.html” to it and use that as the third parameter, the URL we’d like to load, in
-            our pushState method (although in a real example we’d probably want to change the URL only after the Ajax
-            request has been successful):
-            <pre><code>var data = e.target.getAttribute('data-name'),
-              url = data + ".html";
-              history.pushState(null, null, url);
+              }, false);
 
-              // here we can fix the current classes
-              // and update text with the data variable
-              // and make an Ajax request for the .content element
-              // finally we can manually update the document’s title</code></pre>
-            I’ve replaced working code with comments so we can focus on the pushState method for now.
-          </div>
-        </section>
-        <section>
-          <div class="bigger-box">
-            So at this point, clicking on an image will update the URL bar and the content with the Ajax request but
-            clicking the back button won’t send us to the previous character we selected. What we need to do here is to
-            make another Ajax request when the user clicks the back/forwards button and then we’ll need to update the
-            URL once again with pushState. <br>
-            We’ll first head back and update the state parameter of our pushState method in order to stash that
-            information away:
-            <pre><code>history.pushState(data, null, url);</code></pre>
-            This is the first parameter, data in the method above. Now anything that’s set to that variable will be
-            accessible to us in a popstate event which fires whenever the user clicks on the forward or back buttons.
-            <pre><code>window.addEventListener('popstate', function(e) {
-              // e.state is equal to the data-attribute of the last image we clicked
-            });</code></pre>
-          </div>
-        </section>
-        <section>
-          <div class="medium-box">
-            Consequently we can then use this information however we like, which in this case is passing the name of the
-            previous Ghostbuster we selected as a parameter into the Ajax requestContent function, which uses jQuery’s
-            load method:
-            <pre><code>function requestContent(file) {
-              $('.content').load(file + ' .content');
-            }
+              history.pushState(data, null, url);
 
-            window.addEventListener('popstate', function(e) {
-              var character = e.state;
+              window.addEventListener('popstate', function(e) {
+                // e.state is equal to the data-attribute of the last image we clicked
+              });
 
-              if (character == null) {
-                removeCurrentClass();
-                textWrapper.innerHTML = " ";
-                content.innerHTML = " ";
-                document.title = defaultTitle;
-              } else {
-                  updateText(character);
-                  requestContent(character + ".html");
-                  addCurrentClass(character);
-                  document.title = "Ghostbuster | " + character;
+
+              function requestContent(file) {
+                $('.content').load(file + ' .content');
               }
-            });</code></pre>
-            If a user was to click on the picture of Ray our event listener would fire, which would then store the data
-            attribute of our image within the pushState event. Consequently this loads the ray.html file which will be
-            called upon if the user selects another image and then clicks the back button. <br>
-            What does this leave us with? Well, if we click on a character and then share the URL we’ve updated, then
-            that HTML file would be loaded instead. It might be a less confusing experience and we’ll preserve the
-            integrity of our URLs whilst giving our users a faster browsing experience over all.
-          </div>
+
+              window.addEventListener('popstate', function(e) {
+                var character = e.state;
+
+                if (character == null) {
+                  removeCurrentClass();
+                  textWrapper.innerHTML = " ";
+                  content.innerHTML = " ";
+                  document.title = defaultTitle;
+                } else {
+                    updateText(character);
+                    requestContent(character + ".html");
+                    addCurrentClass(character);
+                    document.title = "Ghostbuster | " + character;
+                }
+              });
+            </code></pre></div>
         </section>
-        <section>As a summary I would like to say that with HTML 5 history API our application to look & act like
+        <section> <h2>CONCLUSION</h2><br>
+          As a summary I would like to say that with HTML 5 history API our application to look & act like
           proper, server-rendered sites as much as possible, especially with minimal effort.</section>
       </section>
     </div>
