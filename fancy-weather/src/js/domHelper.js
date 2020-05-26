@@ -34,10 +34,9 @@ const updateAppView = () => {
   cityNameElement.textContent = `${settings.cityName}, ${settings.countryName}`;
 
   const coordinatesElement = document.getElementById('idCoordinates');
-  const [lat, long] = [settings.latitude, settings.longitude].map(coordinate => `${coordinate}'`.replace('.', `°`));
-  coordinatesElement.innerHTML = `${interfaceConfig.latitude[settings.language]}: ${lat} <br> ${
-    interfaceConfig.longitude[settings.language]
-  }: ${long}`;
+  coordinatesElement.innerHTML = `${interfaceConfig.latitude[settings.language]}: ${helper.convertCoordinatesToTime(
+    settings.latitude,
+  )} <br> ${interfaceConfig.longitude[settings.language]}: ${helper.convertCoordinatesToTime(settings.longitude)}`;
 
   const currentTemperature = settings.isCelsius
     ? parseInt((settings.weatherData.currently.temperature - fahrenheitSubtrahend) / fahrenheitCoefficient)
@@ -46,14 +45,17 @@ const updateAppView = () => {
     ? parseInt((settings.weatherData.currently.apparentTemperature - fahrenheitSubtrahend) / fahrenheitCoefficient)
     : parseInt(settings.weatherData.currently.apparentTemperature);
   const { windSpeed, humidity, icon } = settings.weatherData.currently;
+  const weatherDescription = settings.weatherData.currently.summary;
 
   const weatherCardDetailedElement = document.querySelector('.weather-card-detailed');
   weatherCardDetailedElement.querySelector('.weather-card-temperature').textContent = `${currentTemperature}°`;
   weatherCardDetailedElement.querySelector('.weather-card-extra-info').innerHTML = `${
-    interfaceConfig.feelsLike[settings.language]
-  }: ${feelsLike}° <br>${interfaceConfig.wind[settings.language]}: ${windSpeed} ${
-    interfaceConfig.windSpeed[settings.language]
-  } <br>${interfaceConfig.humidity[settings.language]}: ${parseInt(humidity * humidityPercent)}%`;
+    interfaceConfig.weatherDescription[settings.language]
+  }: <small>${weatherDescription}</small> <br>${interfaceConfig.feelsLike[settings.language]}: ${feelsLike}° <br>${
+    interfaceConfig.wind[settings.language]
+  }: ${windSpeed} ${interfaceConfig.windSpeed[settings.language]} <br>${
+    interfaceConfig.humidity[settings.language]
+  }: ${parseInt(humidity * humidityPercent)}%`;
   weatherCardDetailedElement
     .querySelector('.weather-card-icon')
     .setAttribute('src', `./assets/images/weather_icons/${icon}.png`);
@@ -120,12 +122,17 @@ const generateAppData = async (isInitialState = false) => {
     settings.geoPositionData.results[0].components.city ||
     settings.geoPositionData.results[0].components.town ||
     settings.geoPositionData.results[0].components.village ||
-    settings.geoPositionData.results[0].components.country ||
-    settings.geoPositionData.results[0].components.state;
-  settings.countryName = settings.geoPositionData.results[0].components.country;
+    settings.geoPositionData.results[0].components.state ||
+    settings.geoPositionData.results[0].components.country;
+  settings.countryName =
+    settings.geoPositionData.results[0].components.country || settings.geoPositionData.results[0].components.state;
   settings.timeZone = settings.geoPositionData.results[0].annotations.timezone.name;
 
-  settings.weatherData = await weather.getWeatherDataByPosition(settings.latitude, settings.longitude);
+  settings.weatherData = await weather.getWeatherDataByPosition(
+    settings.latitude,
+    settings.longitude,
+    settings.language.substr(0, 2),
+  );
 
   if (isInitialState) {
     mapBoxClassInstance.setMapPosition(settings.latitude, settings.longitude);
@@ -149,20 +156,22 @@ const reBuildData = async () => {
 };
 
 const generateAppDataByIP = async () => {
-  settings.geoPosition = await geoData.getGeoPosition();
-  const [latitude, longitude] = [...settings.geoPosition.loc.split(',')];
+  try {
+    const { coords } = await geoData.getCurrentPosition();
+    settings.latitude = coords.latitude;
+    settings.longitude = coords.longitude;
+  } catch (error) {
+    settings.geoPosition = await geoData.getGeoPosition();
+    [settings.latitude, settings.longitude] = [...settings.geoPosition.loc.split(',')];
+  }
 
-  settings.geoPositionData = await geoData.getGeoPositionData(latitude, longitude, settings.language.substr(0, 2));
+  settings.geoPositionData = await geoData.getGeoPositionData(
+    settings.latitude,
+    settings.longitude,
+    settings.language.substr(0, 2),
+  );
 
   await generateAppData(true);
-};
-
-const generateAppDataBySearch = async searchValue => {
-  const searchResult = await geoData.searchByValueData(searchValue, settings.language.substr(0, 2));
-  if (searchResult.results.length) {
-    settings.geoPositionData = searchResult;
-    await generateAppData();
-  }
 };
 
 const changeBackgroundImage = async () => {
@@ -171,8 +180,29 @@ const changeBackgroundImage = async () => {
     new Date(),
     settings.geoPositionData.results[0].annotations.timezone.offset_sec,
   );
-  const imageData = await image.getImageUrl(seasonPeriod, dayPeriod, settings.weatherData.currently.summary);
-  document.getElementById('idBGImage').style.background = `url("${imageData.urls.regular}") 0% 0% / cover no-repeat`;
+
+  try {
+    const imageData = await image.getImageUrl(seasonPeriod, dayPeriod, settings.weatherData.currently.icon);
+    document.getElementById('idBGImage').style.background = `url("${imageData.urls.regular}") 0% 0% / cover no-repeat`;
+    localStorage.setItem('imageData', JSON.stringify(imageData));
+  } catch (error) {
+    const data = localStorage.getItem('imageData');
+    if (data) {
+      const imageData = JSON.parse(data);
+      document.getElementById(
+        'idBGImage',
+      ).style.background = `url("${imageData.urls.regular}") 0% 0% / cover no-repeat`;
+    }
+  }
+};
+
+const generateAppDataBySearch = async searchValue => {
+  const searchResult = await geoData.searchByValueData(searchValue, settings.language.substr(0, 2));
+  if (searchResult.results.length) {
+    settings.geoPositionData = searchResult;
+    await generateAppData();
+    await changeBackgroundImage();
+  }
 };
 
 const changeLanguage = event => {
@@ -201,11 +231,29 @@ const searchHandler = async () => {
   const searchValue = document.getElementById('idSearchField').value;
   if (searchValue) {
     await generateAppDataBySearch(searchValue);
-    await changeBackgroundImage();
   }
 };
 
-const voiceSearchHandler = async () => {
+const voiceSearchHandler = () => {
+  window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  const recognition = new SpeechRecognition();
+  recognition.interimResults = true;
+  recognition.lang = settings.language;
+
+  let recognitionResult = '';
+  recognition.addEventListener('result', evt => {
+    recognitionResult = evt.results['0']['0'].transcript;
+  });
+
+  recognition.addEventListener('end', async () => {
+    if (recognitionResult) {
+      document.getElementById('idSearchField').value = recognitionResult;
+      await generateAppDataBySearch(recognitionResult);
+    }
+  });
+
+  recognition.start();
 };
 
 const setDOMHandlers = () => {

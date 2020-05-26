@@ -1,8 +1,10 @@
 import './scss/main.scss';
 
 import domHelper from './js/domHelper';
+import layoutGenerator from './js/layoutGenerator';
 
 const initApp = async () => {
+  layoutGenerator.renderLayout();
 
   domHelper.loadSettings();
 
