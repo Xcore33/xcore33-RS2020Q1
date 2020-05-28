@@ -14,7 +14,7 @@ const initApp = async () => {
 
   main.setDOMHandlers();
 
-  const updateDelay = 6000;
+  const updateDelay = 1000;
   setInterval(main.updateTime, updateDelay);
 };
 

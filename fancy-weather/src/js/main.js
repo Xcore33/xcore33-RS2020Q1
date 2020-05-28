@@ -27,6 +27,7 @@ const updateTime = () => {
   } ${dateTime.getFullYear()} ${dateTime.toLocaleTimeString(settings.language, {
     hour: 'numeric',
     minute: 'numeric',
+    second: 'numeric',
     hour12: false,
     timeZone: settings.timeZone,
   })}`;
