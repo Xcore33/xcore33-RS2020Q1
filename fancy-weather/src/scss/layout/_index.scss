@@ -121,7 +121,7 @@
                     transform: scale(1.1);
                 }
             }
-            .search-control-button {                
+            .search-control-button {
                 width: 100px;
                 height: 42px;
                 background: rgba(232, 239, 243, 0.5);
@@ -140,7 +140,7 @@
                     box-shadow: $boxShadowStateHover;
                 }
             }
-        }        
+        }
     }
 }
 
@@ -214,3 +214,7 @@
         font-size: 14px;
     }
 }
+
+.mapboxgl-canvas {
+    clip-path: polygon(0 0, 100% 0%, 100% 75%, 100% 100%, 100% 100%, 81% 95%, 0 95%);
+  }

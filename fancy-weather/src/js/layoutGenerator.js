@@ -123,7 +123,7 @@ const weatherCardDetailedElement = (extra = true, dayText) => {
 
   const textP2 = textElement(
     `weather-card-day${extra ? ' format-normal' : ''}`,
-    'Mon 09 December 16:41',
+    'Mon 25 May 16:41',
     'idCurrentDateTime',
   );
   textP2.textContent = dayText || '';

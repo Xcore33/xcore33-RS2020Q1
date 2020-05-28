@@ -6,7 +6,7 @@
     "author": "Ihar Soltan <mauler1987@gmail.com>",
     "license": "ISC",
     "scripts": {
-        "build": "npm run clear -s && webpack --progress",
+        "build": "webpack",
         "start": "webpack --watch",
         "dev": "webpack-dev-server --history-api-fallback --inline --open",
         "devbuild": "npm run clear -s && webpack --progress --mode development",
@@ -29,8 +29,8 @@
         "regenerator-runtime": "^0.13.3"
     },
     "devDependencies": {
-        "@babel/core": "^7.7.5",
-        "@babel/preset-env": "^7.7.6",
+        "@babel/core": "^7.10.1",
+        "@babel/preset-env": "^7.10.1",
         "babel-eslint": "^10.0.3",
         "babel-loader": "^8.0.6",
         "copy-webpack-plugin": "^5.1.1",
@@ -45,10 +45,10 @@
         "extract-text-webpack-plugin": "^4.0.0-beta.0",
         "file-loader": "^4.2.0",
         "html-loader": "^0.5.5",
-        "image-webpack-loader": "^6.0.0",
-        "mini-css-extract-plugin": "^0.8.0",
         "html-webpack-plugin": "^4.2.0",
+        "image-webpack-loader": "^6.0.0",
         "jest": "^24.9.0",
+        "mini-css-extract-plugin": "^0.8.0",
         "node-sass": "^4.12.0",
         "prettier": "^1.19.1",
         "sass": "^1.23.3",
