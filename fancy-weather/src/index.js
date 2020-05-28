@@ -1,21 +1,21 @@
 import './scss/main.scss';
 
-import domHelper from './js/domHelper';
-import layoutGenerator from './js/layoutGenerator';
+import main from './js/main';
+import pageLayout from './js/pageLayout';
 
 const initApp = async () => {
-  layoutGenerator.renderLayout();
+  pageLayout.renderLayout();
 
-  domHelper.loadSettings();
+  main.loadSettings();
 
-  await domHelper.generateAppDataByIP();
+  await main.generateAppDataByIP();
 
-  await domHelper.changeBackgroundImage();
+  await main.changeBackgroundImage();
 
-  domHelper.setDOMHandlers();
+  main.setDOMHandlers();
 
   const updateDelay = 6000;
-  setInterval(domHelper.updateTime, updateDelay);
+  setInterval(main.updateTime, updateDelay);
 };
 
 document.addEventListener('DOMContentLoaded', () => {

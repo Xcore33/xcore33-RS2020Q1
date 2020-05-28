@@ -1,12 +1,20 @@
-import settings from './settings/settings';
 import interfaceConfig from './interfaceConfig';
-import image from './image';
+import image from './pictureOfDay';
 import weather from './weather';
-import geoData from './geoData';
-import helper from './helper';
-import MapBoxClass from './MapBoxClass';
+import geoLocation from './geoLocation';
+import getDate from './getDate';
+import Mapbox from './mapboxClass';
 
-const mapBoxClassInstance = new MapBoxClass();
+const settings = {
+  isCelsius: true,
+  geoPosition: null,
+  geoPositionData: null,
+  language: 'en-US',
+  weatherData: null,
+  timeZone: 'Europe/Minsk',
+};
+
+const mapboxClassInstance = new Mapbox();
 
 const updateTime = () => {
   const currentDateTimeElement = document.getElementById('idCurrentDateTime');
@@ -33,9 +41,9 @@ const updateAppView = () => {
   cityNameElement.textContent = `${settings.cityName}, ${settings.countryName}`;
 
   const coordinatesElement = document.getElementById('idCoordinates');
-  coordinatesElement.innerHTML = `${interfaceConfig.latitude[settings.language]}: ${helper.convertCoordinatesToTime(
+  coordinatesElement.innerHTML = `${interfaceConfig.latitude[settings.language]}: ${getDate.convertCoordinatesToTime(
     settings.latitude,
-  )} <br> ${interfaceConfig.longitude[settings.language]}: ${helper.convertCoordinatesToTime(settings.longitude)}`;
+  )} <br> ${interfaceConfig.longitude[settings.language]}: ${getDate.convertCoordinatesToTime(settings.longitude)}`;
 
   const currentTemperature = settings.isCelsius
     ? parseInt((settings.weatherData.currently.temperature - fahrenheitSubtrahend) / fahrenheitCoefficient)
@@ -48,9 +56,8 @@ const updateAppView = () => {
 
   const weatherCardDetailedElement = document.querySelector('.weather-card-detailed');
   weatherCardDetailedElement.querySelector('.weather-card-temperature').textContent = `${currentTemperature}°`;
-  weatherCardDetailedElement.querySelector('.weather-card-extra-info').innerHTML = `${
-    interfaceConfig.weatherDescription[settings.language]
-  }: <small>${weatherDescription}</small> <br>${interfaceConfig.feelsLike[settings.language]}: ${feelsLike}° <br>${
+  weatherCardDetailedElement.querySelector('.weather-card-extra-info').innerHTML = `${weatherDescription}<br>
+  ${interfaceConfig.feelsLike[settings.language]}: ${feelsLike}° <br>${
     interfaceConfig.wind[settings.language]
   }: ${windSpeed} ${interfaceConfig.windSpeed[settings.language]} <br>${
     interfaceConfig.humidity[settings.language]
@@ -136,9 +143,9 @@ const generateAppData = async (isInitialState = false) => {
   );
 
   if (isInitialState) {
-    mapBoxClassInstance.setMapPosition(settings.latitude, settings.longitude);
+    mapboxClassInstance.setMapPosition(settings.latitude, settings.longitude);
   } else {
-    mapBoxClassInstance.flyToPosition(settings.latitude, settings.longitude);
+    mapboxClassInstance.flyToPosition(settings.latitude, settings.longitude);
   }
 
   updateAppView();
@@ -147,7 +154,7 @@ const generateAppData = async (isInitialState = false) => {
 };
 
 const reBuildData = async () => {
-  settings.geoPositionData = await geoData.getGeoPositionData(
+  settings.geoPositionData = await geoLocation.getGeoPositionData(
     settings.latitude,
     settings.longitude,
     settings.language.substr(0, 2),
@@ -158,15 +165,15 @@ const reBuildData = async () => {
 
 const generateAppDataByIP = async () => {
   try {
-    const { coords } = await geoData.getCurrentPosition();
+    const { coords } = await geoLocation.getCurrentPosition();
     settings.latitude = coords.latitude;
     settings.longitude = coords.longitude;
   } catch (error) {
-    settings.geoPosition = await geoData.getGeoPosition();
+    settings.geoPosition = await geoLocation.getGeoPosition();
     [settings.latitude, settings.longitude] = [...settings.geoPosition.loc.split(',')];
   }
 
-  settings.geoPositionData = await geoData.getGeoPositionData(
+  settings.geoPositionData = await geoLocation.getGeoPositionData(
     settings.latitude,
     settings.longitude,
     settings.language.substr(0, 2),
@@ -176,8 +183,8 @@ const generateAppDataByIP = async () => {
 };
 
 const changeBackgroundImage = async () => {
-  const seasonPeriod = helper.getSeason(new Date());
-  const dayPeriod = helper.getDayPeriod(
+  const seasonPeriod = getDate.getSeason(new Date());
+  const dayPeriod = getDate.getDayPeriod(
     new Date(),
     settings.geoPositionData.results[0].annotations.timezone.offset_sec,
   );
@@ -199,7 +206,7 @@ const changeBackgroundImage = async () => {
 
 const generateAppDataBySearch = async searchValue => {
   if (searchValue.length > 1) {
-    const searchResult = await geoData.searchByValueData(searchValue, settings.language.substr(0, 2));
+    const searchResult = await geoLocation.searchByValueData(searchValue, settings.language.substr(0, 2));
     if (searchResult.results.length) {
       settings.geoPositionData = searchResult;
       await generateAppData();

@@ -1,14 +1,14 @@
 const config = {
   proxyURL: 'https://cors-anywhere.herokuapp.com/',
   ipBaseUrl: 'https://ipinfo.io/json?token=',
-  ipInfoToken: 'b70ead61511ba7',
+  ipInfoToken: 'fdefcd34eb59ac',
   darkSkyBaseUrl: 'https://api.darksky.net/forecast/',
   darkSkySecretKey: 'f58c89afeed809a38e58c457166d4dfa',
   unsplashBaseUrl: 'https://api.unsplash.com/photos/random',
-  unsplashAccessKey: '27c23ba48482ff6f47c9deb6f8c2da80ad5190f5dbe6da5086999b5fb66dd620',
+  unsplashAccessKey: 'MK3338w7FxoT9fsmLAPs17JmRFyRirE9MF3Qo6b9YA0',
   openCageDataBaseUrl: 'https://api.opencagedata.com/geocode/v1/json?',
-  openCageDataApiKey: '6eb7573ac0774c80b86076570603f8bd',
-  mapBoxAccessToken: 'pk.eyJ1IjoieGNvcmUzMyIsImEiOiJja2FxZnV0YmwwOHAxMnJxYmw3enlxazE3In0.BsgKFq5dASj6cpYdiTrVog',
+  openCageDataApiKey: '2fdb807bf5364b8d94483b04513cd68b',
+  mapboxAccessToken: 'pk.eyJ1IjoieGNvcmUzMyIsImEiOiJja2FxZnV0YmwwOHAxMnJxYmw3enlxazE3In0.BsgKFq5dASj6cpYdiTrVog',
 };
 
 module.exports = config;

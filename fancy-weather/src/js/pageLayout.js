@@ -227,7 +227,7 @@ const footerElement = () => {
   const footer = document.createElement('footer');
   footer.classList.add('footer-container');
   footer.classList.add('wrapper');
-  footer.prepend(textElement('credits', 'RSS task by Xcore33'));
+  footer.prepend(textElement('author', 'RSS task by Xcore33'));
   return footer;
 };
 

@@ -19,11 +19,6 @@ const interfaceConfig = {
     'ru-RU': 'Долгота',
     'be-BY': 'Даўгата',
   },
-  weatherDescription: {
-    'en-US': 'Description',
-    'ru-RU': 'Описание',
-    'be-BY': 'Апісанне',
-  },
   feelsLike: {
     'en-US': 'Feels like',
     'ru-RU': 'По ощущению',

@@ -1,4 +1,4 @@
-const config = require('./settings/config');
+const config = require('./config');
 
 const getGeoPosition = async () => {
   const requestUrl = `${config.ipBaseUrl}${config.ipInfoToken}`;

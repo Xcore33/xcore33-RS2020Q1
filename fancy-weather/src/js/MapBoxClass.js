@@ -1,10 +1,10 @@
 const mapboxgl = require('mapbox-gl');
-const config = require('./settings/config');
+const config = require('./config');
 
-export default class MapBoxClass {
+export default class Mapbox {
   setMapPosition(latitude, longitude) {
-    mapboxgl.accessToken = config.mapBoxAccessToken;
-    this.mapBox = new mapboxgl.Map({
+    mapboxgl.accessToken = config.mapboxAccessToken;
+    this.mapbox = new mapboxgl.Map({
       container: 'idMap',
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [longitude, latitude],
@@ -13,7 +13,7 @@ export default class MapBoxClass {
   }
 
   flyToPosition(latitude, longitude) {
-    this.mapBox.flyTo({
+    this.mapbox.flyTo({
       center: [longitude, latitude],
       essential: true,
     });

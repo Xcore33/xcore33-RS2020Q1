@@ -5,11 +5,11 @@
 .weather-card {
     display: grid;
     grid-template-rows: auto 1fr;
-    font-family: 'Montserrat', Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: bold;
     text-transform: uppercase;
-    .weather-card-city {        
+    .weather-card-city {
         font-size: 2.63vw;
         line-height: 3.2vw;
         margin: 0;
