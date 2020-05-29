@@ -1,3 +1,5 @@
+import errorContainer from './main';
+
 const config = require('./config');
 
 const getWeatherDataByPosition = async (latitude, longitude, language = 'en') => {
@@ -6,7 +8,9 @@ const getWeatherDataByPosition = async (latitude, longitude, language = 'en') =>
 
   const response = await fetch(requestUrl);
   const weatherData = await response.json();
-
+  if (response.status !== 200) {
+    errorContainer.innerHTML = 'Status API: Request limit reached';
+  }
   return weatherData;
 };
 

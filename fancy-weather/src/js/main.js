@@ -160,7 +160,6 @@ const reBuildData = async () => {
     settings.longitude,
     settings.language.substr(0, 2),
   );
-
   await generateAppData();
 };
 
@@ -205,6 +204,8 @@ const changeBackgroundImage = async () => {
   }
 };
 
+const errorContainer = document.createElement('a');
+
 const generateAppDataBySearch = async searchValue => {
   if (searchValue.length > 1) {
     const searchResult = await geoLocation.searchByValueData(searchValue, settings.language.substr(0, 2));
@@ -212,6 +213,11 @@ const generateAppDataBySearch = async searchValue => {
       settings.geoPositionData = searchResult;
       await generateAppData();
       await changeBackgroundImage();
+      errorContainer.innerHTML = '';
+    }
+    if (searchResult.results.length === 0) {
+      document.querySelector('.footer-container').append(errorContainer);
+      errorContainer.innerHTML = 'Status API: Incorrect request';
     }
   }
 };
@@ -293,4 +299,5 @@ export default {
   generateAppDataByIP,
   generateAppDataBySearch,
   reBuildData,
+  errorContainer,
 };

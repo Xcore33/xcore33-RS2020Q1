@@ -256,6 +256,14 @@ footer.footer-container {
   justify-content: space-evenly;
   overflow: hidden;
   background: rgba(76, 82, 85, 0.4);
+  a {
+    position: absolute;
+    color: red;
+    line-height: 30px;
+    right: 50px;
+    font-weight: 900;
+    text-shadow: 1px 1px saddlebrown;
+  }
   .weather-card-extended-info-block {
     display: none;
   }
@@ -294,9 +302,7 @@ footer.footer-container {
     color: #ffffff;
     font-size: 10px;
     @media screen and (max-width: 720px) {
-
           display: none;
-
     }
   }
 }

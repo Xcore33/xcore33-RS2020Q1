@@ -5,7 +5,6 @@ const getGeoPosition = async () => {
 
   const response = await fetch(requestUrl);
   const geoPositionIP = await response.json();
-
   return geoPositionIP;
 };
 
@@ -15,7 +14,6 @@ const getGeoPositionData = async (latitude, longitude, language) => {
 
   const response = await fetch(requestUrl);
   const geoPositionDataOpenCageData = await response.json();
-
   return geoPositionDataOpenCageData;
 };
 
@@ -25,7 +23,6 @@ const searchByValueData = async (searchValue, language) => {
 
   const response = await fetch(requestUrl);
   const geoPositionDataOpenCageData = await response.json();
-
   return geoPositionDataOpenCageData;
 };
 
