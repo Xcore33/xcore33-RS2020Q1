@@ -1,5 +1,19 @@
 
 /* Common styles */
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+	}
+
+	70% {
+		transform: scale(1);
+	}
+
+	100% {
+		transform: scale(0.95);
+	}
+}
+
 .body {
     height: 100vh;
     display: grid;
@@ -10,7 +24,6 @@
 .wrapper {
     width: 100%;
     margin: 0 auto;
-    max-width: $desktop;
     padding: 0 20px;
     box-sizing: border-box;
     @media screen and (max-width: $mobile) {
@@ -39,9 +52,10 @@
 }
 
 .header-container {
+  background: rgba(76, 82, 85, 0.4);
     display: flex;
     justify-content: space-between;
-    padding: 40px 0;
+    padding: 40px 20px;
     .controls-container {
         .switch-image-control {
             background-color: rgba(76, 82, 85, 0.4);
@@ -66,7 +80,7 @@
             margin: auto 10px;
             border-radius: 5px;
             color: #ffffff;
-            background: rgba(204, 204, 204, 0.3);
+            background: rgba(76, 82, 85, 0.4);
             font-weight: 600;
             width: 55px;
             padding-left: 5px;
@@ -87,7 +101,6 @@
         .search-input {
             width: 23.63vw;
             min-width: 200px;
-            height: 44px;
             background: rgba(76, 82, 85, 0.4);
             border: 1px solid rgba(228, 227, 227, 0.74);
             box-sizing: border-box;
@@ -118,6 +131,7 @@
                 border: none;
                 vertical-align: middle;
                 margin-right: 5px;
+                margin-top: 4px;
                 cursor: pointer;
                 transition: $transitionState;
                 outline: none;
@@ -130,7 +144,7 @@
             }
             .search-control-button {
                 width: 100px;
-                height: 42px;
+                height: 46px;
                 background: rgba(235, 236, 236, 0.3);
                 border-top-right-radius: 5px;
                 border-bottom-right-radius: 5px;
@@ -153,15 +167,17 @@
             }
         }
     }
+  @media screen and (max-width: $tablet) {
+    padding: 40px 0;
+  }
 }
 
 .main-container {
     display: grid;
     grid-template-columns: 50% 50%;
     align-items: center;
-    padding: 30px 30px 10px 30px;
+    padding: 30px 4vw 10px 4vw;
     box-sizing: border-box;
-    border-radius: 5px;
     background-color: #92929275;
     color: aliceblue;
     box-shadow: 0px 0px 2px 0px #817f7f;
@@ -190,6 +206,7 @@
         align-self: center;
         width: 100%;
         height: 100%;
+        max-width: 700px;
         .map-wrapper {
             width: 90%;
             height: 90%;
@@ -218,15 +235,6 @@
     }
 }
 
-.footer-container {
-    .author {
-        text-align: center;
-        color: #ffffff;
-        font-weight: 700;
-        font-size: 14px;
-    }
-}
-
 .mapboxgl-canvas {
     clip-path: polygon(0 0, 100% 0%, 100% 75%, 100% 100%, 100% 100%, 81% 95%, 0 95%);
   }
@@ -235,36 +243,61 @@
   margin-right: -8px;
 }
 
-@keyframes pulse {
-	0% {
-		transform: scale(0.95);
-	}
-
-	70% {
-		transform: scale(1);
-	}
-
-	100% {
-		transform: scale(0.95);
-	}
-}
-
-.weather-card-icon.big-card-icon {
+.weather-card-icon {
 	transform: scale(1);
   animation: pulse 2s infinite;
 }
 
+footer.footer-container {
+  animation: 5s anim1 infinite linear;
+  animation-delay: 2s;
+  display: inline-flex;
+  height: 30px;
+  justify-content: space-evenly;
+  overflow: hidden;
+  background: rgba(76, 82, 85, 0.4);
+  .weather-card-extended-info-block {
+    display: none;
+  }
+  .weather-card {
+    transform: scale(1);
+    animation: pulse 2s infinite;
+    display: inline-flex;
+    line-height: 30px;
+    width: 90px;
+    font-size: 10px;
+    margin-left: 5px;
+    .weather-card-day {
+      margin-top: 0;
+      position: absolute;
+      font-size: 10px;
+      line-height: 30px;
+    }
+    .weather-card-temperature {
+      position: relative;
+      font-size: 10px;
+      left: 60px;
+      line-height: 30px;
+    }
+  }
+  .weather-future {
+    display: inline-flex;
+    width: 100vw;
+      text-align: center;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 10px;
+      position: absolute;
+  }
 
-// @keyframes anim1 {
-//   from {
-//      background-position: 0 0;
-//   }
-//   to {
-//      background-position: -250px 0;
-//   }
-// }
+  .author {
+    color: #ffffff;
+    font-size: 10px;
+    @media screen and (max-width: 720px) {
 
-// footer {
-//   animation: 5s anim1 infinite linear;
-//   animation-delay: 2s;
-// }
+          display: none;
+
+    }
+  }
+}
+
