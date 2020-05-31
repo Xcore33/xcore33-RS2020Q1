@@ -195,6 +195,7 @@ const changeBackgroundImage = async () => {
     localStorage.setItem('imageData', JSON.stringify(imageData));
   } catch (error) {
     const data = localStorage.getItem('imageData');
+    document.getElementById('idError').innerText = 'Status: 403 unsplash API - maximum requests per our';
     if (data) {
       const imageData = JSON.parse(data);
       document.getElementById(
@@ -211,6 +212,9 @@ const generateAppDataBySearch = async searchValue => {
       settings.geoPositionData = searchResult;
       await generateAppData();
       await changeBackgroundImage();
+      document.getElementById('idError').innerText = 'Status: OK';
+    } else {
+      document.getElementById('idError').innerText = 'Status: Incorrect request';
     }
   }
 };

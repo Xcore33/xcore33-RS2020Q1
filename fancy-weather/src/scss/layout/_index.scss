@@ -14,6 +14,51 @@
 	}
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .body {
     height: 100vh;
     display: grid;
@@ -49,6 +94,12 @@
     right: 0;
     z-index: -1;
     opacity: 0.8;
+
+    -webkit-animation: fadeIn ease 1.5s;
+    -moz-animation: fadeIn ease 1.5s;
+     -ms-animation: fadeIn ease 1.5s;
+      -o-animation: fadeIn ease 1.5s;
+         animation: fadeIn ease 1.5s;
 }
 
 .header {
@@ -256,13 +307,16 @@ footer.footer {
   justify-content: space-evenly;
   overflow: hidden;
   background: rgba(76, 82, 85, 0.4);
-  a {
+  .footer__error {
     position: absolute;
-    color: red;
-    line-height: 30px;
+    color: rgb(152, 203, 216);
     right: 50px;
-    font-weight: 900;
+    font-weight: 700;
     text-shadow: 1px 1px saddlebrown;
+    bottom: -10px;
+    @media screen and (max-width: 760px) {
+      display: none;
+}
   }
   .weather__extended-details {
     display: none;
@@ -301,7 +355,7 @@ footer.footer {
   .footer__author {
     color: #ffffff;
     font-size: 10px;
-    @media screen and (max-width: 720px) {
+    @media screen and (max-width: 1000px) {
           display: none;
     }
   }
