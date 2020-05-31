@@ -1,5 +1,5 @@
 // const PaletteClass = require('../src/js/PaletteClass');
-import helper from '../src/js/helper';
+import helper from '../src/js/getDate';
 
 describe('#getSeason()', () => {
   test(`it should return 'spring' for '1 Mar 2019 07:00:0 GMT'`, () => {

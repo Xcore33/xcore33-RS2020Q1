@@ -1,5 +1,5 @@
 // const PaletteClass = require('../src/js/PaletteClass');
-import layoutGenerator from '../src/js/layoutGenerator';
+import layoutGenerator from '../src/js/pageLayout';
 
 describe('#imageElement()', () => {
   test(`it should return 'instanceof HTMLImageElement' with given parameters`, () => {
