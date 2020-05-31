@@ -39,5 +39,6 @@ module.exports = {
         'prettier/prettier': ['error'],
         'import/no-cycle': 'off',
         'import/no-unresolved': 'off',
+        'no-console': 'off',
     },
 };

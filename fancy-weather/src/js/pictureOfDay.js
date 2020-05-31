@@ -7,6 +7,7 @@ const getImageUrl = async (season = 'winter', dayPeriod = 'day', weather = 'clea
 
   const response = await fetch(requestUrl);
   const imageData = await response.json();
+  console.log(tags);
 
   return imageData;
 };
