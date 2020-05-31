@@ -51,13 +51,13 @@
     opacity: 0.8;
 }
 
-.header-container {
+.header {
   background: rgba(76, 82, 85, 0.4);
     display: flex;
     justify-content: space-between;
     padding: 40px 20px;
-    .controls-container {
-        .switch-image-control {
+    .control {
+        .control__button_image {
             background-color: rgba(76, 82, 85, 0.4);
             background:  url("../../assets/images/refresh.png") no-repeat;
             width: 45px;
@@ -75,7 +75,7 @@
                 box-shadow: $boxShadowStateHover;
             }
         }
-        .switch-language-control {
+        .control__button_language {
             height: 45px;
             margin: auto 10px;
             border-radius: 5px;
@@ -95,10 +95,10 @@
             }
         }
     }
-    .search-container {
+    .search {
         justify-self: center;
         position: relative;
-        .search-input {
+        .search__input {
             width: 23.63vw;
             min-width: 200px;
             background: rgba(76, 82, 85, 0.4);
@@ -120,11 +120,11 @@
                 line-height: 17px;
             }
         }
-        .search-controls {
+        .search__control {
             position: absolute;
             right: 1px;
             top: 1px;
-            .search-control-voice {
+            .search__control_voice {
                 background: url("../../assets/images/voice_control.png") no-repeat;
                 width: 25px;
                 height: 25px;
@@ -142,7 +142,7 @@
                     transform: scale(0.9);
                 }
             }
-            .search-control-button {
+            .search__control_button {
                 width: 100px;
                 height: 46px;
                 background: rgba(235, 236, 236, 0.3);
@@ -172,7 +172,7 @@
   }
 }
 
-.main-container {
+.main {
     display: grid;
     grid-template-columns: 50% 50%;
     align-items: center;
@@ -188,12 +188,12 @@
         grid-template-rows: 1fr 200px;
         grid-gap: 20px 0;
     }
-    .weather-container {
+    .weather {
         @media screen and (max-width: $tablet) {
             display: grid;
             grid-template-columns: auto auto;
         }
-        .weather-future {
+        .weather__future {
             display: grid;
             grid-template-columns: 33% 34% 33%;
             @media screen and (max-width: $tablet) {
@@ -201,27 +201,27 @@
             }
         }
     }
-    .map-container {
+    .map {
         justify-self: center;
         align-self: center;
         width: 100%;
         height: 100%;
         max-width: 700px;
-        .map-wrapper {
+        .map__box {
             width: 90%;
             height: 90%;
             margin: auto;
-            .map {
+            .map__box_map {
                 width: 100%;
                 height: 100%;
                 border-top-left-radius: 3%;
                 border-top-right-radius: 3%;
             }
         }
-        .coordinates-block {
+        .coordinates {
             text-align: right;
             margin-right: 40px;
-            .coordinates-text {
+            .coordinates__text {
                 font-weight: 600;
                 font-size: 1.05vw;
                 line-height: 1.6vw;
@@ -243,12 +243,12 @@
   margin-right: -8px;
 }
 
-.weather-card-icon {
+.weather__extended-details_icon {
 	transform: scale(1);
   animation: pulse 2s infinite;
 }
 
-footer.footer-container {
+footer.footer {
   animation: 5s anim1 infinite linear;
   animation-delay: 2s;
   display: inline-flex;
@@ -264,10 +264,10 @@ footer.footer-container {
     font-weight: 900;
     text-shadow: 1px 1px saddlebrown;
   }
-  .weather-card-extended-info-block {
+  .weather__extended-details {
     display: none;
   }
-  .weather-card {
+  .weather__card {
     transform: scale(1);
     animation: pulse 2s infinite;
     display: inline-flex;
@@ -275,20 +275,20 @@ footer.footer-container {
     width: 90px;
     font-size: 10px;
     margin-left: 5px;
-    .weather-card-day {
+    .weather__card_day {
       margin-top: 0;
       position: absolute;
       font-size: 10px;
       line-height: 30px;
     }
-    .weather-card-temperature {
+    .weather__details_temperature {
       position: relative;
       font-size: 10px;
       left: 60px;
       line-height: 30px;
     }
   }
-  .weather-future {
+  .weather__future {
     display: inline-flex;
     width: 100vw;
       text-align: center;
@@ -298,7 +298,7 @@ footer.footer-container {
       position: absolute;
   }
 
-  .author {
+  .footer__author {
     color: #ffffff;
     font-size: 10px;
     @media screen and (max-width: 720px) {

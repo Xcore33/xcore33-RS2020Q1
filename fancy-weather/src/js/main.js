@@ -55,19 +55,19 @@ const updateAppView = () => {
   const { windSpeed, humidity, icon } = settings.weatherData.currently;
   const weatherDescription = settings.weatherData.currently.summary;
 
-  const weatherCardDetailedElement = document.querySelector('.weather-card-detailed');
-  weatherCardDetailedElement.querySelector('.weather-card-temperature').textContent = `${currentTemperature}°`;
-  weatherCardDetailedElement.querySelector('.weather-card-extra-info').innerHTML = `${weatherDescription}<br>
+  const weatherCardDetailedElement = document.querySelector('.weather__card_detailed');
+  weatherCardDetailedElement.querySelector('.weather__details_temperature').textContent = `${currentTemperature}°`;
+  weatherCardDetailedElement.querySelector('.weather__extended-details_info').innerHTML = `${weatherDescription}<br>
   ${interfaceConfig.feelsLike[settings.language]}: ${feelsLike}° <br>${
     interfaceConfig.wind[settings.language]
   }: ${windSpeed} ${interfaceConfig.windSpeed[settings.language]} <br>${
     interfaceConfig.humidity[settings.language]
   }: ${parseInt(humidity * humidityPercent)}%`;
   weatherCardDetailedElement
-    .querySelector('.weather-card-icon')
+    .querySelector('.weather__extended-details_icon')
     .setAttribute('src', `./assets/images/weather_icons/${icon}.png`);
 
-  const weatherCardsElements = document.querySelectorAll('.weather-future .weather-card');
+  const weatherCardsElements = document.querySelectorAll('.weather__future .weather__card');
   weatherCardsElements.forEach((weatherCard, index) => {
     const currentDay = new Date();
     currentDay.setHours(0, 0, 0, 0);
@@ -79,11 +79,11 @@ const updateAppView = () => {
     const temperature = settings.isCelsius
       ? parseInt((averageTemperature - fahrenheitSubtrahend) / fahrenheitCoefficient)
       : parseInt(averageTemperature);
-    weatherCard.querySelector('.weather-card-day').textContent =
+    weatherCard.querySelector('.weather__card_day').textContent =
       interfaceConfig.weekDay[settings.language][weekDayIndex];
-    weatherCard.querySelector('.weather-card-temperature').textContent = `${temperature}°`;
+    weatherCard.querySelector('.weather__details_temperature').textContent = `${temperature}°`;
     weatherCard
-      .querySelector('.weather-card-icon')
+      .querySelector('.weather__extended-details_icon')
       .setAttribute('src', `./assets/images/weather_icons/${settings.weatherData.daily.data[index + 1].icon}.png`);
   });
 
@@ -204,8 +204,6 @@ const changeBackgroundImage = async () => {
   }
 };
 
-const errorContainer = document.createElement('a');
-
 const generateAppDataBySearch = async searchValue => {
   if (searchValue.length > 1) {
     const searchResult = await geoLocation.searchByValueData(searchValue, settings.language.substr(0, 2));
@@ -213,11 +211,6 @@ const generateAppDataBySearch = async searchValue => {
       settings.geoPositionData = searchResult;
       await generateAppData();
       await changeBackgroundImage();
-      errorContainer.innerHTML = '';
-    }
-    if (searchResult.results.length === 0) {
-      document.querySelector('.footer-container').append(errorContainer);
-      errorContainer.innerHTML = 'Status API: Incorrect request';
     }
   }
 };
@@ -299,5 +292,4 @@ export default {
   generateAppDataByIP,
   generateAppDataBySearch,
   reBuildData,
-  errorContainer,
 };

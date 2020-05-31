@@ -1,15 +1,15 @@
 // -----------------------------------------------------------------------------
-// This file contains all styles related to the 'weather-card' component.
+// This file contains all styles related to the 'weather__card' component.
 // -----------------------------------------------------------------------------
 
-.weather-card {
+.weather__card {
     display: grid;
     grid-template-rows: auto 1fr;
     font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: bold;
     text-transform: uppercase;
-    .weather-card-city {
+    .weather__card_city {
         font-size: 2.63vw;
         line-height: 3.2vw;
         margin: 0;
@@ -22,7 +22,7 @@
             line-height: 12px;
         }
     }
-    .weather-card-day {
+    .weather__card_day {
         font-size: 1.1vw;
         line-height: 1.3vw;
         @media screen and (max-width: $preTablet1020) {
@@ -47,10 +47,10 @@
             }
         }
     }
-    .weather-card-details-block {
+    .weather__details {
         display: grid;
         grid-template-columns: auto 1fr;
-        .weather-card-temperature {
+        .weather__details_temperature {
             font-weight: 600;
             font-size: 4.3vw;
             line-height: 5vw;
@@ -60,7 +60,7 @@
                 line-height: 19vw;
             }
         }
-        .weather-card-icon {
+        .weather__extended-details_icon {
             width: 3.8vw;
             @media screen and (max-width: $mobile) {
                 width: 40px;
@@ -75,7 +75,7 @@
                 }
             }
         }
-        .weather-card-extra-info {
+        .weather__extended-details_info {
             font-size: 1vw;
             line-height: 1.8vw;
             @media screen and (max-width: $preTablet1020) {

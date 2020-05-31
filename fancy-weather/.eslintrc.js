@@ -37,5 +37,7 @@ module.exports = {
         // 'prefer-destructuring': 'off',
 
         'prettier/prettier': ['error'],
+        'import/no-cycle': 'off',
+        'import/no-unresolved': 'off',
     },
 };

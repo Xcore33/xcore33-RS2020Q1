@@ -47,11 +47,12 @@ const inputElement = (className, id, type, value, checked = false, placeholder) 
 
 const checkboxStyledElement = () => {
   const checkboxStyled = document.createElement('div');
-  checkboxStyled.classList.add('checkbox-styled');
+  checkboxStyled.classList.add('control__checkbox');
   const label = document.createElement('label');
   label.setAttribute('for', 'idSwitchTemperatureButton');
+  label.classList.add('control__checkbox_label');
   checkboxStyled.prepend(
-    inputElement('switch-temperature-control', 'idSwitchTemperatureButton', 'checkbox', '1', true),
+    inputElement('control__checkbox_input', 'idSwitchTemperatureButton', 'checkbox', '1', true),
     label,
   );
   return checkboxStyled;
@@ -59,7 +60,7 @@ const checkboxStyledElement = () => {
 
 const selectControlElement = () => {
   const select = document.createElement('select');
-  select.classList.add('switch-language-control');
+  select.classList.add('control__button_language');
   select.id = 'idSwitchLanguageControl';
   select.name = 'switch-language';
   const option1 = document.createElement('option');
@@ -93,9 +94,9 @@ const divElement = (divClass, divId = null) => {
 
 const controlsContainerElement = () => {
   const controlsContainer = document.createElement('div');
-  controlsContainer.classList.add('controls-container');
+  controlsContainer.classList.add('control');
   controlsContainer.prepend(
-    buttonElement('switch-image-control', 'idSwitchImageButton'),
+    buttonElement('control__button_image', 'idSwitchImageButton'),
     selectControlElement(),
     checkboxStyledElement(),
   );
@@ -104,25 +105,25 @@ const controlsContainerElement = () => {
 
 const searchControlsElement = () => {
   const searchControls = document.createElement('div');
-  searchControls.classList.add('search-controls');
+  searchControls.classList.add('search__control');
   searchControls.prepend(
-    buttonElement('search-control-voice', 'idVoiceSearchIcon'),
-    buttonElement('search-control-button', 'idSearchButton', 'Search'),
+    buttonElement('search__control_voice', 'idVoiceSearchIcon'),
+    buttonElement('search__control_button', 'idSearchButton', 'Search'),
   );
   return searchControls;
 };
 
 const weatherCardDetailedElement = (extra = true, dayText) => {
   const weatherCardDetailed = document.createElement('section');
-  weatherCardDetailed.classList.add('weather-card');
+  weatherCardDetailed.classList.add('weather__card');
   if (extra) {
-    weatherCardDetailed.classList.add('weather-card-detailed');
-    const textP1 = textElement('weather-card-city', 'Moscow, Russia 111', 'idCityName');
+    weatherCardDetailed.classList.add('weather__card_detailed');
+    const textP1 = textElement('weather__card_city', 'Moscow, Russia 111', 'idCityName');
     weatherCardDetailed.append(textP1);
   }
 
   const textP2 = textElement(
-    `weather-card-day${extra ? ' format-normal' : ''}`,
+    `weather__card_day${extra ? ' format-normal' : ''}`,
     'Mon 25 May 16:41:10',
     'idCurrentDateTime',
   );
@@ -130,19 +131,19 @@ const weatherCardDetailedElement = (extra = true, dayText) => {
   weatherCardDetailed.append(textP2);
 
   const weatherCardDetailsBlock = document.createElement('div');
-  weatherCardDetailsBlock.classList.add('weather-card-details-block');
-  const h3Text = h3TextElement(`weather-card-temperature${extra ? ' big-card-text' : ''}`, '10°');
-  const weatherCardExtendedInfoBlock = divElement('weather-card-extended-info-block');
+  weatherCardDetailsBlock.classList.add('weather__details');
+  const h3Text = h3TextElement(`weather__details_temperature${extra ? ' big-card-text' : ''}`, '10°');
+  const weatherCardExtendedInfoBlock = divElement('weather__extended-details');
   weatherCardExtendedInfoBlock.append(
     imageElement(
-      `weather-card-icon${extra ? ' big-card-icon' : ''}`,
+      `weather__extended-details_icon${extra ? ' big-card-icon' : ''}`,
       './assets/images/weather_icons/cloudy.png',
       'weather icon',
     ),
   );
 
   if (extra) {
-    weatherCardExtendedInfoBlock.append(textElement('weather-card-extra-info', 'Feels like: 7°'));
+    weatherCardExtendedInfoBlock.append(textElement('weather__extended-details_info', 'Feels like: 7°'));
   }
   weatherCardDetailsBlock.append(h3Text, weatherCardExtendedInfoBlock);
 
@@ -153,14 +154,14 @@ const weatherCardDetailedElement = (extra = true, dayText) => {
 
 const weatherTodayElement = () => {
   const weatherToday = document.createElement('div');
-  weatherToday.classList.add('weather-today');
+  weatherToday.classList.add('weather__today');
   weatherToday.prepend(weatherCardDetailedElement(true, 'Mon 09 December 16:41'));
   return weatherToday;
 };
 
 const weatherFutureElement = () => {
   const weatherFuture = document.createElement('div');
-  weatherFuture.classList.add('weather-future');
+  weatherFuture.classList.add('weather__future');
   weatherFuture.prepend(
     weatherCardDetailedElement(false, 'Tuesday'),
     weatherCardDetailedElement(false, 'Wednesday'),
@@ -171,37 +172,37 @@ const weatherFutureElement = () => {
 
 const weatherContainerElement = () => {
   const searchControls = document.createElement('div');
-  searchControls.classList.add('weather-container');
+  searchControls.classList.add('weather');
   searchControls.prepend(weatherTodayElement(), weatherFutureElement());
   return searchControls;
 };
 
 const mapWrapperElement = () => {
   const mapContainer = document.createElement('div');
-  mapContainer.classList.add('map-wrapper');
-  mapContainer.prepend(divElement('map', 'idMap'));
+  mapContainer.classList.add('map__box');
+  mapContainer.prepend(divElement('map__box_map', 'idMap'));
   return mapContainer;
 };
 
 const coordinatesBlockElement = () => {
   const coordinatesBlock = document.createElement('div');
-  coordinatesBlock.classList.add('coordinates-block');
-  coordinatesBlock.prepend(textElement('coordinates-text', `Latitude: 53°54' Longitude: 27°34'`, 'idCoordinates'));
+  coordinatesBlock.classList.add('coordinates');
+  coordinatesBlock.prepend(textElement('coordinates__text', `Latitude: 53°54' Longitude: 27°34'`, 'idCoordinates'));
   return coordinatesBlock;
 };
 
 const mapContainerElement = () => {
   const searchControls = document.createElement('div');
-  searchControls.classList.add('map-container');
+  searchControls.classList.add('map');
   searchControls.prepend(mapWrapperElement(), coordinatesBlockElement());
   return searchControls;
 };
 
 const searchContainerElement = () => {
   const controlsContainer = document.createElement('div');
-  controlsContainer.classList.add('search-container');
+  controlsContainer.classList.add('search');
   controlsContainer.prepend(
-    inputElement('search-input', 'idSearchField', 'text', '', false, 'Search city or ZIP'),
+    inputElement('search__input', 'idSearchField', 'text', '', false, 'Search city or ZIP'),
     searchControlsElement(),
   );
   return controlsContainer;
@@ -209,7 +210,7 @@ const searchContainerElement = () => {
 
 const headerElement = () => {
   const header = document.createElement('header');
-  header.classList.add('header-container');
+  header.classList.add('header');
   header.classList.add('wrapper');
   header.prepend(controlsContainerElement(), searchContainerElement());
   return header;
@@ -217,7 +218,7 @@ const headerElement = () => {
 
 const mainElement = () => {
   const main = document.createElement('main');
-  main.classList.add('main-container');
+  main.classList.add('main');
   main.classList.add('wrapper');
   main.prepend(weatherContainerElement(), mapContainerElement());
   return main;
@@ -225,9 +226,9 @@ const mainElement = () => {
 
 const footerElement = () => {
   const footer = document.createElement('footer');
-  footer.classList.add('footer-container');
+  footer.classList.add('footer');
   footer.prepend(weatherFutureElement());
-  footer.prepend(textElement('author', 'RSS task by Xcore33'));
+  footer.prepend(textElement('footer__author', 'RSS task by Xcore33'));
   return footer;
 };
 
