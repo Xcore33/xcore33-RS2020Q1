@@ -7,7 +7,8 @@ const getImageUrl = async (season = 'winter', dayPeriod = 'day', weather = 'clea
 
   const response = await fetch(requestUrl);
   const imageData = await response.json();
-  console.log(tags);
+  const searchRequest = 'Search request to unsplash.com: ';
+  console.log(searchRequest + tags);
 
   return imageData;
 };
